@@ -100,3 +100,17 @@ Route chính:
 Mở `http://localhost:3000/teacher` để xem Class Analytics. Dashboard hiện dùng một Student Brain LIVE từ localStorage và 5 hồ sơ Demo Class, nhằm kiểm thử trải nghiệm giáo viên trước khi chuyển sang database đa người dùng.
 
 Có CSV Export và In / Lưu PDF bằng trình duyệt, không cần package ngoài.
+
+
+## Beta 2.3.1 – Knowledge Engine Foundation
+
+Mở `http://localhost:3000/knowledge-engine` để xem Academic Schema v1.0 và foundation Chương II. SGK là nguồn PRIMARY bắt buộc; SBT và tài liệu khác được phân vai rõ ràng.
+
+
+## Beta 2.3.3 – Full Chapter III
+
+Release này đưa Chương III vào trải nghiệm học sinh với Bài 8–11, Adaptive Practice,
+Reasoning Lab và Geometry Concept Lab tại `/geometry-lab`.
+
+Do ZIP baseline được cung cấp vẫn mang version `2.3.1-beta.1`, release này cũng kích hoạt
+Bài 5–7 của Chương II trong Lesson Player để thư viện liên tục từ Bài 1 đến Bài 11.

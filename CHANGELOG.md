@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## v2.3.3-beta.1 – Full Chapter III: Góc và đường thẳng song song
+- Đưa Bài 8–11 của Chương III vào Lesson Library và Lesson Player.
+- Bài 8: Góc ở vị trí đặc biệt. Tia phân giác của một góc.
+- Bài 9: Hai đường thẳng song song và dấu hiệu nhận biết.
+- Bài 10: Tiên đề Euclid. Tính chất của hai đường thẳng song song.
+- Bài 11: Định lí và chứng minh định lí.
+- Thêm Adaptive Exercise Bank cho Bài 8–11.
+- Thêm Reasoning Problem cho Bài 8–11.
+- Thêm Academic Chapter III theo Academic Schema v1.0.
+- Thêm `/geometry-lab` để trực quan hóa góc đối đỉnh, tia phân giác, góc với hai đường song song và tiên đề Euclid.
+- Thư viện được nhóm theo Chương I–III.
+- Baseline người dùng gửi thực tế là v2.3.1-beta.1; release này đồng thời đưa foundation Chương II (Bài 5–7) vào Lesson Player, Adaptive Practice và Reasoning để tránh khoảng trống phiên bản.
+- Không thêm package npm mới.
+
+## v2.3.1-beta.1 – Knowledge Engine Foundation + Academic Schema
+- Thêm Academic Schema v1.0.
+- Thêm Academic Source Registry với SGK là PRIMARY, SBT là PRACTICE.
+- Thêm Academic Validator bắt buộc nguồn PRIMARY.
+- Thêm Academic Repository.
+- Thêm foundation học thuật Chương II (Bài 5-7) bám SGK KNTT.
+- Thêm Misconception / Hint Ladder / Reasoning / Practice / Assessment / Student Brain / Teacher Tags trong cùng schema.
+- Thêm route `/knowledge-engine`.
+- Không thay đổi Lesson Player Bài 1-4 ở release foundation này.
+- Không thêm package npm mới.
+
 ## v2.2.0-beta.1 – Teacher Dashboard & Class Analytics
 - Thêm route `/teacher`.
 - Thêm Teacher Dashboard với Overview / Students / Skills / Mistakes.

@@ -1,3 +1,7 @@
+# AI Math Tutor 1:1 – Toán lớp 7
+
+**Current release:** v1.0.0-beta.1 – AI Teaching Brain
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -34,3 +38,65 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Current Demo Release
+`v0.3.0-alpha.5` adds an Adaptive Exercise Engine after the core lesson. It selects focus skills and difficulty from Student Brain plus current-session performance, then syncs adaptive results back into learner memory.
+
+
+## Beta 1.2 – Lesson Authoring Studio
+
+- Demo học: `http://localhost:3000`
+- Biên soạn bài: `http://localhost:3000/authoring`
+
+Studio hỗ trợ sửa Lesson Definition, kiểm tra cấu trúc, lưu draft trong trình duyệt và xuất JSON để kiểm duyệt/publish.
+
+
+## Beta 1.3 – Content Repository & Publish Flow
+
+- Demo học: `http://localhost:3000`
+- Authoring Studio: `http://localhost:3000/authoring`
+- Content Repository: `http://localhost:3000/content`
+
+Workflow: chỉnh Draft → Validate → Publish → tạo version → Demo đọc bản PUBLISHED. Có thể rollback về version cũ trong Content Repository.
+
+
+## Beta 1.4 – Multi-Lesson Content Library
+
+Trang chủ giờ là thư viện Chương 1 với 4 bài học.
+
+- Library: `http://localhost:3000`
+- Learn: `/learn/lesson-player-01` ... `/learn/lesson-player-04`
+- Authoring: `/authoring?lesson=lesson-player-02`
+- Content Repository: `/content`
+
+Bài 1 giữ Adaptive Practice hiện tại; Bài 2–4 dùng Teaching Flow và có thể author/publish/version độc lập.
+
+
+## Beta 1.5 – Adaptive Exercise Banks & Learning Path
+
+Bài 1–4 đều có Adaptive Exercise Bank. Sau mỗi buổi học, Learning Path Engine dùng Score, Confidence và reviewSkills để quyết định học tiếp bài kế tiếp hay ôn lại bài hiện tại.
+
+
+## Beta 1.6 – Chapter 1 Learning Path Dashboard
+
+Mở `http://localhost:3000/progress` để xem bản đồ tiến độ Bài 1–4. Dashboard đọc Student Brain từ localStorage, hiển thị Accuracy / Confidence / Mastery và khóa hoặc mở bài tiếp theo theo dữ liệu học tập.
+
+
+## Beta 1.8 – AI Personal Tutor Conversation
+
+Mỗi bài có route `/tutor/[lessonId]`. Tutor dùng Lesson Definition và Student Brain để giải thích/gợi ý theo ngữ cảnh. Beta 1.8 chạy bằng Local Teaching Brain, không cần API key; `/api/tutor` là boundary để tích hợp cloud LLM ở release sau.
+
+
+## Beta 2.1 – Step-by-Step Solution Analyzer
+
+Reasoning Lab được nâng cấp với First Error Detection, Hint Ladder 3 tầng, Step Map và các chỉ số First Attempt Accuracy / Hint Dependency / Error Recovery.
+
+Route chính:
+`/reasoning-lab/lesson-player-01` ... `/reasoning-lab/lesson-player-04`
+
+
+## Beta 2.2 – Teacher Dashboard & Class Analytics
+
+Mở `http://localhost:3000/teacher` để xem Class Analytics. Dashboard hiện dùng một Student Brain LIVE từ localStorage và 5 hồ sơ Demo Class, nhằm kiểm thử trải nghiệm giáo viên trước khi chuyển sang database đa người dùng.
+
+Có CSV Export và In / Lưu PDF bằng trình duyệt, không cần package ngoài.

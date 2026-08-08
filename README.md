@@ -121,3 +121,11 @@ Bài 5–7 của Chương II trong Lesson Player để thư viện liên tục t
 - `/mastery`: kế hoạch ôn cá nhân hóa.
 - `/mock-test`: đề mô phỏng học kỳ I.
 - `/pilot`: dashboard dữ liệu Pilot localStorage.
+
+
+## Beta 2.5.0 – Pilot Student Experience
+
+- `/student`: Student Home + Daily Mission + Streak.
+- `/reflection`: phản hồi cuối phiên.
+- `/pilot-feedback`: phản hồi Pilot.
+- `/teacher-pilot`: tín hiệu dành cho giáo viên.

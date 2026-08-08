@@ -1,22 +1,24 @@
-AI Math Tutor – v2.4.0-beta.1
+AI Math Tutor – v2.5.0-beta.1
 
-1. Giải nén và chép đè vào:
-   C:\AI_Project\ai-math-tutor-7
+Thư mục:
+C:\AI_Project\ai-math-tutor-7
 
-2. Không cần npm install nếu bản hiện tại đang chạy ổn.
-
+1. Giải nén và chép đè toàn bộ file.
+2. Không cần npm install nếu v2.4.0-beta.1 đang chạy ổn.
 3. Chạy:
    npm run build
-
 4. Nếu build thành công:
    npm run dev
 
-5. Kiểm thử:
-   http://localhost:3000/mastery
-   http://localhost:3000/mock-test
-   http://localhost:3000/pilot
+Kiểm thử:
+http://localhost:3000/student
+http://localhost:3000/reflection
+http://localhost:3000/pilot-feedback
+http://localhost:3000/teacher-pilot
 
-6. Sau khi ổn định:
-   git add .
-   git commit -m "Release v2.4.0-beta.1 - Semester I Mastery & Pilot Analytics"
-   git push origin master
+Sau khi ổn:
+git add .
+git commit -m "Release v2.5.0-beta.1 - Pilot Student Experience"
+git push origin master
+git tag -a v2.5.0-beta.1 -m "AI Math Tutor v2.5.0-beta.1"
+git push origin v2.5.0-beta.1

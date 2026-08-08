@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v2.5.0-beta.1 – Pilot Student Experience
+- `/student`: Student Home 2.0 + Personalized Daily Mission.
+- Learning Streak nhẹ: active days/current streak.
+- `/reflection`: End-of-session Reflection.
+- `/pilot-feedback`: Dễ hiểu / Khó hiểu / AI giúp ích / Cần cải thiện.
+- `/teacher-pilot`: Teacher Pilot View.
+- Mobile-first cho các màn hình Pilot mới.
+- Giữ localStorage; chưa triển khai Multi-Student Cloud.
+- Không thêm package npm mới.
+
 ## v2.4.0-beta.1 – Semester I Mastery & Pilot Analytics
 - Thêm `/mastery`: AI Revision Coach dựa trên Student Brain.
 - Thêm Readiness Score cho học kỳ I.

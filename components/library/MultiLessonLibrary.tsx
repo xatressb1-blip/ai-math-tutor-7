@@ -66,8 +66,17 @@ export function MultiLessonLibrary({
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <div className="flex flex-wrap gap-2">
+              <Link href="/mastery" className="rounded-2xl bg-amber-500 px-4 py-2.5 text-sm font-bold text-slate-950">
+                🎯 Semester Mastery
+              </Link>
+              <Link href="/mock-test" className="rounded-2xl bg-violet-600 px-4 py-2.5 text-sm font-bold text-white">
+                📝 Mock Test
+              </Link>
+              <Link href="/pilot" className="rounded-2xl bg-sky-600 px-4 py-2.5 text-sm font-bold text-white">
+                📊 Pilot Analytics
+              </Link>
                 <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-indigo-700">
-                  Beta 2.3.3
+                  Beta 2.4.0
                 </span>
                 <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-emerald-700">
                   Chapters I–III Ready

@@ -1,22 +1,22 @@
-AI Math Tutor – v2.3.3-beta.1
+AI Math Tutor – v2.4.0-beta.1
 
-1. Sao lưu thư mục hiện tại nếu cần.
-2. Giải nén và chép đè toàn bộ vào:
+1. Giải nén và chép đè vào:
    C:\AI_Project\ai-math-tutor-7
 
-3. Không cần npm install nếu project hiện tại đang chạy ổn.
+2. Không cần npm install nếu bản hiện tại đang chạy ổn.
 
-4. Chạy:
+3. Chạy:
    npm run build
 
-5. Nếu build thành công:
+4. Nếu build thành công:
    npm run dev
 
-6. Kiểm thử nhanh:
-   http://localhost:3000
-   http://localhost:3000/geometry-lab
-   http://localhost:3000/knowledge-engine
-   http://localhost:3000/learn/lesson-player-08
-   http://localhost:3000/reasoning-lab/lesson-player-08
+5. Kiểm thử:
+   http://localhost:3000/mastery
+   http://localhost:3000/mock-test
+   http://localhost:3000/pilot
 
-7. Sau khi ổn định mới commit GitHub và deploy Vercel.
+6. Sau khi ổn định:
+   git add .
+   git commit -m "Release v2.4.0-beta.1 - Semester I Mastery & Pilot Analytics"
+   git push origin master

@@ -114,3 +114,10 @@ Reasoning Lab và Geometry Concept Lab tại `/geometry-lab`.
 
 Do ZIP baseline được cung cấp vẫn mang version `2.3.1-beta.1`, release này cũng kích hoạt
 Bài 5–7 của Chương II trong Lesson Player để thư viện liên tục từ Bài 1 đến Bài 11.
+
+
+## Beta 2.4.0 – Semester I Mastery & Pilot Analytics
+
+- `/mastery`: kế hoạch ôn cá nhân hóa.
+- `/mock-test`: đề mô phỏng học kỳ I.
+- `/pilot`: dashboard dữ liệu Pilot localStorage.

@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v2.4.0-beta.1 – Semester I Mastery & Pilot Analytics
+- Thêm `/mastery`: AI Revision Coach dựa trên Student Brain.
+- Thêm Readiness Score cho học kỳ I.
+- Thêm `/mock-test`: đề mô phỏng học kỳ I từ ngân hàng Adaptive hiện có.
+- Lưu lịch sử tối đa 20 Mock Test bằng localStorage.
+- Phân tích điểm theo chương và lỗi theo kỹ năng sau khi nộp bài.
+- Thêm `/pilot`: Pilot Analytics tổng hợp phiên học, phút học, accuracy, mastery, confidence, active mistakes và Mock Test.
+- Bổ sung liên kết Semester Mastery / Mock Test / Pilot Analytics trên thư viện.
+- Không thêm package npm mới.
+- Giữ nguyên mô hình localStorage; chưa triển khai Multi-Student Cloud trong release này.
+
 ## v2.3.3-beta.1 – Full Chapter III: Góc và đường thẳng song song
 - Đưa Bài 8–11 của Chương III vào Lesson Library và Lesson Player.
 - Bài 8: Góc ở vị trí đặc biệt. Tia phân giác của một góc.

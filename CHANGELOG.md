@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v2.6.0-beta.1 – Multi-Student Pilot & Cloud Data Foundation
+- Thêm MultiStudentWorkspace schema v1, tách dữ liệu theo studentId.
+- Tự migrate Student Brain local hiện tại thành học sinh đầu tiên trong Pilot Workspace.
+- Thêm `/pilot-roster`: tạo/chọn tối đa 10 hồ sơ học sinh Pilot.
+- Thêm `/teacher-multi`: Class Analytics Foundation cho nhiều hồ sơ.
+- Thêm StudentDataProvider và CloudStudentRepository contract để chuẩn bị adapter database.
+- Giữ localStorage làm provider mặc định; chưa gửi dữ liệu học sinh lên cloud.
+- Không thêm package npm mới.
+
 ## v2.5.0-beta.1 – Pilot Student Experience
 - `/student`: Student Home 2.0 + Personalized Daily Mission.
 - Learning Streak nhẹ: active days/current streak.

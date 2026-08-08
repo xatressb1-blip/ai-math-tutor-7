@@ -1,24 +1,29 @@
-AI Math Tutor – v2.5.0-beta.1
+AI Math Tutor – v2.6.0-beta.1
 
-Thư mục:
+Thư mục đích:
 C:\AI_Project\ai-math-tutor-7
 
 1. Giải nén và chép đè toàn bộ file.
-2. Không cần npm install nếu v2.4.0-beta.1 đang chạy ổn.
+2. Không cần npm install nếu v2.5.0-beta.1 đang chạy ổn.
 3. Chạy:
    npm run build
 4. Nếu build thành công:
    npm run dev
 
 Kiểm thử:
+http://localhost:3000/pilot-roster
+http://localhost:3000/teacher-multi
 http://localhost:3000/student
-http://localhost:3000/reflection
-http://localhost:3000/pilot-feedback
 http://localhost:3000/teacher-pilot
 
-Sau khi ổn:
+Lưu ý:
+- Beta 2.6.0-beta.1 là Cloud Data Foundation, CHƯA đồng bộ database thật.
+- Dữ liệu vẫn nằm trong localStorage của trình duyệt.
+- Pilot Roster giới hạn 10 hồ sơ.
+
+Sau khi kiểm thử ổn:
 git add .
-git commit -m "Release v2.5.0-beta.1 - Pilot Student Experience"
+git commit -m "Release v2.6.0-beta.1 - Multi-Student Pilot Foundation"
 git push origin master
-git tag -a v2.5.0-beta.1 -m "AI Math Tutor v2.5.0-beta.1"
-git push origin v2.5.0-beta.1
+git tag -a v2.6.0-beta.1 -m "AI Math Tutor v2.6.0-beta.1"
+git push origin v2.6.0-beta.1

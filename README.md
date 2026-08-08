@@ -129,3 +129,10 @@ Bài 5–7 của Chương II trong Lesson Player để thư viện liên tục t
 - `/reflection`: phản hồi cuối phiên.
 - `/pilot-feedback`: phản hồi Pilot.
 - `/teacher-pilot`: tín hiệu dành cho giáo viên.
+
+
+## Beta 2.6.0 – Multi-Student Pilot Foundation
+
+- `/pilot-roster`: roster tối đa 10 hồ sơ Pilot.
+- `/teacher-multi`: Class Analytics nhiều học sinh.
+- Cloud-ready repository contract; provider hiện tại vẫn là localStorage.

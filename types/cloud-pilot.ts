@@ -4,7 +4,7 @@ export type CloudPilotStudent = {
   studentId: string;
   classCode: string;
   displayName: string;
-  accessCode: string;
+  accessCodeMasked?: string;
   brain: StudentBrainSnapshot;
   updatedAt: string;
 };
@@ -14,6 +14,17 @@ export type CloudStudentIdentity = {
   accessCode: string;
 };
 
-export type CloudSyncStatus =
-  | { configured: false; message: string }
-  | { configured: true; provider: "supabase-rest"; message: string };
+export type CloudHealth = {
+  configured: boolean;
+  provider: "supabase-rest" | "not-configured";
+  databaseReachable: boolean;
+  schemaReady: boolean;
+  message: string;
+  checkedAt: string;
+};
+
+export type CloudSyncReceipt = {
+  student: CloudPilotStudent;
+  serverUpdatedAt: string;
+  direction: "PULL" | "PUSH";
+};

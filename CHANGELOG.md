@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v2.6.2-beta.1 – Supabase Pilot Cloud Activation
+- Thêm `/cloud-activation` health dashboard cho env, Data API và schema.
+- Mã học sinh được hash SHA-256 trước khi lưu Supabase; không lưu mã rõ trong schema mới.
+- Teacher Cloud có nút kích hoạt toàn bộ Pilot.
+- Student Cloud Sync ghi nhận lần đồng bộ gần nhất.
+- API validate class/access code, giới hạn kích thước Student Brain và so sánh Teacher Key constant-time.
+- Thêm migration SQL từ schema v2.6.1.
+- Không thêm package npm mới.
+
 ## v2.6.1-beta.1 – Cloud Pilot Data & Student Identity
 - Thêm Next.js API route `/api/pilot-cloud` làm lớp server bảo vệ Supabase Secret key.
 - Hỗ trợ Supabase REST không cần thêm package npm.

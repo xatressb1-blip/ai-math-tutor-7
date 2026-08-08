@@ -8,6 +8,8 @@ import {
   pullCloudStudent,
   pushCloudStudent,
   saveCloudIdentity,
+  saveLastCloudSync,
+  loadLastCloudSync,
 } from "@/services/cloud/cloud-sync-client";
 import { loadStudentBrainFromStorage, saveStudentBrainToStorage } from "@/services/student/student-brain-storage";
 import {
@@ -24,6 +26,7 @@ export function StudentCloudSync() {
   const [message, setMessage] = useState("Chưa đồng bộ.");
   const [busy, setBusy] = useState(false);
   const [configured, setConfigured] = useState<boolean | null>(null);
+  const [lastSync, setLastSync] = useState<string | null>(typeof window === "undefined" ? null : loadLastCloudSync());
 
   useEffect(() => {
     fetch("/api/pilot-cloud")
@@ -43,7 +46,8 @@ export function StudentCloudSync() {
     setBusy(true);
     try {
       const id = identity();
-      const remote = await pullCloudStudent(id);
+      const receipt = await pullCloudStudent(id);
+      const remote = receipt.student;
       saveCloudIdentity(id);
       saveStudentBrainToStorage(remote.brain);
       let workspace = loadMultiStudentWorkspace();
@@ -61,6 +65,7 @@ export function StudentCloudSync() {
       }
       workspace = setActivePilotStudent(workspace, remote.brain.profile.id);
       saveMultiStudentWorkspace(workspace);
+      saveLastCloudSync(receipt.serverUpdatedAt); setLastSync(receipt.serverUpdatedAt);
       setMessage(`✓ Đã tải Student Brain của ${remote.displayName} từ Cloud.`);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Không thể tải Cloud.");
@@ -75,8 +80,10 @@ export function StudentCloudSync() {
       const brain = loadStudentBrainFromStorage();
       if (!brain) throw new Error("Thiết bị chưa có Student Brain để gửi.");
       const id = identity();
-      const remote = await pushCloudStudent(id, brain);
+      const receipt = await pushCloudStudent(id, brain);
+      const remote = receipt.student;
       saveCloudIdentity(id);
+      saveLastCloudSync(receipt.serverUpdatedAt); setLastSync(receipt.serverUpdatedAt);
       setMessage(`✓ Đã gửi tiến độ của ${remote.displayName} lên Cloud.`);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Không thể gửi Cloud.");
@@ -89,7 +96,7 @@ export function StudentCloudSync() {
     <main className="min-h-screen bg-[#f5f7fb] px-4 py-6 text-slate-950 sm:px-8">
       <div className="mx-auto max-w-3xl">
         <header className="rounded-[2rem] bg-slate-950 p-6 text-white sm:p-8">
-          <p className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Beta 2.6.1 · Student Identity</p>
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Beta 2.6.2 · Cloud Active</p>
           <h1 className="mt-3 text-4xl font-black">Cloud Student Sync</h1>
           <p className="mt-3 text-sm leading-7 text-slate-300">
             Học sinh dùng Mã lớp + Mã học sinh do giáo viên cung cấp để nhận đúng hồ sơ trên nhiều thiết bị.
@@ -121,6 +128,7 @@ export function StudentCloudSync() {
           </div>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-700">{message}</div>
+          <div className="mt-3 text-xs font-bold text-slate-400">Lần đồng bộ gần nhất: {lastSync ? new Date(lastSync).toLocaleString("vi-VN") : "Chưa có"}</div>
           <button onClick={() => { clearCloudIdentity(); setClassCode(""); setAccessCode(""); setMessage("Đã xóa mã Cloud trên thiết bị."); }}
             className="mt-4 text-xs font-black text-rose-600">Xóa liên kết Cloud trên thiết bị</button>
         </section>

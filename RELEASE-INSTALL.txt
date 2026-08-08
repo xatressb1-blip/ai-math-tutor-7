@@ -1,50 +1,23 @@
-AI Math Tutor – v2.6.1-beta.1
-Cloud Pilot Data & Student Identity
+AI Math Tutor – v2.6.2-beta.1
 
-THƯ MỤC
-C:\AI_Project\ai-math-tutor-7
+1. Giải nén chép đè vào:
+   C:\AI_Project\ai-math-tutor-7
 
-A. CẬP NHẬT MÃ NGUỒN
-1. Giải nén và chép đè toàn bộ file.
-2. Không cần npm install nếu v2.6.0-beta.1 đang chạy ổn.
-3. Chạy:
+2. Chạy:
    npm run build
-4. Nếu build thành công:
+
+3. Nếu build OK:
    npm run dev
 
-B. TEST LOCAL MODE TRƯỚC
-http://localhost:3000/student
-http://localhost:3000/pilot-roster
-http://localhost:3000/teacher-multi
-http://localhost:3000/cloud-sync
+4. Kích hoạt Cloud thật:
+   - Supabase SQL Editor: chạy docs\cloud\supabase-pilot-schema.sql
+   - copy .env.example -> .env.local
+   - điền SUPABASE_URL, SUPABASE_SECRET_KEY, PILOT_TEACHER_KEY
+   - restart npm run dev
 
-Cloud chưa cấu hình phải KHÔNG làm hỏng các chức năng local.
-
-C. BẬT CLOUD PILOT
-1. Tạo Supabase project.
-2. Chạy file:
-   docs\cloud\supabase-pilot-schema.sql
-3. Copy `.env.example` thành `.env.local`.
-4. Điền:
-   SUPABASE_URL=...
-   SUPABASE_SECRET_KEY=...
-   PILOT_TEACHER_KEY=...
-5. Dừng dev server và chạy lại:
-   npm run dev
-6. Mở:
+5. Kiểm tra:
+   http://localhost:3000/cloud-activation
    http://localhost:3000/teacher-cloud
-7. Đưa một hồ sơ lên Cloud và ghi lại Mã HS.
-8. Test học sinh tại:
    http://localhost:3000/cloud-sync
 
-D. SAU KHI ỔN ĐỊNH
-GitHub:
-   git add .
-   git commit -m "Release v2.6.1-beta.1 - Cloud Pilot Data and Student Identity"
-   git push origin master
-   git tag -a v2.6.1-beta.1 -m "AI Math Tutor v2.6.1-beta.1"
-   git push origin v2.6.1-beta.1
-
-Vercel:
-- Thêm SUPABASE_URL, SUPABASE_SECRET_KEY, PILOT_TEACHER_KEY vào Environment Variables.
-- Redeploy Production.
+6. Chỉ khi /cloud-activation hiện 3 READY mới đưa học sinh Pilot lên Cloud.

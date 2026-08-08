@@ -136,3 +136,12 @@ Bài 5–7 của Chương II trong Lesson Player để thư viện liên tục t
 - `/pilot-roster`: roster tối đa 10 hồ sơ Pilot.
 - `/teacher-multi`: Class Analytics nhiều học sinh.
 - Cloud-ready repository contract; provider hiện tại vẫn là localStorage.
+
+
+## Beta 2.6.1 – Cloud Pilot Data & Student Identity
+
+- `/cloud-sync`: Student identity bằng Mã lớp + Mã học sinh.
+- `/teacher-cloud`: tạo/cập nhật hồ sơ Pilot trên Supabase.
+- `/api/pilot-cloud`: server-side gateway, không để Secret key trong browser.
+- `docs/cloud/supabase-pilot-schema.sql`: schema tạo bảng Cloud.
+- Local mode vẫn hoạt động nếu chưa cấu hình Cloud.

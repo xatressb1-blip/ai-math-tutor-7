@@ -54,9 +54,10 @@ export function PilotRosterDashboard() {
                 Schema đã tách theo studentId để sẵn sàng chuyển sang database/cloud.
               </p>
             </div>
-            <Link href="/teacher-multi" className="rounded-2xl bg-white px-4 py-2.5 text-sm font-black text-slate-950">
-              Class Analytics →
-            </Link>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/teacher-cloud" className="rounded-2xl bg-emerald-500 px-4 py-2.5 text-sm font-black text-slate-950">Cloud Setup</Link>
+              <Link href="/teacher-multi" className="rounded-2xl bg-white px-4 py-2.5 text-sm font-black text-slate-950">Class Analytics →</Link>
+            </div>
           </div>
         </header>
 

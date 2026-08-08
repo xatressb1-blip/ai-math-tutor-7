@@ -68,10 +68,11 @@ export function StudentHome() {
           </button>
         </section>
 
-        <div className="mt-5 grid gap-5 lg:grid-cols-3">
+        <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           <QuickLink href="/" title="Thư viện bài học" text="Học theo chương và bài." />
           <QuickLink href="/mastery" title="AI Revision Coach" text="Xem kỹ năng yếu và readiness." />
           <QuickLink href="/pilot-feedback" title="Phản hồi Pilot" text="Cho biết điều gì dễ hiểu hoặc cần cải thiện." />
+          <QuickLink href="/cloud-sync" title="Cloud Sync" text="Dùng mã lớp + mã học sinh để học trên nhiều thiết bị." />
         </div>
 
         <section className="mt-5 rounded-[2rem] border border-slate-200 bg-white p-6">

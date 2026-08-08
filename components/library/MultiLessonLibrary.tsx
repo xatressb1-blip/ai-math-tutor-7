@@ -66,6 +66,8 @@ export function MultiLessonLibrary({
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <div className="flex flex-wrap gap-2">
+              <Link href="/cloud-sync" className="rounded-2xl bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white">☁️ Student Cloud</Link>
+              <Link href="/teacher-cloud" className="rounded-2xl bg-teal-700 px-4 py-2.5 text-sm font-bold text-white">🔐 Teacher Cloud</Link>
               <Link href="/pilot-roster" className="rounded-2xl bg-fuchsia-600 px-4 py-2.5 text-sm font-bold text-white">👥 Pilot Roster</Link>
               <Link href="/teacher-multi" className="rounded-2xl bg-cyan-700 px-4 py-2.5 text-sm font-bold text-white">📈 Multi-Student</Link>
               <Link href="/student" className="rounded-2xl bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white">🎒 Student Home</Link>
@@ -80,7 +82,7 @@ export function MultiLessonLibrary({
                 📊 Pilot Analytics
               </Link>
                 <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-indigo-700">
-                  Beta 2.6.0
+                  Beta 2.6.1
                 </span>
                 <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-emerald-700">
                   Chapters I–III Ready

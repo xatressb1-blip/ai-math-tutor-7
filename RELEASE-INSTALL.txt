@@ -1,29 +1,50 @@
-AI Math Tutor – v2.6.0-beta.1
+AI Math Tutor – v2.6.1-beta.1
+Cloud Pilot Data & Student Identity
 
-Thư mục đích:
+THƯ MỤC
 C:\AI_Project\ai-math-tutor-7
 
+A. CẬP NHẬT MÃ NGUỒN
 1. Giải nén và chép đè toàn bộ file.
-2. Không cần npm install nếu v2.5.0-beta.1 đang chạy ổn.
+2. Không cần npm install nếu v2.6.0-beta.1 đang chạy ổn.
 3. Chạy:
    npm run build
 4. Nếu build thành công:
    npm run dev
 
-Kiểm thử:
+B. TEST LOCAL MODE TRƯỚC
+http://localhost:3000/student
 http://localhost:3000/pilot-roster
 http://localhost:3000/teacher-multi
-http://localhost:3000/student
-http://localhost:3000/teacher-pilot
+http://localhost:3000/cloud-sync
 
-Lưu ý:
-- Beta 2.6.0-beta.1 là Cloud Data Foundation, CHƯA đồng bộ database thật.
-- Dữ liệu vẫn nằm trong localStorage của trình duyệt.
-- Pilot Roster giới hạn 10 hồ sơ.
+Cloud chưa cấu hình phải KHÔNG làm hỏng các chức năng local.
 
-Sau khi kiểm thử ổn:
-git add .
-git commit -m "Release v2.6.0-beta.1 - Multi-Student Pilot Foundation"
-git push origin master
-git tag -a v2.6.0-beta.1 -m "AI Math Tutor v2.6.0-beta.1"
-git push origin v2.6.0-beta.1
+C. BẬT CLOUD PILOT
+1. Tạo Supabase project.
+2. Chạy file:
+   docs\cloud\supabase-pilot-schema.sql
+3. Copy `.env.example` thành `.env.local`.
+4. Điền:
+   SUPABASE_URL=...
+   SUPABASE_SECRET_KEY=...
+   PILOT_TEACHER_KEY=...
+5. Dừng dev server và chạy lại:
+   npm run dev
+6. Mở:
+   http://localhost:3000/teacher-cloud
+7. Đưa một hồ sơ lên Cloud và ghi lại Mã HS.
+8. Test học sinh tại:
+   http://localhost:3000/cloud-sync
+
+D. SAU KHI ỔN ĐỊNH
+GitHub:
+   git add .
+   git commit -m "Release v2.6.1-beta.1 - Cloud Pilot Data and Student Identity"
+   git push origin master
+   git tag -a v2.6.1-beta.1 -m "AI Math Tutor v2.6.1-beta.1"
+   git push origin v2.6.1-beta.1
+
+Vercel:
+- Thêm SUPABASE_URL, SUPABASE_SECRET_KEY, PILOT_TEACHER_KEY vào Environment Variables.
+- Redeploy Production.

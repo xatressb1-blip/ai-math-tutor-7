@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v2.6.1-beta.1 – Cloud Pilot Data & Student Identity
+- Thêm Next.js API route `/api/pilot-cloud` làm lớp server bảo vệ Supabase Secret key.
+- Hỗ trợ Supabase REST không cần thêm package npm.
+- Thêm `/cloud-sync`: học sinh liên kết bằng Mã lớp + Mã học sinh, tải/gửi Student Brain giữa các thiết bị.
+- Thêm `/teacher-cloud`: giáo viên đưa hồ sơ trong Pilot Roster lên Cloud, cấp mã học sinh riêng và xem danh sách Cloud.
+- Thêm SQL schema `docs/cloud/supabase-pilot-schema.sql`.
+- Thêm `.env.example` cho `SUPABASE_URL`, `SUPABASE_SECRET_KEY` và `PILOT_TEACHER_KEY`.
+- Giữ localStorage làm fallback; Cloud chưa cấu hình thì toàn bộ luồng cũ vẫn chạy.
+- Không thêm package npm mới.
+
 ## v2.6.0-beta.1 – Multi-Student Pilot & Cloud Data Foundation
 - Thêm MultiStudentWorkspace schema v1, tách dữ liệu theo studentId.
 - Tự migrate Student Brain local hiện tại thành học sinh đầu tiên trong Pilot Workspace.

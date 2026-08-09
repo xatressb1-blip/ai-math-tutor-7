@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v2.6.3-beta.1 – 10-Student Pilot Management & Production Hardening
+- Giới hạn server-side tối đa 10 học sinh cho mỗi lớp Pilot.
+- Thêm Safe Push: thiết bị bắt buộc Pull trước khi Push.
+- Thêm optimistic concurrency bằng `baseUpdatedAt`; chặn ghi đè nếu Cloud mới hơn.
+- Thêm thông báo conflict rõ ràng trên `/cloud-sync`.
+- Thêm cấp lại Mã HS phía server; mã cũ mất hiệu lực ngay.
+- Thêm thu hồi hồ sơ Cloud từ Teacher Cloud.
+- Thêm trạng thái freshness theo thời điểm đồng bộ.
+- Mã HS đầy đủ chỉ hiển thị trong phiên cấp mã; Cloud chỉ giữ hash + 4 ký tự cuối.
+- Sửa label giao diện Pilot sang Beta 2.6.3.
+- Không thay schema Supabase và không thêm package npm mới.
+
 ## v2.6.2-beta.1 – Supabase Pilot Cloud Activation
 - Thêm `/cloud-activation` health dashboard cho env, Data API và schema.
 - Mã học sinh được hash SHA-256 trước khi lưu Supabase; không lưu mã rõ trong schema mới.

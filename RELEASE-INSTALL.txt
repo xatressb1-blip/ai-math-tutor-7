@@ -1,23 +1,36 @@
-AI Math Tutor – v2.6.2-beta.1
+AI Math Tutor – v2.6.3-beta.1
 
-1. Giải nén chép đè vào:
-   C:\AI_Project\ai-math-tutor-7
+THƯ MỤC
+C:\AI_Project\ai-math-tutor-7
 
-2. Chạy:
-   npm run build
+CÀI
+1. Giải nén và chép đè toàn bộ.
+2. Không cần npm install nếu v2.6.2 đang chạy.
+3. KHÔNG chạy lại SQL Supabase.
+4. Giữ nguyên `.env.local`.
 
-3. Nếu build OK:
-   npm run dev
+BUILD
+npm run build
 
-4. Kích hoạt Cloud thật:
-   - Supabase SQL Editor: chạy docs\cloud\supabase-pilot-schema.sql
-   - copy .env.example -> .env.local
-   - điền SUPABASE_URL, SUPABASE_SECRET_KEY, PILOT_TEACHER_KEY
-   - restart npm run dev
+CHẠY
+npm run dev
 
-5. Kiểm tra:
-   http://localhost:3000/cloud-activation
-   http://localhost:3000/teacher-cloud
-   http://localhost:3000/cloud-sync
+KIỂM THỬ
+http://localhost:3000/cloud-activation
+http://localhost:3000/teacher-cloud
+http://localhost:3000/cloud-sync
+http://localhost:3000/student
 
-6. Chỉ khi /cloud-activation hiện 3 READY mới đưa học sinh Pilot lên Cloud.
+TEST QUAN TRỌNG
+- Pull trước rồi Push.
+- Test conflict bằng 2 cửa sổ/thiết bị.
+- Test Cấp mã mới trên Học Sinh Demo trước.
+- Chưa dùng Thu hồi với học sinh thật trong vòng test đầu.
+
+SAU KHI PASS
+git add .
+git commit -m "Release v2.6.3-beta.1 - 10 Student Pilot Production Hardening"
+git push origin master
+git tag -a v2.6.3-beta.1 -m "AI Math Tutor v2.6.3-beta.1"
+git push origin v2.6.3-beta.1
+npx vercel --prod

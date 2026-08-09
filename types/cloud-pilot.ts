@@ -28,3 +28,15 @@ export type CloudSyncReceipt = {
   serverUpdatedAt: string;
   direction: "PULL" | "PUSH";
 };
+
+export type CloudAccessRotation = {
+  student: CloudPilotStudent;
+  accessCode: string;
+};
+
+export type CloudErrorPayload = {
+  error?: string;
+  code?: "CLOUD_CONFLICT" | "PULL_REQUIRED" | "PILOT_LIMIT" | string;
+  serverUpdatedAt?: string;
+  student?: CloudPilotStudent;
+};

@@ -17,7 +17,7 @@ export function CloudActivationDashboard() {
   return <main className="min-h-screen bg-[#f5f7fb] px-4 py-6 text-slate-950 sm:px-8">
     <div className="mx-auto max-w-5xl">
       <header className="rounded-[2rem] bg-slate-950 p-6 text-white sm:p-8">
-        <p className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Beta 2.6.2 · Cloud Activation</p>
+        <p className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">Beta 2.6.3 · Cloud Activation</p>
         <h1 className="mt-3 text-4xl font-black">Supabase Pilot Cloud Activation</h1>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">Kiểm tra ba lớp trước khi đưa học sinh thật lên Cloud: environment, Data API và schema.</p>
       </header>

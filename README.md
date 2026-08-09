@@ -145,3 +145,11 @@ Bài 5–7 của Chương II trong Lesson Player để thư viện liên tục t
 - `/api/pilot-cloud`: server-side gateway, không để Secret key trong browser.
 - `docs/cloud/supabase-pilot-schema.sql`: schema tạo bảng Cloud.
 - Local mode vẫn hoạt động nếu chưa cấu hình Cloud.
+
+
+## Beta 2.7.0 – Real 10-Student Pilot Operations
+
+- `/pilot-onboarding`: onboarding cực ngắn cho học sinh.
+- `/pilot-ops`: Teacher Pilot Control Center.
+- Export CSV / Backup JSON.
+- Checklist vận hành buổi Pilot.

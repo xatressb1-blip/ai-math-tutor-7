@@ -66,6 +66,8 @@ export function MultiLessonLibrary({
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <div className="flex flex-wrap gap-2">
+              <Link href="/pilot-onboarding" className="rounded-2xl bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white">🚀 Pilot Onboarding</Link>
+              <Link href="/pilot-ops" className="rounded-2xl bg-amber-600 px-4 py-2.5 text-sm font-bold text-white">🎛 Pilot Control</Link>
               <Link href="/cloud-activation" className="rounded-2xl bg-blue-700 px-4 py-2.5 text-sm font-bold text-white">☁️ Cloud Activation</Link>
               <Link href="/cloud-sync" className="rounded-2xl bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white">☁️ Student Cloud</Link>
               <Link href="/teacher-cloud" className="rounded-2xl bg-teal-700 px-4 py-2.5 text-sm font-bold text-white">🔐 Teacher Cloud</Link>

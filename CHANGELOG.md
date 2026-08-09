@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v2.7.0-beta.1 – Real 10-Student Pilot Operations
+- Thêm `/pilot-onboarding`: onboarding học sinh bằng Mã lớp + Mã HS, Pull Student Brain ngay từ đầu.
+- Thêm `/pilot-ops`: Teacher Pilot Control Center.
+- Theo dõi số HS, sync hôm nay, HS quá 24h, HS cần chú ý, mastery/accuracy lớp.
+- Cảnh báo vận hành dựa trên stale sync, chưa có session, mastery thấp và lỗi chưa xử lý.
+- Export CSV summary cho giáo viên.
+- Backup JSON toàn bộ Cloud Student Brain của lớp Pilot.
+- Checklist Trước / Trong / Sau buổi Pilot lưu bằng localStorage.
+- Giữ nguyên schema Supabase và cơ chế Safe Cloud Sync của v2.6.3.
+- Không thêm package npm mới.
+
 ## v2.6.3-beta.1 – 10-Student Pilot Management & Production Hardening
 - Giới hạn server-side tối đa 10 học sinh cho mỗi lớp Pilot.
 - Thêm Safe Push: thiết bị bắt buộc Pull trước khi Push.

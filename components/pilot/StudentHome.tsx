@@ -27,7 +27,7 @@ export function StudentHome() {
         <header className="rounded-[2rem] bg-slate-950 p-6 text-white shadow-xl sm:p-8">
           <div className="flex flex-wrap items-end justify-between gap-5">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-200">Beta 2.6.3 · Production Pilot</p>
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-200">Beta 2.7.0 · Production Pilot</p>
               <h1 className="mt-3 text-4xl font-black sm:text-5xl">Hôm nay em nên học gì?</h1>
               <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-300">
                 AI dùng Student Brain để chọn một nhiệm vụ vừa sức, ngắn gọn và có mục tiêu rõ ràng.

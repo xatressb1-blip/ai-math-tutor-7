@@ -1,36 +1,30 @@
-AI Math Tutor – v2.6.3-beta.1
+AI Math Tutor – v2.7.0-beta.1
 
 THƯ MỤC
 C:\AI_Project\ai-math-tutor-7
 
-CÀI
 1. Giải nén và chép đè toàn bộ.
-2. Không cần npm install nếu v2.6.2 đang chạy.
-3. KHÔNG chạy lại SQL Supabase.
-4. Giữ nguyên `.env.local`.
+2. Không npm install nếu v2.6.3 đang chạy.
+3. Không chạy lại SQL Supabase.
+4. Giữ nguyên .env.local.
 
 BUILD
 npm run build
 
-CHẠY
+RUN
 npm run dev
 
-KIỂM THỬ
+TEST
 http://localhost:3000/cloud-activation
+http://localhost:3000/pilot-onboarding
+http://localhost:3000/pilot-ops
 http://localhost:3000/teacher-cloud
 http://localhost:3000/cloud-sync
-http://localhost:3000/student
 
-TEST QUAN TRỌNG
-- Pull trước rồi Push.
-- Test conflict bằng 2 cửa sổ/thiết bị.
-- Test Cấp mã mới trên Học Sinh Demo trước.
-- Chưa dùng Thu hồi với học sinh thật trong vòng test đầu.
-
-SAU KHI PASS
+SAU KHI LOCAL PASS
 git add .
-git commit -m "Release v2.6.3-beta.1 - 10 Student Pilot Production Hardening"
+git commit -m "Release v2.7.0-beta.1 - Real 10 Student Pilot Operations"
 git push origin master
-git tag -a v2.6.3-beta.1 -m "AI Math Tutor v2.6.3-beta.1"
-git push origin v2.6.3-beta.1
+git tag -a v2.7.0-beta.1 -m "AI Math Tutor v2.7.0-beta.1"
+git push origin v2.7.0-beta.1
 npx vercel --prod

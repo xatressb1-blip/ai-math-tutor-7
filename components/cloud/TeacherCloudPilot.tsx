@@ -221,7 +221,7 @@ export function TeacherCloudPilot() {
       <div className="mx-auto max-w-6xl">
         <header className="rounded-[2rem] bg-slate-950 p-6 text-white sm:p-8">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-200">
-            Beta 2.6.3 · Production Hardening
+            Beta 2.7.0 · Production Hardening
           </p>
           <h1 className="mt-3 text-4xl font-black">
             10-Student Cloud Pilot

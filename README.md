@@ -153,3 +153,11 @@ Bài 5–7 của Chương II trong Lesson Player để thư viện liên tục t
 - `/pilot-ops`: Teacher Pilot Control Center.
 - Export CSV / Backup JSON.
 - Checklist vận hành buổi Pilot.
+
+
+## Beta 2.7.1 – Vietnamese Student UX & Navigation Cleanup
+
+- Việt hóa navigation dành cho học sinh.
+- Phân nhóm Học tập / Tài khoản học tập / Công cụ giáo viên.
+- Công cụ giáo viên mặc định thu gọn.
+- Font sans-serif dễ đọc tiếng Việt.

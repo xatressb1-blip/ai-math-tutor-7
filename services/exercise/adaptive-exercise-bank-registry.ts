@@ -1,3 +1,13 @@
+import {
+  lesson12AdaptiveExerciseBank,
+  lesson13AdaptiveExerciseBank,
+  lesson14AdaptiveExerciseBank,
+  lesson15AdaptiveExerciseBank,
+  lesson16AdaptiveExerciseBank,
+  lesson17AdaptiveExerciseBank,
+  lesson18AdaptiveExerciseBank,
+  lesson19AdaptiveExerciseBank,
+} from "@/data/exercises/lesson-12-19-banks";
 import { lesson1AdaptiveExerciseBank } from "@/data/exercises/lesson-1-bank";
 import { lesson2AdaptiveExerciseBank } from "@/data/exercises/lesson-2-bank";
 import { lesson3AdaptiveExerciseBank } from "@/data/exercises/lesson-3-bank";
@@ -23,6 +33,14 @@ const banks: Record<string, AdaptiveExercise[]> = {
   "lesson-player-09": lesson9AdaptiveExerciseBank,
   "lesson-player-10": lesson10AdaptiveExerciseBank,
   "lesson-player-11": lesson11AdaptiveExerciseBank,
+  "lesson-player-19": lesson19AdaptiveExerciseBank,
+  "lesson-player-18": lesson18AdaptiveExerciseBank,
+  "lesson-player-17": lesson17AdaptiveExerciseBank,
+  "lesson-player-16": lesson16AdaptiveExerciseBank,
+  "lesson-player-15": lesson15AdaptiveExerciseBank,
+  "lesson-player-14": lesson14AdaptiveExerciseBank,
+  "lesson-player-13": lesson13AdaptiveExerciseBank,
+  "lesson-player-12": lesson12AdaptiveExerciseBank,
 };
 
 export function getAdaptiveExerciseBank(lessonId: string): AdaptiveExercise[] {

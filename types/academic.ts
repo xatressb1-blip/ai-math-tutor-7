@@ -97,6 +97,27 @@ export type PracticeBlueprint = {
   allowAdvancedOnlyAfterMastery: boolean;
 };
 
+export type AcademicEnrichment = {
+  id: string;
+  level: "PRACTICE" | "APPLIED" | "ADVANCED";
+  title: string;
+  summary: string;
+  gate: "ALWAYS" | "AFTER_FOUNDATION" | "AFTER_MASTERY";
+  sourceRef: AcademicSourceRef;
+};
+
+export type AcademicActivity = {
+  schemaVersion: "1.0";
+  id: string;
+  grade: 7;
+  semester: 1;
+  curriculum: "KNTT";
+  title: string;
+  summary: string;
+  skills: string[];
+  sourceRefs: AcademicSourceRef[];
+};
+
 export type AssessmentBlueprint = {
   diagnosticItems: number;
   checkpointItems: number;
@@ -147,6 +168,7 @@ export type AcademicLesson = {
   hintLadders: HintLadder[];
   reasoningTemplates: ReasoningTemplate[];
   practiceBlueprint: PracticeBlueprint[];
+  enrichment?: AcademicEnrichment[];
   assessment: AssessmentBlueprint;
   studentBrain: StudentBrainMapping;
   teacherTags: TeacherAnalyticsTag[];

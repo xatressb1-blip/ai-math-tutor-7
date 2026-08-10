@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## v2.8.1-beta.1 – Knowledge QA & Lesson Mapping Audit
+- Audit toàn bộ 19 bài từ Academic Knowledge Base sang luồng học thật.
+- Phát hiện và sửa khoảng trống Bài 12–19: trước đây có Academic KB nhưng chưa có Lesson Player runtime.
+- Thêm Academic Lesson Adapter để đưa Bài 12–19 vào `/learn`, `/tutor`, Student Brain.
+- Thêm Adaptive Practice bank cho Bài 12–19.
+- Thêm Reasoning Lab problem cho Bài 12–19.
+- AI Tutor tự hoạt động cho Bài 12–19 qua Lesson Repository.
+- Student Brain nhận skills/mistakes/sessions qua checkpoint questions của Bài 12–19.
+- Thêm `/knowledge-qa` với ma trận PASS/WARN/FAIL cho 19 bài.
+- Giữ nguyên nguồn chuẩn: SGK PRIMARY; SBT PRACTICE; tài liệu học tập ENRICHMENT; chuyên đề ADVANCED_ONLY.
+- Không thay đổi Supabase schema hoặc Cloud API.
+
+## v2.8.0-beta.1 – Full Semester Knowledge Base Sync
+- Đồng bộ Knowledge Engine đủ 5 chương, 19 bài của SGK Toán 7 Tập 1 KNTT.
+- Thêm 2 hoạt động thực hành trải nghiệm theo SGK.
+- SGK được khóa vai trò PRIMARY; SBT = PRACTICE; tài liệu học tập = ENRICHMENT; chuyên đề nâng cao = ADVANCED_ONLY.
+- Thêm AcademicEnrichment với gate ALWAYS / AFTER_FOUNDATION / AFTER_MASTERY.
+- Validator chặn nội dung ADVANCED nếu không khóa AFTER_MASTERY.
+- Mỗi bài có objectives, concepts, vocabulary, teaching script, examples, mistake library, hint ladder, reasoning, practice blueprint, assessment, Student Brain mapping và Teacher tags.
+- Knowledge Engine Dashboard nâng cấp để hiển thị Full Semester KB.
+- Không thay đổi Supabase schema, Cloud API, Student Brain schema hoặc Pilot Production logic.
+
+## v2.7.1-beta.1 – Vietnamese Student UX & Navigation Cleanup
+- Việt hóa khu vực điều hướng chính dành cho học sinh.
+- Thiết kế lại trang chủ theo bố cục: Học Toán 7 → Học tập → Tài khoản học tập → Công cụ giáo viên.
+- Gom toàn bộ chức năng giáo viên vào khu vực thu gọn mặc định.
+- Loại bỏ các thuật ngữ kỹ thuật khỏi vùng điều hướng học sinh khi có thể.
+- Đổi Geometry Lab → Phòng học Hình học; Mock Test → Thi thử; Semester Mastery → Mức độ thành thạo.
+- Đổi Student Cloud → Đồng bộ bài học; Pilot Onboarding → Bắt đầu học.
+- Loại các badge kỹ thuật khỏi vùng nổi bật của học sinh; version chuyển xuống footer.
+- Ẩn nút Biên soạn khỏi thẻ bài học dành cho học sinh.
+- Chuẩn hóa typography bằng font sans-serif dễ đọc tiếng Việt, không thêm font/package bên ngoài.
+- Không thay đổi Student Brain, Supabase schema, Cloud API, Safe Sync hoặc conflict protection.
+
 ## v2.7.0-beta.1 – Real 10-Student Pilot Operations
 - Thêm `/pilot-onboarding`: onboarding học sinh bằng Mã lớp + Mã HS, Pull Student Brain ngay từ đầu.
 - Thêm `/pilot-ops`: Teacher Pilot Control Center.

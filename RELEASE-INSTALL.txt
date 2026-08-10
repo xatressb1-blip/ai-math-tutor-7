@@ -1,30 +1,38 @@
-AI Math Tutor – v2.7.0-beta.1
+AI Math Tutor – v2.8.1-beta.1
+Knowledge QA & Lesson Mapping Audit
 
-THƯ MỤC
+THƯ MỤC:
 C:\AI_Project\ai-math-tutor-7
 
 1. Giải nén và chép đè toàn bộ.
-2. Không npm install nếu v2.6.3 đang chạy.
+2. Không npm install nếu v2.8.0 đang chạy.
 3. Không chạy lại SQL Supabase.
 4. Giữ nguyên .env.local.
 
-BUILD
+BUILD:
 npm run build
 
-RUN
+RUN:
 npm run dev
 
-TEST
-http://localhost:3000/cloud-activation
-http://localhost:3000/pilot-onboarding
-http://localhost:3000/pilot-ops
-http://localhost:3000/teacher-cloud
-http://localhost:3000/cloud-sync
+QA:
+http://localhost:3000/knowledge-qa
 
-SAU KHI LOCAL PASS
+MỤC TIÊU:
+19 bài PASS
+Coverage 100%
+
+TEST RUNTIME:
+http://localhost:3000/learn/lesson-player-12
+http://localhost:3000/learn/lesson-player-19
+http://localhost:3000/tutor/lesson-player-16
+http://localhost:3000/reasoning-lab/lesson-player-18
+http://localhost:3000/cloud-activation
+
+Sau Local PASS:
 git add .
-git commit -m "Release v2.7.0-beta.1 - Real 10 Student Pilot Operations"
+git commit -m "Release v2.8.1-beta.1 - Knowledge QA Lesson Mapping Audit"
 git push origin master
-git tag -a v2.7.0-beta.1 -m "AI Math Tutor v2.7.0-beta.1"
-git push origin v2.7.0-beta.1
+git tag -a v2.8.1-beta.1 -m "AI Math Tutor v2.8.1-beta.1"
+git push origin v2.8.1-beta.1
 npx vercel --prod

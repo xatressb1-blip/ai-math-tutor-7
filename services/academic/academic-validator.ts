@@ -38,6 +38,30 @@ export function validateAcademicLesson(
     issues.push(issue("WARNING", "practiceBlueprint", "Chưa có Practice Blueprint."));
   }
 
+
+  if (lesson.enrichment?.some((item) => item.level === "ADVANCED" && item.gate !== "AFTER_MASTERY")) {
+    issues.push(
+      issue(
+        "ERROR",
+        "enrichment",
+        "Nội dung ADVANCED phải được khóa AFTER_MASTERY để không làm lệch chuẩn SGK.",
+      ),
+    );
+  }
+
+  if (
+    lesson.sourceRefs.some((source) => source.role === "ADVANCED_ONLY") &&
+    !lesson.enrichment?.some((item) => item.level === "ADVANCED")
+  ) {
+    issues.push(
+      issue(
+        "WARNING",
+        "sourceRefs",
+        "Có nguồn nâng cao nhưng chưa khai báo enrichment ADVANCED tương ứng.",
+      ),
+    );
+  }
+
   for (const objective of lesson.objectives) {
     if (objective.masteryThreshold < 50 || objective.masteryThreshold > 100) {
       issues.push(issue("ERROR", `objectives.${objective.id}.masteryThreshold`, "Mastery threshold phải nằm trong 50-100."));

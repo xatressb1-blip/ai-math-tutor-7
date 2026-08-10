@@ -8,7 +8,8 @@ export const academicSources: KnowledgeSource[] = [
     curriculum: "Kết nối tri thức với cuộc sống",
     grade: 7,
     semester: 1,
-    note: "Nguồn chuẩn chính: thứ tự chương/bài, thuật ngữ, kiến thức và yêu cầu cần đạt.",
+    note:
+      "Nguồn chuẩn chính và có quyền ưu tiên cao nhất: cấu trúc 5 chương, 19 bài, thuật ngữ, kiến thức, kĩ năng và hoạt động trải nghiệm.",
   },
   {
     id: "src-sbt-kntt-t1",
@@ -17,7 +18,8 @@ export const academicSources: KnowledgeSource[] = [
     curriculum: "Kết nối tri thức với cuộc sống",
     grade: 7,
     semester: 1,
-    note: "Nguồn luyện tập và củng cố; không thay thế SGK.",
+    note:
+      "Nguồn PRACTICE: củng cố, luyện tập và mở rộng số lượng bài; không thay thế hoặc đổi chuẩn SGK.",
   },
   {
     id: "src-hoc-tap-kntt",
@@ -26,7 +28,8 @@ export const academicSources: KnowledgeSource[] = [
     curriculum: "Kết nối tri thức với cuộc sống",
     grade: 7,
     semester: 1,
-    note: "Nguồn tham khảo để hệ thống hóa dạng toán, vận dụng và lỗi thường gặp.",
+    note:
+      "Nguồn ENRICHMENT: phân dạng bài, vận dụng, lỗi thường gặp và bài nâng dần; chỉ dùng sau tầng kiến thức SGK.",
   },
   {
     id: "src-chuyen-de-nang-cao",
@@ -35,6 +38,7 @@ export const academicSources: KnowledgeSource[] = [
     curriculum: "Bổ trợ nâng cao",
     grade: 7,
     semester: 1,
-    note: "Chỉ dùng cho nhánh nâng cao sau khi học sinh đạt Mastery; không dùng làm chuẩn kiến thức cốt lõi.",
+    note:
+      "Nguồn ADVANCED_ONLY: chỉ mở sau khi học sinh đạt mastery nền tảng; không được làm thay đổi cấu trúc hoặc chuẩn kiến thức SGK.",
   },
 ];

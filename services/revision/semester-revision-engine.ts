@@ -65,18 +65,23 @@ export function buildSemesterRevisionPlan(
     estimatedMinutes: 25,
   });
 
-  const studiedNodes = new Set([
-    ...brain.skills.map((item) => item.knowledgeNodeId),
-    ...brain.sessions.map((item) => item.knowledgeNodeId),
-  ]);
-  // Semester 1 has 19 lessons. Existing brains may not yet contain untouched
-  // lesson nodes, therefore coverage is deliberately capped by observed nodes.
-  const observedLessonCount = new Set(
-    [...studiedNodes].filter((node) => node.startsWith("lesson-")),
-  ).size;
-  const curriculumCoverage = Math.min(
-    100,
-    Math.round((observedLessonCount / 19) * 100),
+  // Curriculum coverage is intentionally based only on approved core-progress
+  // sessions. Diagnostic/Reasoning evidence is valuable, but it cannot stand in
+  // for studying a semester lesson.
+  const approvedCoverageSources = new Set(["LESSON", "ADAPTIVE", "LEGACY"]);
+  const coveredLessonNumbers = new Set<number>();
+  for (const session of brain.sessions) {
+    const source = session.source ?? "LEGACY";
+    if (!approvedCoverageSources.has(source)) continue;
+    const match = session.knowledgeNodeId.match(/^lesson-(\d+)(?:-|$)/);
+    if (!match) continue;
+    const lessonNumber = Number(match[1]);
+    if (lessonNumber >= 1 && lessonNumber <= 19) {
+      coveredLessonNumbers.add(lessonNumber);
+    }
+  }
+  const curriculumCoverage = Math.round(
+    (coveredLessonNumbers.size / 19) * 100,
   );
 
   const coreDefinitions = getCanonicalSkillDefinitions().filter(

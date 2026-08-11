@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v2.8.2-beta.5 – Semester Canonical Coverage & RC Gate
+- Hoàn thiện Canonical Skill Registry cho đủ Bài 1–19.
+- Map toàn bộ skill hiện có trong Lesson/Adaptive/Reasoning/Diagnostic sang canonical identity có chủ đích.
+- Loại bỏ fallback LEGACY_* ngoài ý muốn cho curriculum hiện tại.
+- Semester curriculum coverage chỉ tính session LESSON/ADAPTIVE/LEGACY được phép, không tính REASONING/DIAGNOSTIC.
+- Verified mastery denominator dùng CORE canonical skills toàn học kỳ.
+- Mở rộng /pilot-readiness thành RC-grade semester invariants.
+- Không thay đổi Supabase schema.
+
+
 ## v2.8.2-beta.4 – Wave 4: Skill Identity, Progress & Multi-Student Integrity
 - Thêm Canonical Skill Registry và canonicalSkillId để evidence không phụ thuộc display string.
 - Hợp nhất các alias quan trọng Bài 8–14 và Bài 16–19; sửa phân mảnh do dấu chấm.

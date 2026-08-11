@@ -1,0 +1,44 @@
+AI Math Tutor v2.8.2-rc.1 – Final Hardening
+
+BASELINE
+v2.8.2-beta.5 / 3eff2f5
+
+NO NEW FEATURES.
+
+SOURCE AUDIT PASS
+- Canonical registry: 19/19 lessons.
+- Current Lesson/Adaptive/Reasoning/Diagnostic skill strings: 0 unexpected canonical fallbacks.
+- Reasoning excluded from curriculum coverage.
+- RC semester canonical / reasoning isolation / partial-semester QA checks present.
+
+REPOSITORY HYGIENE FIX
+- Added .gitattributes with deterministic LF policy for source/docs.
+- Added binary exclusions.
+- .gitignore now ignores local AI-Math-Tutor * AUDIT ZIP packages.
+- RC package version set to 2.8.2-rc.1.
+
+IMPORTANT WINDOWS ONE-TIME CLEANUP
+After copying this ZIP into the project, DO NOT use git add . immediately.
+
+Run:
+  git status --short
+  git diff --stat
+
+Then apply the line-ending policy once:
+  git add --renormalize .
+  git status --short
+  git diff --cached --stat
+
+The first renormalize may stage many files if the old repository has inconsistent line endings.
+Review before commit. It is a repository-hygiene normalization, not feature code.
+
+LOCAL RC GATES
+  npm run build
+  npm run dev
+
+  /knowledge-qa       => 19 PASS / 0 WARN / 0 FAIL / 100%
+  /mastery-integrity  => 5/5 PASS
+  /pilot-readiness    => all PASS / 0 FAIL
+  /cloud-activation   => 3 READY
+
+Also repeat A/B Student, Reasoning-only, semester coverage, and cloud smoke tests.

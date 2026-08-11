@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local release/audit packages
+/AI-Math-Tutor-*-AUDIT.zip
+/AI-Math-Tutor-*-RC*-AUDIT.zip

@@ -1,0 +1,17 @@
+# Repository line-ending policy
+# Keep source and documentation deterministic across Windows/Linux/Vercel.
+* text=auto eol=lf
+
+# Windows command scripts may keep CRLF when added later.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary artifacts must never be line-ending normalized.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.zip binary

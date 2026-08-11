@@ -1,0 +1,37 @@
+AI Math Tutor v2.8.2-beta.1 – WAVE 1
+
+THƯ MỤC:
+C:\AI_Project\ai-math-tutor-7
+
+1. Bảo đảm Git v2.8.1 đang clean.
+2. Giải nén ZIP Wave 1 và chép đè toàn bộ.
+3. Không xóa .env.local.
+4. Không chạy SQL Supabase.
+
+BUILD:
+npm run build
+npm run dev
+
+QA:
+http://localhost:3000/knowledge-qa
+Mục tiêu: 19 PASS / 0 WARN / 0 FAIL / 100%
+
+P0 TEST:
+http://localhost:3000/learn/lesson-player-01
+http://localhost:3000/learn/lesson-player-04
+http://localhost:3000/learn/lesson-player-07
+http://localhost:3000/learn/lesson-player-12
+http://localhost:3000/learn/lesson-player-15
+http://localhost:3000/learn/lesson-player-16
+http://localhost:3000/learn/lesson-player-19
+
+REASONING:
+http://localhost:3000/reasoning-lab/lesson-player-04
+http://localhost:3000/reasoning-lab/lesson-player-15
+http://localhost:3000/reasoning-lab/lesson-player-16
+
+CLOUD:
+http://localhost:3000/cloud-activation
+Phải 3 READY.
+
+CHƯA GIT/VERCEL cho tới khi Wave 1 Local PASS.

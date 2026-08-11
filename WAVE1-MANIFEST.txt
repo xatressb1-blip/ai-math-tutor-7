@@ -1,0 +1,17 @@
+AI Math Tutor v2.8.2-beta.1 – Wave 1
+Correctness & False Mastery
+
+STATIC QA:
+PASS - Bài 16 misconception sai đã bị loại.
+PASS - Bài 1 core/adaptive không còn √2/π/√3 trước Chương II.
+PASS - Bài 4 không còn 2x+3=11, 3x=15, 4x-3=13, 3(x-2)=12 trong source Wave 1.
+PASS - Bài 12–19 có domain-specific Lesson Player checkpoints.
+PASS - Generic Academic Adapter không tạo QUESTION mastery.
+PASS - Knowledge QA chặn generic meta-question khỏi Student Brain PASS.
+PASS - Bài 15 core/adaptive bao phủ các trường hợp tam giác vuông.
+PASS - Bài 7 có số đối, trục số thực, so sánh, giá trị tuyệt đối.
+PASS - TypeScript syntax scan không phát hiện lỗi TS1xxx trong các file thay đổi.
+
+FULL BUILD:
+Chưa thể chạy trong môi trường đóng gói vì dependency cache không đầy đủ.
+Bắt buộc chạy `npm run build` trên máy local trước Git/Vercel.

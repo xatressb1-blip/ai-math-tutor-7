@@ -24,8 +24,14 @@ export function buildKnowledgeQaReport(): KnowledgeQaReport {
     const lesson = getLessonById(expectedId);
     const adaptive = getAdaptiveExerciseBank(expectedId);
     const reasoning = getReasoningProblemsByLesson(expectedId);
-    const coreQuestions =
-      lesson?.steps.filter((step) => Boolean(step.question)).length ?? 0;
+    const questions =
+      lesson?.steps
+        .map((step) => step.question)
+        .filter((question): question is NonNullable<typeof question> => Boolean(question)) ?? [];
+    const genericMetaQuestions = questions.filter((question) =>
+      question.prompt.includes("cách làm nào phù hợp nhất với mục tiêu"),
+    );
+    const coreQuestions = questions.length;
     const studentBrainSkills = lesson
       ? [
           ...new Set(
@@ -41,6 +47,8 @@ export function buildKnowledgeQaReport(): KnowledgeQaReport {
     if (!adaptive.length) notes.push("Chưa có Adaptive Practice bank.");
     if (!reasoning.length) notes.push("Chưa có Reasoning Lab problem.");
     if (!coreQuestions) notes.push("Lesson Player chưa có checkpoint question.");
+    if (genericMetaQuestions.length)
+      notes.push("Có generic meta-question; không được dùng làm bằng chứng mastery.");
     if (!studentBrainSkills.length)
       notes.push("Chưa có skill để Teaching Session ghi vào Student Brain.");
 
@@ -49,7 +57,10 @@ export function buildKnowledgeQaReport(): KnowledgeQaReport {
     const tutorMapped = Boolean(lesson); // Tutor route consumes Lesson Repository.
     const reasoningLabMapped = reasoning.length > 0;
     const studentBrainMapped =
-      Boolean(lesson) && coreQuestions > 0 && studentBrainSkills.length > 0;
+      Boolean(lesson) &&
+      coreQuestions > 0 &&
+      genericMetaQuestions.length === 0 &&
+      studentBrainSkills.length > 0;
 
     const allMapped =
       lessonPlayerMapped &&

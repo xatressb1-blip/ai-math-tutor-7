@@ -9,34 +9,16 @@ import { lesson8 } from "@/data/lessons/lesson-8";
 import { lesson9 } from "@/data/lessons/lesson-9";
 import { lesson10 } from "@/data/lessons/lesson-10";
 import { lesson11 } from "@/data/lessons/lesson-11";
-import { getAcademicBackedLessonDefinitions } from "@/services/lesson/academic-lesson-adapter";
+import { qualityLessons12To19 } from "@/data/lessons/lesson-12-19-quality";
 import type { LessonDefinition } from "@/types/lesson";
 
-const handAuthored: LessonDefinition[] = [
-  lesson1,
-  lesson2,
-  lesson3,
-  lesson4,
-  lesson5,
-  lesson6,
-  lesson7,
-  lesson8,
-  lesson9,
-  lesson10,
-  lesson11,
+const lessons: LessonDefinition[] = [
+  lesson1, lesson2, lesson3, lesson4, lesson5, lesson6, lesson7,
+  lesson8, lesson9, lesson10, lesson11, ...qualityLessons12To19,
 ];
 
-const handIds = new Set(handAuthored.map((lesson) => lesson.id));
-const academicBacked = getAcademicBackedLessonDefinitions().filter(
-  (lesson) => !handIds.has(lesson.id),
-);
-
-const lessons: LessonDefinition[] = [...handAuthored, ...academicBacked];
-
 export function getAllLessons(): LessonDefinition[] {
-  return [...lessons].sort(
-    (a, b) => a.chapter - b.chapter || a.lessonNumber - b.lessonNumber,
-  );
+  return [...lessons].sort((a, b) => a.chapter - b.chapter || a.lessonNumber - b.lessonNumber);
 }
 
 export function getLessonsByChapter(chapter: number): LessonDefinition[] {
@@ -47,9 +29,7 @@ export function getLessonById(id: string): LessonDefinition | undefined {
   return lessons.find((lesson) => lesson.id === id);
 }
 
-export function getLessonByKnowledgeNodeId(
-  knowledgeNodeId: string,
-): LessonDefinition | undefined {
+export function getLessonByKnowledgeNodeId(knowledgeNodeId: string): LessonDefinition | undefined {
   return lessons.find((lesson) => lesson.knowledgeNodeId === knowledgeNodeId);
 }
 

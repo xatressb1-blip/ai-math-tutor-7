@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v2.8.2-beta.1 – Wave 1: Correctness & False Mastery
+- Thay generic mastery checkpoint Bài 12–19 bằng checkpoint Toán theo từng bài.
+- Sửa lỗi kiến thức P0 Bài 16: định lí đảo tam giác cân.
+- Bổ sung tam giác đều và hai chiều của tính chất đường trung trực.
+- Bài 15 bao phủ các trường hợp bằng nhau của tam giác vuông theo SGK.
+- Bài 7 bổ sung số đối, trục số thực, so sánh và atomic skill mapping.
+- Bài 4 loại scope creep phương trình tuyến tính khỏi CORE/Adaptive/Reasoning/Diagnostic.
+- Bài 1 loại √2/π khỏi checkpoint trước Chương II và bổ sung so sánh số hữu tỉ.
+- Knowledge QA không coi generic meta-question là Student Brain mastery evidence.
+- Không thay đổi Supabase schema hoặc Cloud Pilot.
+
 ## v2.8.1-beta.1 – Knowledge QA & Lesson Mapping Audit
 - Audit toàn bộ 19 bài từ Academic Knowledge Base sang luồng học thật.
 - Phát hiện và sửa khoảng trống Bài 12–19: trước đây có Academic KB nhưng chưa có Lesson Player runtime.

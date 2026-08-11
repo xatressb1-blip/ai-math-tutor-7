@@ -1,55 +1,9 @@
 import type { AdaptiveExercise } from "@/types/adaptive-exercise";
 
 export const lesson7AdaptiveExerciseBank: AdaptiveExercise[] = [
-  {
-    id: "a7-1",
-    prompt: "Khẳng định đúng?",
-    choices: [
-      { id: "a", text: "√2 ∉ R" },
-      { id: "b", text: "π ∈ R" },
-      { id: "c", text: "1/2 ∉ R" },
-      { id: "d", text: "0 ∈ I" }
-    ],
-    correctChoiceId: "b",
-    skillName: "Số thực và giá trị tuyệt đối",
-    hint: "R gồm hữu tỉ và vô tỉ.",
-    retryHint: "π là số vô tỉ nên cũng là số thực.",
-    explanation: "π ∈ R.",
-    difficulty: 1,
-    tags: ["tap-hop"],
-  },
-  {
-    id: "a7-2",
-    prompt: "|-7| bằng?",
-    choices: [
-      { id: "a", text: "-7" },
-      { id: "b", text: "7" },
-      { id: "c", text: "0" },
-      { id: "d", text: "14" }
-    ],
-    correctChoiceId: "b",
-    skillName: "Số thực và giá trị tuyệt đối",
-    hint: "Giá trị tuyệt đối là khoảng cách đến 0.",
-    retryHint: "Khoảng cách không âm.",
-    explanation: "|-7|=7.",
-    difficulty: 1,
-    tags: ["gia-tri-tuyet-do"],
-  },
-  {
-    id: "a7-3",
-    prompt: "So sánh √5 và √7.",
-    choices: [
-      { id: "a", text: "√5>√7" },
-      { id: "b", text: "√5=√7" },
-      { id: "c", text: "√5<√7" },
-      { id: "d", text: "Không so sánh được" }
-    ],
-    correctChoiceId: "c",
-    skillName: "Số thực và giá trị tuyệt đối",
-    hint: "Với số dương, số dưới căn lớn hơn thì căn lớn hơn.",
-    retryHint: "5<7.",
-    explanation: "√5<√7.",
-    difficulty: 2,
-    tags: ["so-sanh"],
-  }
+  { id:"a7-real", prompt:"Khẳng định đúng về R?", choices:[{id:"a",text:"R gồm cả số hữu tỉ và số vô tỉ"},{id:"b",text:"R chỉ gồm số hữu tỉ"},{id:"c",text:"R không chứa số âm"},{id:"d",text:"R không chứa số 0"}], correctChoiceId:"a", skillName:"Nhận biết số thực", hint:"Nhớ định nghĩa của tập R.", retryHint:"Hai nhóm số của Chương II đều thuộc R.", explanation:"R gồm số hữu tỉ và số vô tỉ.", difficulty:1, tags:["tap-hop","core"] },
+  { id:"a7-opposite", prompt:"Số đối của -√3 là số nào?", choices:[{id:"a",text:"√3"},{id:"b",text:"-√3"},{id:"c",text:"1/√3"},{id:"d",text:"3"}], correctChoiceId:"a", skillName:"Số đối của số thực", hint:"Hai số đối nhau có tổng bằng 0.", retryHint:"Đổi dấu, không lấy nghịch đảo.", explanation:"Số đối của -√3 là √3.", difficulty:1, tags:["so-doi","core"] },
+  { id:"a7-number-line", prompt:"Biết 2 < √5 < 3. √5 nằm ở vị trí nào trên trục số?", choices:[{id:"a",text:"Giữa 2 và 3"},{id:"b",text:"Giữa -3 và -2"},{id:"c",text:"Giữa 0 và 1"},{id:"d",text:"Bên phải 5"}], correctChoiceId:"a", skillName:"Biểu diễn số thực trên trục số", hint:"Dùng bất đẳng thức đã cho.", retryHint:"2 < √5 < 3.", explanation:"√5 nằm giữa 2 và 3.", difficulty:2, tags:["truc-so","core"] },
+  { id:"a7-compare", prompt:"So sánh √5 và √7.", choices:[{id:"a",text:"√5 < √7"},{id:"b",text:"√5 > √7"},{id:"c",text:"√5 = √7"},{id:"d",text:"Không so sánh được"}], correctChoiceId:"a", skillName:"So sánh số thực", hint:"So sánh 5 và 7 trước.", retryHint:"5 < 7.", explanation:"√5 < √7.", difficulty:2, tags:["so-sanh","core"] },
+  { id:"a7-absolute", prompt:"|-7| bằng bao nhiêu?", choices:[{id:"a",text:"7"},{id:"b",text:"-7"},{id:"c",text:"0"},{id:"d",text:"14"}], correctChoiceId:"a", skillName:"Giá trị tuyệt đối", hint:"Giá trị tuyệt đối là khoảng cách đến 0.", retryHint:"Khoảng cách không âm.", explanation:"|-7| = 7.", difficulty:1, tags:["gia-tri-tuyet-do","core"] },
 ];

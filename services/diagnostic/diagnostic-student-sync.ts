@@ -1,5 +1,10 @@
 import type { DiagnosticResult } from "@/types/diagnostic";
 import {
+  canonicalSkillId,
+  canonicalSkillName,
+  sameCanonicalSkill,
+} from "@/services/student/canonical-skill-registry";
+import {
   capMasteryByEvidence,
   mergeSkillEvidence,
   statusFromMasteryWithEvidence,
@@ -86,7 +91,7 @@ export function syncDiagnosticToStudentBrain({
 
   for (const answer of result.answers.filter((item) => item.lessonNumber > 0)) {
     const existingIndex = skills.findIndex(
-      (skill) => skill.skillName === answer.skillName,
+      (skill) => sameCanonicalSkill(skill.skillName, answer.skillName),
     );
     const current = existingIndex >= 0 ? skills[existingIndex] : undefined;
 
@@ -118,9 +123,10 @@ export function syncDiagnosticToStudentBrain({
     const mastery = capMasteryByEvidence(rawMastery, evidence);
 
     const next: StudentSkill = {
-      id: current?.id ?? `skill-diagnostic-${slug(answer.skillName)}`,
+      id: current?.id ?? `skill-${canonicalSkillId(answer.skillName).toLowerCase()}`,
       studentId: brain.profile.id,
-      skillName: answer.skillName,
+      skillName: canonicalSkillName(answer.skillName),
+      canonicalSkillId: canonicalSkillId(answer.skillName),
       knowledgeNodeId:
         current?.knowledgeNodeId ?? nodeByLesson[answer.lessonNumber] ?? "diagnostic",
       masteryScore: mastery,

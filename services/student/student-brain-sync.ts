@@ -1,5 +1,10 @@
 import type { LessonDefinition } from "@/types/lesson";
 import {
+  canonicalSkillId,
+  canonicalSkillName,
+  sameCanonicalSkill,
+} from "@/services/student/canonical-skill-registry";
+import {
   capMasteryByEvidence,
   evidenceDeltaFromTeachingAttempts,
   mergeSkillEvidence,
@@ -71,9 +76,10 @@ function mergeSkill({
   const nextMastery = capMasteryByEvidence(rawMastery, evidence);
 
   return {
-    id: current?.id ?? `skill-${slugify(session.skillName)}`,
+    id: current?.id ?? `skill-${canonicalSkillId(session.skillName).toLowerCase()}`,
     studentId,
-    skillName: session.skillName,
+    skillName: canonicalSkillName(session.skillName),
+    canonicalSkillId: canonicalSkillId(session.skillName),
     knowledgeNodeId: current?.knowledgeNodeId ?? knowledgeNodeId,
     masteryScore: nextMastery,
     confidence: nextConfidence,
@@ -137,7 +143,7 @@ function mergeMistakes({
   }
 
   for (const group of wrongGroups.values()) {
-    const skill = skills.find((item) => item.skillName === group.skillName);
+    const skill = skills.find((item) => sameCanonicalSkill(item.skillName, group.skillName));
     if (!skill) continue;
 
     const description = buildMistakeDescription({
@@ -194,11 +200,11 @@ export function syncTeachingSessionToStudentBrain({
 
   for (const skillSummary of summary.skills) {
     const existingIndex = skills.findIndex(
-      (item) => item.skillName === skillSummary.skillName,
+      (item) => sameCanonicalSkill(item.skillName, skillSummary.skillName),
     );
     const current = existingIndex >= 0 ? skills[existingIndex] : undefined;
     const skillAttempts = attempts.filter(
-      (item) => item.skillName === skillSummary.skillName,
+      (item) => sameCanonicalSkill(item.skillName, skillSummary.skillName),
     );
     const merged = mergeSkill({
       current,
@@ -242,7 +248,8 @@ export function syncTeachingSessionToStudentBrain({
         durationMinutes: summary.elapsedMinutes,
         questionsAttempted: summary.totalQuestions,
         questionsCorrect: summary.correctQuestions,
-        note: `${strengths}${review} Confidence ${summary.confidenceScore}/100. Mastery áp dụng evidence gate v2.8.2-beta.3.`,
+        note: `${strengths}${review} Confidence ${summary.confidenceScore}/100. Mastery áp dụng evidence gate v2.8.2-beta.4.`,
+        source: "LESSON",
       },
     ],
   };

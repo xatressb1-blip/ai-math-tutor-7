@@ -3,7 +3,8 @@
 import type { StudentBrainSnapshot, StudentProfile } from "@/types/student";
 import type { MultiStudentWorkspace, StudentDataProvider } from "@/types/multi-student";
 import { getDemoStudentBrain } from "@/services/student/student-brain-service";
-import { loadStudentBrainFromStorage } from "@/services/student/student-brain-storage";
+import { migrateBrainToCanonicalSkills } from "@/services/student/canonical-skill-registry";
+import { loadStudentBrainFromStorage, saveStudentBrainToStorage } from "@/services/student/student-brain-storage";
 
 const KEY = "math-mentor-ai:multi-student-workspace:v1";
 
@@ -27,7 +28,19 @@ const localProvider: StudentDataProvider = {
 
 export function loadMultiStudentWorkspace(): MultiStudentWorkspace {
   const existing = localProvider.loadWorkspace();
-  if (existing) return existing;
+  if (existing) {
+    const migrated = {
+      ...existing,
+      brains: Object.fromEntries(
+        Object.entries(existing.brains).map(([id, brain]) => [
+          id,
+          migrateBrainToCanonicalSkills(brain),
+        ]),
+      ),
+    };
+    localProvider.saveWorkspace(migrated);
+    return migrated;
+  }
 
   const legacyBrain = loadStudentBrainFromStorage() ?? getDemoStudentBrain();
   const workspace: MultiStudentWorkspace = {
@@ -47,7 +60,10 @@ export function loadMultiStudentWorkspace(): MultiStudentWorkspace {
 }
 
 export function saveMultiStudentWorkspace(workspace: MultiStudentWorkspace): void {
-  localProvider.saveWorkspace({ ...workspace, updatedAt: new Date().toISOString() });
+  const next = { ...workspace, updatedAt: new Date().toISOString() };
+  localProvider.saveWorkspace(next);
+  const active = next.brains[next.activeStudentId];
+  if (active) saveStudentBrainToStorage(active);
 }
 
 export function createPilotStudent(
@@ -86,7 +102,7 @@ export function setActivePilotStudent(
   studentId: string,
 ): MultiStudentWorkspace {
   if (!workspace.brains[studentId]) return workspace;
-  return {
+  const next = {
     ...workspace,
     activeStudentId: studentId,
     students: workspace.students.map((item) =>
@@ -94,6 +110,26 @@ export function setActivePilotStudent(
     ),
     updatedAt: new Date().toISOString(),
   };
+  saveStudentBrainToStorage(next.brains[studentId]);
+  return next;
+}
+
+export function getActiveStudentBrain(
+  workspace = loadMultiStudentWorkspace(),
+): StudentBrainSnapshot {
+  return workspace.brains[workspace.activeStudentId] ?? loadStudentBrainFromStorage() ?? getDemoStudentBrain();
+}
+
+export function saveActiveStudentBrain(brain: StudentBrainSnapshot): MultiStudentWorkspace {
+  const workspace = loadMultiStudentWorkspace();
+  const activeId = workspace.activeStudentId;
+  if (brain.profile.id !== activeId) {
+    throw new Error(`ACTIVE_STUDENT_MISMATCH:${activeId}:${brain.profile.id}`);
+  }
+  const next = upsertStudentBrain(workspace, brain);
+  saveMultiStudentWorkspace(next);
+  saveStudentBrainToStorage(brain);
+  return next;
 }
 
 export function upsertStudentBrain(

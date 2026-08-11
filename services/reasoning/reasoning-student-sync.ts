@@ -1,4 +1,9 @@
 import type { LessonDefinition } from "@/types/lesson";
+import {
+  canonicalSkillId,
+  canonicalSkillName,
+  sameCanonicalSkill,
+} from "@/services/student/canonical-skill-registry";
 import type { ReasoningSessionSummary } from "@/types/reasoning";
 import {
   capMasteryByEvidence,
@@ -31,7 +36,7 @@ export function syncReasoningSessionToStudentBrain({
 }): StudentBrainSnapshot {
   const now = summary.completedAt;
   const existingIndex = brain.skills.findIndex(
-    (skill) => skill.skillName === summary.skillName,
+    (skill) => sameCanonicalSkill(skill.skillName, summary.skillName),
   );
   const existing = existingIndex >= 0 ? brain.skills[existingIndex] : undefined;
 
@@ -77,9 +82,10 @@ export function syncReasoningSessionToStudentBrain({
   const mastery = capMasteryByEvidence(rawMastery, evidence);
 
   const skill: StudentSkill = {
-    id: existing?.id ?? `skill-${slug(summary.skillName)}`,
+    id: existing?.id ?? `skill-${canonicalSkillId(summary.skillName).toLowerCase()}`,
     studentId: brain.profile.id,
-    skillName: summary.skillName,
+    skillName: canonicalSkillName(summary.skillName),
+    canonicalSkillId: canonicalSkillId(summary.skillName),
     knowledgeNodeId: lesson.knowledgeNodeId,
     masteryScore: mastery,
     confidence,

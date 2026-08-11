@@ -1,0 +1,22 @@
+AI Math Tutor v2.8.2-beta.4 – Wave 4
+Skill Identity, Progress & Multi-Student Integrity
+
+BASELINE
+v2.8.2-beta.3 / e2fa9c7
+
+IMPLEMENTED
+PASS - Canonical Skill Registry + backward-compatible brain migration.
+PASS - B12/B17 punctuation aliases collapse to one canonical identity.
+PASS - B13/B14 Lesson/Adaptive/Reasoning aliases map to canonical competencies.
+PASS - Active-student compatibility bridge between single brain and workspace.
+PASS - LearningSession source + Reasoning-only progress gate.
+PASS - Coverage-aware semester readiness.
+PASS - /pilot-readiness QA route.
+PASS - No Supabase schema changes.
+
+STATIC CHECK
+175 TS/TSX files transpile with 0 syntax diagnostics.
+
+FULL BUILD
+Not executable inside packaging environment because project node_modules are absent.
+Mandatory local gate: npm run build before Git/Vercel.

@@ -45,6 +45,8 @@ export type StudentSkill = {
   id: string;
   studentId: string;
   skillName: string;
+  /** Stable identity; display text may change without fragmenting evidence. */
+  canonicalSkillId?: string;
   knowledgeNodeId: string;
   masteryScore: number;
   confidence: number;
@@ -70,6 +72,8 @@ export type MistakeRecord = {
   resolved: boolean;
 };
 
+export type LearningSessionSource = "LESSON" | "ADAPTIVE" | "REASONING" | "MOCK_TEST" | "DIAGNOSTIC" | "LEGACY";
+
 export type LearningSession = {
   id: string;
   studentId: string;
@@ -79,6 +83,7 @@ export type LearningSession = {
   questionsAttempted: number;
   questionsCorrect: number;
   note: string;
+  source?: LearningSessionSource;
 };
 
 

@@ -42,6 +42,13 @@ export function SemesterMasteryDashboard() {
             </div>
             <div className="rounded-[1.5rem] bg-white/10 px-6 py-4 text-center">
               <div className="text-4xl font-black">{plan.readinessScore}</div>
+              <div className="mt-3 space-y-1 text-xs text-slate-600">
+                <div>Phủ chương trình: {plan.curriculumCoverage}%</div>
+                <div>Mastery đã xác minh: {plan.verifiedMasteryCoverage}%</div>
+                {plan.unresolvedMisconceptionPenalty > 0 ? (
+                  <div>Khấu trừ misconception: -{plan.unresolvedMisconceptionPenalty}</div>
+                ) : null}
+              </div>
               <div className="text-xs font-black uppercase tracking-[0.1em] text-slate-300">
                 Readiness
               </div>

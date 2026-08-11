@@ -13,6 +13,7 @@ export type TeachingStrategy =
 export type SessionAttempt = {
   questionId: string;
   skillName: string;
+  canonicalSkillId?: string;
   choiceId: string;
   isCorrect: boolean;
   attemptNumber: number;
@@ -32,6 +33,7 @@ export type SessionAttempt = {
 
 export type SkillSessionSummary = {
   skillName: string;
+  canonicalSkillId?: string;
   questionsSeen: number;
   correctQuestions: number;
   firstTryCorrect: number;

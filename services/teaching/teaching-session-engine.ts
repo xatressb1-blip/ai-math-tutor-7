@@ -1,3 +1,4 @@
+import { canonicalSkillId, canonicalSkillName, sameCanonicalSkill } from "@/services/student/canonical-skill-registry";
 import { decideTeachingAction } from "@/services/teaching/teaching-brain";
 import type { LessonQuestion } from "@/types/lesson";
 import type { TeachingBrainDecision } from "@/types/teaching-brain";
@@ -112,7 +113,7 @@ function summarizeSkill(
   skillName: string,
   attempts: SessionAttempt[],
 ): SkillSessionSummary {
-  const skillAttempts = attempts.filter((item) => item.skillName === skillName);
+  const skillAttempts = attempts.filter((item) => sameCanonicalSkill(item.skillName, skillName));
   const questionIds = [...new Set(skillAttempts.map((item) => item.questionId))];
   const correctQuestionIds = new Set(
     skillAttempts.filter((item) => item.isCorrect).map((item) => item.questionId),
@@ -130,7 +131,8 @@ function summarizeSkill(
     .map((item) => item.confidenceScore);
 
   return {
-    skillName,
+    skillName: canonicalSkillName(skillName),
+    canonicalSkillId: canonicalSkillId(skillName),
     questionsSeen: questionIds.length,
     correctQuestions: correctQuestionIds.size,
     firstTryCorrect,
@@ -187,7 +189,11 @@ export function buildTeachingSessionSummary({
   const correctAttemptConfidences = attempts
     .filter((item) => item.isCorrect)
     .map((item) => item.confidenceScore);
-  const skillNames = [...new Set(attempts.map((item) => item.skillName))];
+  const skillNames = [
+    ...new Map(
+      attempts.map((item) => [canonicalSkillId(item.skillName), item.skillName]),
+    ).values(),
+  ];
   const skills = skillNames.map((skillName) => summarizeSkill(skillName, attempts));
 
   const questionQualityScores: number[] = questionIds.map((questionId) => {

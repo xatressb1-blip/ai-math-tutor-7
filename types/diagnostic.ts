@@ -25,6 +25,7 @@ export type DiagnosticQuestion = {
   domain: DiagnosticDomain;
   lessonNumber: 0 | 1 | 2 | 3 | 4;
   skillName: string;
+  canonicalSkillId?: string;
   difficulty: DiagnosticDifficulty;
   prompt: string;
   choices: DiagnosticChoice[];
@@ -39,6 +40,7 @@ export type DiagnosticAnswer = {
   domain: DiagnosticDomain;
   lessonNumber: number;
   skillName: string;
+  canonicalSkillId?: string;
   difficulty: DiagnosticDifficulty;
   choiceId: string;
   isCorrect: boolean;

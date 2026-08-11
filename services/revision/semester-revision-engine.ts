@@ -1,5 +1,7 @@
 import type { SemesterRevisionPlan } from "@/types/revision";
 import type { StudentBrainSnapshot } from "@/types/student";
+import { getCanonicalSkillDefinitions } from "@/services/student/canonical-skill-registry";
+import { hasSufficientMasteryEvidence, normalizeSkillEvidence } from "@/services/student/mastery-integrity-policy";
 
 function average(values: number[]): number {
   if (values.length === 0) return 0;
@@ -63,15 +65,62 @@ export function buildSemesterRevisionPlan(
     estimatedMinutes: 25,
   });
 
+  const studiedNodes = new Set([
+    ...brain.skills.map((item) => item.knowledgeNodeId),
+    ...brain.sessions.map((item) => item.knowledgeNodeId),
+  ]);
+  // Semester 1 has 19 lessons. Existing brains may not yet contain untouched
+  // lesson nodes, therefore coverage is deliberately capped by observed nodes.
+  const observedLessonCount = new Set(
+    [...studiedNodes].filter((node) => node.startsWith("lesson-")),
+  ).size;
+  const curriculumCoverage = Math.min(
+    100,
+    Math.round((observedLessonCount / 19) * 100),
+  );
+
+  const coreDefinitions = getCanonicalSkillDefinitions().filter(
+    (item) => item.tier === "CORE",
+  );
+  const verifiedCore = new Set(
+    brain.skills
+      .filter((skill) => {
+        const evidence = normalizeSkillEvidence(skill.evidence, skill);
+        return skill.status === "MASTERED" && hasSufficientMasteryEvidence(evidence);
+      })
+      .map((skill) => skill.canonicalSkillId)
+      .filter(Boolean),
+  );
+  const verifiedMasteryCoverage = coreDefinitions.length
+    ? Math.round(
+        (coreDefinitions.filter((item) => verifiedCore.has(item.skillId)).length /
+          coreDefinitions.length) *
+          100,
+      )
+    : 0;
+
+  const unresolvedMisconceptions = brain.mistakes.filter(
+    (item) => !item.resolved,
+  ).length;
+  const unresolvedMisconceptionPenalty = Math.min(
+    20,
+    unresolvedMisconceptions * 2,
+  );
+
+  const observedPerformance = Math.round(
+    masteryAverage * 0.45 +
+      confidenceAverage * 0.2 +
+      accuracyAverage * 0.35,
+  );
+  const coverageGate = Math.round(
+    curriculumCoverage * 0.6 + verifiedMasteryCoverage * 0.4,
+  );
   const readinessScore = Math.max(
     0,
     Math.min(
       100,
-      Math.round(
-        masteryAverage * 0.45 +
-          confidenceAverage * 0.2 +
-          accuracyAverage * 0.35,
-      ),
+      Math.min(observedPerformance, coverageGate + 10) -
+        unresolvedMisconceptionPenalty,
     ),
   );
 
@@ -84,5 +133,8 @@ export function buildSemesterRevisionPlan(
     strongestSkills,
     tasks,
     readinessScore,
+    curriculumCoverage,
+    verifiedMasteryCoverage,
+    unresolvedMisconceptionPenalty,
   };
 }

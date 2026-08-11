@@ -1,3 +1,4 @@
+import { sameCanonicalSkill } from "@/services/student/canonical-skill-registry";
 import type {
   AdaptiveDifficulty,
   AdaptiveExercise,
@@ -17,7 +18,7 @@ function getSkillBaseline(
   brain: StudentBrainSnapshot,
   skillName: string,
 ): { mastery: number; confidence: number } {
-  const skill = brain.skills.find((item) => item.skillName === skillName);
+  const skill = brain.skills.find((item) => sameCanonicalSkill(item.skillName, skillName));
   return {
     mastery: skill?.masteryScore ?? 50,
     confidence: skill?.confidence ?? 50,
@@ -29,7 +30,7 @@ function getSessionWrongCount(
   skillName: string,
 ): number {
   return attempts.filter(
-    (attempt) => attempt.skillName === skillName && !attempt.isCorrect,
+    (attempt) => sameCanonicalSkill(attempt.skillName, skillName) && !attempt.isCorrect,
   ).length;
 }
 
@@ -39,7 +40,7 @@ function getSessionFirstTryCorrect(
 ): number {
   return attempts.filter(
     (attempt) =>
-      attempt.skillName === skillName &&
+      sameCanonicalSkill(attempt.skillName, skillName) &&
       attempt.attemptNumber === 1 &&
       attempt.isCorrect,
   ).length;
@@ -134,7 +135,7 @@ export function selectAdaptiveExercise({
   usedIds: string[];
 }): AdaptiveExercise | null {
   const unused = bank.filter(
-    (question) => question.skillName === skillName && !usedIds.includes(question.id),
+    (question) => sameCanonicalSkill(question.skillName, skillName) && !usedIds.includes(question.id),
   );
   if (unused.length === 0) return null;
 

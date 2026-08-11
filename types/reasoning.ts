@@ -29,6 +29,7 @@ export type ReasoningProblem = {
   title: string;
   prompt: string;
   skillName: string;
+  canonicalSkillId?: string;
   difficulty: 1 | 2 | 3;
   steps: ReasoningStepDefinition[];
   finalAnswer: string;
@@ -69,6 +70,7 @@ export type ReasoningSessionSummary = {
   problemId: string;
   lessonId: string;
   skillName: string;
+  canonicalSkillId?: string;
   completed: boolean;
   correctSteps: number;
   totalSteps: number;

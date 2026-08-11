@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v2.8.2-beta.4 – Wave 4: Skill Identity, Progress & Multi-Student Integrity
+- Thêm Canonical Skill Registry và canonicalSkillId để evidence không phụ thuộc display string.
+- Hợp nhất các alias quan trọng Bài 8–14 và Bài 16–19; sửa phân mảnh do dấu chấm.
+- Thêm compatibility bridge giữa single Student Brain và multi-student workspace.
+- Đổi active student đồng bộ ngay brain tương ứng; save legacy brain cập nhật active workspace brain.
+- LearningSession có source; Reasoning-only không còn được dùng để hoàn thành Lesson Core.
+- Semester Readiness thêm curriculum coverage, verified mastery coverage và misconception penalty.
+- Thêm /pilot-readiness QA cho các invariant Wave 4.
+- Không thay đổi Supabase schema.
+
 ## v2.8.2-beta.3 – Wave 3: Diagnostic Accuracy & Student Brain Mastery Integrity
 - Thêm evidence gate tập trung cho Student Brain: Diagnostic / Lesson Core / Adaptive / Reasoning / Legacy.
 - Diagnostic-only bị cap mastery 72; một nguồn non-diagnostic bị cap 84.

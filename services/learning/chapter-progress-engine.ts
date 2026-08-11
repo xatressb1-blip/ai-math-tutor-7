@@ -13,12 +13,16 @@ function parseConfidence(note: string): number | null {
   return Number.isFinite(value) ? Math.max(0, Math.min(100, value)) : null;
 }
 
+function isCoreProgressSession(session: LearningSession): boolean {
+  return !session.source || session.source === "LEGACY" || session.source === "LESSON" || session.source === "ADAPTIVE";
+}
+
 function getLatestSession(
   sessions: LearningSession[],
   knowledgeNodeId: string,
 ): LearningSession | null {
   const matches = sessions
-    .filter((session) => session.knowledgeNodeId === knowledgeNodeId)
+    .filter((session) => session.knowledgeNodeId === knowledgeNodeId && isCoreProgressSession(session))
     .sort(
       (a, b) =>
         new Date(b.startedAt).getTime() - new Date(a.startedAt).getTime(),
@@ -111,7 +115,9 @@ export function buildChapterProgress({
 
   for (const lesson of ordered) {
     const sessions = brain.sessions.filter(
-      (session) => session.knowledgeNodeId === lesson.knowledgeNodeId,
+      (session) =>
+        session.knowledgeNodeId === lesson.knowledgeNodeId &&
+        isCoreProgressSession(session),
     );
     const latest = getLatestSession(brain.sessions, lesson.knowledgeNodeId);
     const masteryAverage = getMasteryAverage(brain, lesson.knowledgeNodeId);

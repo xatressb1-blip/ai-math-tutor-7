@@ -19,6 +19,9 @@ export type SemesterRevisionPlan = {
   strongestSkills: string[];
   tasks: RevisionTask[];
   readinessScore: number;
+  curriculumCoverage: number;
+  verifiedMasteryCoverage: number;
+  unresolvedMisconceptionPenalty: number;
 };
 
 export type MockTestQuestion = {

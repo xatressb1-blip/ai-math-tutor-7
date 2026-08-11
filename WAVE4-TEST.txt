@@ -1,0 +1,43 @@
+AI Math Tutor v2.8.2-beta.4 – WAVE 4 LOCAL TEST
+
+1. Copy đè ZIP vào C:\AI_Project\ai-math-tutor-7.
+2. Giữ nguyên .env.local. Không chạy SQL Supabase.
+3. Chưa Git/Tag/Vercel.
+
+BUILD
+npm run build
+npm run dev
+
+QA
+http://localhost:3000/knowledge-qa
+=> 19 PASS / 0 WARN / 0 FAIL / 100%
+
+http://localhost:3000/mastery-integrity
+=> 5/5 PASS
+
+http://localhost:3000/pilot-readiness
+=> 5/5 PASS
+
+MULTI-STUDENT A/B
+- Tạo A và B trong Pilot Roster.
+- Chọn A, vào Lesson Player và trả lời ít nhất 1 câu.
+- Quay lại roster, chọn B, làm một câu khác.
+- Quay lại A.
+PASS khi tiến trình A/B độc lập, tên active student không bị tráo và không cần Pull Cloud để đổi local identity.
+
+PROGRESS GATE
+- Vào trực tiếp một Reasoning Lab của bài chưa học.
+- Hoàn thành Reasoning.
+- Mở lộ trình chương.
+PASS khi Reasoning-only KHÔNG đánh dấu Lesson Core là COMPLETED.
+
+SEMESTER READINESS
+- Học sinh mới / rất ít coverage không được hiển thị readiness cao.
+- Readiness phải bị giới hạn bởi curriculum coverage và verified mastery coverage.
+
+CLOUD
+http://localhost:3000/cloud-activation
+=> 3 READY
+Không chạy migration SQL.
+
+Chỉ sau khi toàn bộ PASS mới Git/Vercel.

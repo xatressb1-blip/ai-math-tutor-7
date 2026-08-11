@@ -228,7 +228,9 @@ export function buildTeachingSessionSummary({
     strengths: skills
       .filter(
         (skill) =>
+          skill.questionsSeen >= 2 &&
           skill.correctQuestions === skill.questionsSeen &&
+          skill.firstTryCorrect >= 2 &&
           skill.averageConfidence >= 70,
       )
       .map((skill) => skill.skillName),

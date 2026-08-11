@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v2.8.2-beta.3 – Wave 3: Diagnostic Accuracy & Student Brain Mastery Integrity
+- Thêm evidence gate tập trung cho Student Brain: Diagnostic / Lesson Core / Adaptive / Reasoning / Legacy.
+- Diagnostic-only bị cap mastery 72; một nguồn non-diagnostic bị cap 84.
+- Chỉ MASTERED khi có ít nhất 2 nguồn evidence, >=4 evidence đúng và >=2 lần đúng độc lập lần đầu.
+- Lesson Core và Adaptive ghi provenance vào từng SessionAttempt.
+- Reasoning đồng bộ evidence theo bước đúng, first-try và misconception.
+- Diagnostic không còn có thể tạo false mastery từ một câu đúng; câu sai tạo MistakeRecord có category/label.
+- Diagnostic Bài 1 bỏ √2/π/√3 khỏi câu nhận biết hữu tỉ trước Chương II.
+- Diagnostic strong skill cần tối thiểu 2 mẫu thay vì một câu đúng đơn lẻ.
+- Learning Path yêu cầu ít nhất 2 câu đúng và ít nhất 1 câu đúng lần đầu trước khi ADVANCE.
+- Session Strength cần ít nhất 2 câu đúng độc lập, tránh false strength.
+- Thêm /mastery-integrity để QA trực tiếp các kịch bản false mastery.
+- Không thay đổi Supabase schema hoặc Cloud Pilot.
+
 ## v2.8.2-beta.2 – Wave 2: Reasoning Integrity & Coverage Depth
 - Bài 8: kiểm tra cấu trúc kề bù, đối đỉnh và đủ điều kiện tia phân giác.
 - Bài 9: khóa chiều suy luận dấu hiệu góc → song song; chặn hai góc bằng nhau bất kì.

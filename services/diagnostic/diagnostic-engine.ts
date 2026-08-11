@@ -167,6 +167,7 @@ export function buildDiagnosticResult(
 
   const skillRows = [...bySkill.entries()].map(([skillName, value]) => ({
     skillName,
+    total: value.total,
     rate: value.total ? value.correct / value.total : 0,
   }));
 
@@ -187,7 +188,7 @@ export function buildDiagnosticResult(
       .filter((row) => row.rate < 0.5)
       .map((row) => row.skillName),
     strongSkills: skillRows
-      .filter((row) => row.rate >= 0.8)
+      .filter((row) => row.total >= 2 && row.rate >= 0.8)
       .map((row) => row.skillName),
     answers,
   };

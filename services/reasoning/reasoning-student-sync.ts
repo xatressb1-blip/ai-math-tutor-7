@@ -1,15 +1,14 @@
 import type { LessonDefinition } from "@/types/lesson";
 import type { ReasoningSessionSummary } from "@/types/reasoning";
+import {
+  capMasteryByEvidence,
+  mergeSkillEvidence,
+  statusFromMasteryWithEvidence,
+} from "@/services/student/mastery-integrity-policy";
 import type { StudentBrainSnapshot, StudentSkill } from "@/types/student";
 
 function clamp(value: number): number {
   return Math.max(0, Math.min(100, Math.round(value)));
-}
-
-function status(score: number): StudentSkill["status"] {
-  if (score >= 85) return "MASTERED";
-  if (score >= 65) return "LEARNING";
-  return "NEEDS_REVIEW";
 }
 
 function slug(value: string): string {
@@ -45,7 +44,7 @@ export function syncReasoningSessionToStudentBrain({
       independenceScore * 0.05,
   );
 
-  const mastery = existing
+  const rawMastery = existing
     ? clamp(existing.masteryScore * 0.75 + sessionMastery * 0.25)
     : sessionMastery;
   const confidence = existing
@@ -55,6 +54,27 @@ export function syncReasoningSessionToStudentBrain({
           independenceScore * 0.15,
       )
     : clamp(summary.firstAttemptAccuracy * 0.55 + independenceScore * 0.45);
+
+  const correctSteps = new Set(
+    summary.attempts.filter((item) => item.isCorrect).map((item) => item.stepId),
+  ).size;
+  const firstTryCorrect = new Set(
+    summary.attempts
+      .filter((item) => item.isCorrect && item.attemptNumber === 1)
+      .map((item) => item.stepId),
+  ).size;
+  const evidence = mergeSkillEvidence(
+    existing?.evidence,
+    {
+      reasoningCorrectSteps: correctSteps,
+      independentFirstTryCorrect: firstTryCorrect,
+      wrongAttempts: summary.attempts.filter((item) => !item.isCorrect).length,
+      misconceptionCount: summary.attempts.filter((item) => Boolean(item.category)).length,
+      sources: correctSteps > 0 ? ["REASONING"] : [],
+    },
+    existing,
+  );
+  const mastery = capMasteryByEvidence(rawMastery, evidence);
 
   const skill: StudentSkill = {
     id: existing?.id ?? `skill-${slug(summary.skillName)}`,
@@ -67,8 +87,9 @@ export function syncReasoningSessionToStudentBrain({
     correctAttempts:
       (existing?.correctAttempts ?? 0) +
       summary.attempts.filter((item) => item.isCorrect).length,
-    status: status(mastery),
+    status: statusFromMasteryWithEvidence(mastery, evidence),
     lastPracticedAt: now,
+    evidence,
   };
 
   const skills = [...brain.skills];
@@ -132,7 +153,7 @@ export function syncReasoningSessionToStudentBrain({
           `Hint dependency ${summary.hintDependencyScore}% · ` +
           `Recovery ${summary.recoveryScore}% · ` +
           `Persistence ${summary.persistenceScore}/100 · ` +
-          `Misconceptions ${summary.misconceptionCount}.`,
+          `Misconceptions ${summary.misconceptionCount} · Evidence-gated mastery.`,
       },
     ],
   };

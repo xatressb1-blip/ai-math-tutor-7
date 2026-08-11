@@ -50,6 +50,10 @@ export function DiagnosticEntryTest() {
       1,
       Math.round((Date.now() - questionStartedAt.current) / 1000),
     );
+    const isCorrect = selectedChoice === question.correctChoiceId;
+    const diagnosticRule = question.diagnostics?.find(
+      (item) => item.choiceId === selectedChoice,
+    );
     const nextAnswer: DiagnosticAnswer = {
       questionId: question.id,
       domain: question.domain,
@@ -57,8 +61,14 @@ export function DiagnosticEntryTest() {
       skillName: question.skillName,
       difficulty: question.difficulty,
       choiceId: selectedChoice,
-      isCorrect: selectedChoice === question.correctChoiceId,
+      isCorrect,
       responseSeconds,
+      mistakeCategory: isCorrect
+        ? undefined
+        : diagnosticRule?.category ?? question.wrongAnswerCategory ?? "CONCEPT",
+      diagnosisLabel: isCorrect
+        ? undefined
+        : diagnosticRule?.label ?? `Diagnostic chưa chắc: ${question.skillName}`,
     };
     const nextAnswers = [...answers, nextAnswer];
     const nextQuestion = getNextDiagnosticQuestion({ answers: nextAnswers });

@@ -1,5 +1,5 @@
 import type { DiagnosticInsight } from "@/types/teaching-brain";
-import type { MistakeCategory } from "@/types/student";
+import type { MasteryEvidenceSource, MistakeCategory } from "@/types/student";
 
 export type TeachingStrategy =
   | "PRAISE_AND_ADVANCE"
@@ -21,6 +21,13 @@ export type SessionAttempt = {
   strategy: TeachingStrategy;
   mistakeCategory?: MistakeCategory;
   diagnosisLabel?: string;
+  /**
+   * Where this evidence came from. Optional for compatibility with old sessions.
+   */
+  evidenceSource?: Extract<
+    MasteryEvidenceSource,
+    "LESSON_CORE" | "ADAPTIVE" | "LEGACY"
+  >;
 };
 
 export type SkillSessionSummary = {

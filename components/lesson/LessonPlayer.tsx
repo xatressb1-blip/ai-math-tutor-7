@@ -218,6 +218,7 @@ export function LessonPlayer({
         strategy: result.feedback.strategy,
         mistakeCategory: result.feedback.brainDecision.diagnosis?.category,
         diagnosisLabel: result.feedback.brainDecision.diagnosis?.label,
+        evidenceSource: "LESSON_CORE",
       },
     ]);
     setAttemptCount(nextAttempt);

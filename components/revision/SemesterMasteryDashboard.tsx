@@ -5,6 +5,7 @@ import Link from "next/link";
 import { getDemoStudentBrain } from "@/services/student/student-brain-service";
 import { loadStudentBrainFromStorage } from "@/services/student/student-brain-storage";
 import { buildSemesterRevisionPlan } from "@/services/revision/semester-revision-engine";
+import { hasSufficientMasteryEvidence } from "@/services/student/mastery-integrity-policy";
 import type { StudentBrainSnapshot } from "@/types/student";
 
 export function SemesterMasteryDashboard() {
@@ -16,6 +17,13 @@ export function SemesterMasteryDashboard() {
   }, []);
 
   const plan = useMemo(() => buildSemesterRevisionPlan(brain), [brain]);
+  const evidenceTrackedSkills = brain.skills.filter((skill) => Boolean(skill.evidence)).length;
+  const verifiedMasteredSkills = brain.skills.filter(
+    (skill) =>
+      skill.status === "MASTERED" &&
+      Boolean(skill.evidence) &&
+      hasSufficientMasteryEvidence(skill.evidence!),
+  ).length;
 
   return (
     <main className="min-h-screen bg-[#f5f7fb] px-4 py-6 text-slate-950 sm:px-8">
@@ -41,10 +49,12 @@ export function SemesterMasteryDashboard() {
           </div>
         </header>
 
-        <section className="mt-5 grid gap-3 sm:grid-cols-3">
+        <section className="mt-5 grid gap-3 sm:grid-cols-5">
           <Metric label="Mastery TB" value={`${plan.masteryAverage}/100`} />
           <Metric label="Confidence TB" value={`${plan.confidenceAverage}/100`} />
           <Metric label="Accuracy" value={`${plan.accuracyAverage}%`} />
+          <Metric label="Skill có Evidence" value={`${evidenceTrackedSkills}`} />
+          <Metric label="Mastery đã xác minh" value={`${verifiedMasteredSkills}`} />
         </section>
 
         <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_0.72fr]">

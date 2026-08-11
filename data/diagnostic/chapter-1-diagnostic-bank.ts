@@ -59,16 +59,21 @@ export const chapter1DiagnosticBank: DiagnosticQuestion[] = [
     lessonNumber: 1,
     skillName: "Nhận biết số hữu tỉ",
     difficulty: 1,
-    prompt: "Số nào sau đây là số hữu tỉ?",
+    prompt: "Khẳng định nào đúng theo định nghĩa số hữu tỉ?",
     choices: [
-      { id: "a", text: "3/5" },
-      { id: "b", text: "√2" },
-      { id: "c", text: "π" },
-      { id: "d", text: "√3" },
+      { id: "a", text: "Số viết được dạng a/b với a,b nguyên và b ≠ 0" },
+      { id: "b", text: "Mọi số âm đều là số hữu tỉ" },
+      { id: "c", text: "Mọi số nằm bên trái 0 đều không phải số hữu tỉ" },
+      { id: "d", text: "Chỉ số nguyên mới là số hữu tỉ" },
     ],
     correctChoiceId: "a",
-    explanation: "3/5 có dạng a/b với a, b là số nguyên và b khác 0.",
+    explanation: "Đây là đúng định nghĩa số hữu tỉ và không cần dùng kiến thức số vô tỉ của chương sau.",
     wrongAnswerCategory: "CONCEPT",
+    diagnostics: [
+      { choiceId: "b", category: "CONCEPT", label: "Dùng dấu âm thay cho định nghĩa số hữu tỉ" },
+      { choiceId: "c", category: "CONCEPT", label: "Nhầm vị trí trên trục số với loại số" },
+      { choiceId: "d", category: "CONCEPT", label: "Nhầm số hữu tỉ chỉ gồm số nguyên" },
+    ],
   },
   {
     id: "d-l1-2",
@@ -86,6 +91,11 @@ export const chapter1DiagnosticBank: DiagnosticQuestion[] = [
     correctChoiceId: "a",
     explanation: "Hai số đối nhau có tổng bằng 0.",
     wrongAnswerCategory: "CONCEPT",
+    diagnostics: [
+      { choiceId: "b", category: "CONCEPT", label: "Nhầm số đối với số nghịch đảo" },
+      { choiceId: "c", category: "CONCEPT", label: "Lấy nghịch đảo thay vì đổi dấu" },
+      { choiceId: "d", category: "SIGN", label: "Giữ nguyên số thay vì tìm số đối" },
+    ],
   },
   {
     id: "d-l1-3",
@@ -242,6 +252,11 @@ export const chapter1DiagnosticBank: DiagnosticQuestion[] = [
     correctChoiceId: "a",
     explanation: "Chuyển +5 sang vế phải thành -5: x = 12 - 5 = 7.",
     wrongAnswerCategory: "SIGN",
+    diagnostics: [
+      { choiceId: "b", category: "SIGN", label: "Chuyển vế nhưng không đổi dấu" },
+      { choiceId: "c", category: "SIGN", label: "Đổi dấu kết quả sau khi chuyển vế" },
+      { choiceId: "d", category: "PROCEDURE", label: "Nhầm cả phép chuyển vế và dấu" },
+    ],
   },
   {
     id: "d-l4-3",

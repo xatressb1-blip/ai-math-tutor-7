@@ -14,6 +14,12 @@ export type DiagnosticChoice = {
   text: string;
 };
 
+export type DiagnosticChoiceDiagnostic = {
+  choiceId: string;
+  category: MistakeCategory;
+  label: string;
+};
+
 export type DiagnosticQuestion = {
   id: string;
   domain: DiagnosticDomain;
@@ -25,6 +31,7 @@ export type DiagnosticQuestion = {
   correctChoiceId: string;
   explanation: string;
   wrongAnswerCategory?: MistakeCategory;
+  diagnostics?: DiagnosticChoiceDiagnostic[];
 };
 
 export type DiagnosticAnswer = {
@@ -36,6 +43,8 @@ export type DiagnosticAnswer = {
   choiceId: string;
   isCorrect: boolean;
   responseSeconds: number;
+  mistakeCategory?: MistakeCategory;
+  diagnosisLabel?: string;
 };
 
 export type DiagnosticLessonScore = {

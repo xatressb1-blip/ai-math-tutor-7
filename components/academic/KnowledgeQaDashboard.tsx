@@ -9,7 +9,7 @@ export function KnowledgeQaDashboard() {
       <div className="mx-auto max-w-7xl">
         <header className="rounded-[2rem] bg-slate-950 p-6 text-white sm:p-8">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">
-            v2.8.1 · Knowledge QA
+            v2.8.2-beta.3 · Knowledge QA + Mastery Integrity
           </p>
           <div className="mt-3 flex flex-wrap items-end justify-between gap-5">
             <div>
@@ -22,12 +22,20 @@ export function KnowledgeQaDashboard() {
                 Student Brain hay chưa.
               </p>
             </div>
-            <Link
-              href="/knowledge-engine"
-              className="rounded-2xl bg-white px-5 py-3 text-sm font-black text-slate-950"
-            >
-              Knowledge Engine →
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/mastery-integrity"
+                className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-black text-slate-950"
+              >
+                Mastery Integrity →
+              </Link>
+              <Link
+                href="/knowledge-engine"
+                className="rounded-2xl bg-white px-5 py-3 text-sm font-black text-slate-950"
+              >
+                Knowledge Engine →
+              </Link>
+            </div>
           </div>
         </header>
 

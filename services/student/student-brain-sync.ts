@@ -1,6 +1,11 @@
 import type { LessonDefinition } from "@/types/lesson";
+import {
+  capMasteryByEvidence,
+  evidenceDeltaFromTeachingAttempts,
+  mergeSkillEvidence,
+  statusFromMasteryWithEvidence,
+} from "@/services/student/mastery-integrity-policy";
 import type {
-  MasteryStatus,
   MistakeRecord,
   StudentBrainSnapshot,
   StudentSkill,
@@ -24,12 +29,6 @@ function slugify(value: string): string {
     .replace(/^-|-$/g, "");
 }
 
-function statusFromMastery(score: number): MasteryStatus {
-  if (score >= 85) return "MASTERED";
-  if (score >= 65) return "LEARNING";
-  return "NEEDS_REVIEW";
-}
-
 function calculateSessionMastery(skill: SkillSessionSummary): number {
   if (skill.questionsSeen === 0) return 0;
 
@@ -44,23 +43,32 @@ function calculateSessionMastery(skill: SkillSessionSummary): number {
 function mergeSkill({
   current,
   session,
+  skillAttempts,
   studentId,
   knowledgeNodeId,
   timestamp,
 }: {
   current?: StudentSkill;
   session: SkillSessionSummary;
+  skillAttempts: SessionAttempt[];
   studentId: string;
   knowledgeNodeId: string;
   timestamp: string;
 }): StudentSkill {
   const sessionMastery = calculateSessionMastery(session);
-  const nextMastery = current
+  const rawMastery = current
     ? clamp(current.masteryScore * 0.7 + sessionMastery * 0.3)
     : sessionMastery;
   const nextConfidence = current
     ? clamp(current.confidence * 0.65 + session.averageConfidence * 0.35)
     : clamp(session.averageConfidence);
+
+  const evidence = mergeSkillEvidence(
+    current?.evidence,
+    evidenceDeltaFromTeachingAttempts(skillAttempts),
+    current,
+  );
+  const nextMastery = capMasteryByEvidence(rawMastery, evidence);
 
   return {
     id: current?.id ?? `skill-${slugify(session.skillName)}`,
@@ -71,8 +79,9 @@ function mergeSkill({
     confidence: nextConfidence,
     attempts: (current?.attempts ?? 0) + session.questionsSeen,
     correctAttempts: (current?.correctAttempts ?? 0) + session.correctQuestions,
-    status: statusFromMastery(nextMastery),
+    status: statusFromMasteryWithEvidence(nextMastery, evidence),
     lastPracticedAt: timestamp,
+    evidence,
   };
 }
 
@@ -188,9 +197,13 @@ export function syncTeachingSessionToStudentBrain({
       (item) => item.skillName === skillSummary.skillName,
     );
     const current = existingIndex >= 0 ? skills[existingIndex] : undefined;
+    const skillAttempts = attempts.filter(
+      (item) => item.skillName === skillSummary.skillName,
+    );
     const merged = mergeSkill({
       current,
       session: skillSummary,
+      skillAttempts,
       studentId: brain.profile.id,
       knowledgeNodeId: lesson.knowledgeNodeId,
       timestamp: completedAt,
@@ -229,7 +242,7 @@ export function syncTeachingSessionToStudentBrain({
         durationMinutes: summary.elapsedMinutes,
         questionsAttempted: summary.totalQuestions,
         questionsCorrect: summary.correctQuestions,
-        note: `${strengths}${review} Confidence ${summary.confidenceScore}/100.`,
+        note: `${strengths}${review} Confidence ${summary.confidenceScore}/100. Mastery áp dụng evidence gate v2.8.2-beta.3.`,
       },
     ],
   };

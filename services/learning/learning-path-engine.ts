@@ -12,6 +12,9 @@ export function decideLearningPath({
   summary: TeachingSessionSummary;
 }): LearningPathDecision {
   const readyToAdvance =
+    summary.totalQuestions >= 2 &&
+    summary.correctQuestions >= 2 &&
+    summary.firstTryCorrect >= 1 &&
     summary.score >= 70 &&
     summary.confidenceScore >= 55 &&
     summary.reviewSkills.length <= 1;

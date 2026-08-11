@@ -12,6 +12,25 @@ export type MistakeCategory =
   | "PROCEDURE"
   | "READING";
 
+
+export type MasteryEvidenceSource =
+  | "DIAGNOSTIC"
+  | "LESSON_CORE"
+  | "ADAPTIVE"
+  | "REASONING"
+  | "LEGACY";
+
+export type SkillEvidenceProfile = {
+  diagnosticCorrect: number;
+  lessonCoreCorrect: number;
+  adaptiveCorrect: number;
+  reasoningCorrectSteps: number;
+  independentFirstTryCorrect: number;
+  wrongAttempts: number;
+  misconceptionCount: number;
+  sources: MasteryEvidenceSource[];
+};
+
 export type StudentProfile = {
   id: string;
   displayName: string;
@@ -33,6 +52,11 @@ export type StudentSkill = {
   correctAttempts: number;
   status: MasteryStatus;
   lastPracticedAt?: string;
+  /**
+   * Evidence metadata added in v2.8.2-beta.3.
+   * Optional for backward compatibility with Student Brain snapshots from older betas.
+   */
+  evidence?: SkillEvidenceProfile;
 };
 
 export type MistakeRecord = {

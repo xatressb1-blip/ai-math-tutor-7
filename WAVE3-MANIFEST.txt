@@ -1,0 +1,24 @@
+AI Math Tutor v2.8.2-beta.3 – Wave 3
+Diagnostic Accuracy & Student Brain Mastery Integrity
+
+STATIC QA: PASS
+- Evidence provenance: DIAGNOSTIC / LESSON_CORE / ADAPTIVE / REASONING / LEGACY.
+- Diagnostic-only mastery cap = 72.
+- One non-diagnostic source mastery cap = 84.
+- MASTERED requires >=2 evidence sources + >=4 correct non-diagnostic evidence units + >=2 independent first-try correct.
+- Core Lesson attempts tagged LESSON_CORE.
+- Adaptive attempts tagged ADAPTIVE.
+- Reasoning sync records correct steps, first-try, wrong attempts and misconceptions.
+- Diagnostic wrong answers create MistakeRecord with category + diagnosis label.
+- Bài 1 Diagnostic no longer uses √2 / π / √3 before Chapter II.
+- Diagnostic strong skill needs >=2 samples.
+- Learning Path cannot ADVANCE from one lucky answer.
+- Session Strength cannot be created from one lucky question.
+- /mastery-integrity has 5 policy checks.
+- Policy runtime simulation: 7/7 PASS.
+- TypeScript parser scan: no TS1xxx syntax errors.
+- Cloud/Supabase scope unchanged.
+
+FULL BUILD:
+Not completed in packaging environment because dependency installation was incomplete.
+Run `npm run build` locally before Git/Vercel.

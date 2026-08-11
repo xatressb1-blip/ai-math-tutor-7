@@ -122,6 +122,7 @@ export function AdaptivePractice({
       strategy: result.feedback.strategy,
       mistakeCategory: result.feedback.brainDecision.diagnosis?.category,
       diagnosisLabel: result.feedback.brainDecision.diagnosis?.label,
+      evidenceSource: "ADAPTIVE",
     };
 
     setAdaptiveAttempts((items) => [...items, attempt]);

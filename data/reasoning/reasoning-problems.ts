@@ -271,167 +271,611 @@ export const reasoningProblems: ReasoningProblem[] = [
   finalAnswer: "|-5| = 5",
 },
 {
+  id: "reasoning-l8-ke-bu-counterexample",
+  lessonId: "lesson-player-08",
+  knowledgeNodeId: "lesson-8-goc-dac-biet-tia-phan-giac",
+  title: "Phản ví dụ cho góc kề bù",
+  prompt: "Hai góc có tổng 180° nhưng không chung cạnh. Một bạn kết luận chúng kề bù. Hãy chỉ ra lỗi.",
+  skillName: "Nhận diện góc kề bù",
+  difficulty: 2,
+  steps: [
+    {
+      id: "conditions",
+      instruction: "Bước 1: Nêu các điều kiện cần để hai góc là kề bù.",
+      acceptedPatterns: ["kề nhau", "tia đối"],
+      requiredPatternGroups: [
+        ["kề nhau", "chung cạnh"],
+        ["tia đối", "hai cạnh còn lại đối nhau"]
+      ],
+      keyIdea: "Kề bù cần vừa kề nhau vừa có hai cạnh còn lại là hai tia đối nhau.",
+      hint1: "Tên 'kề bù' chứa hai điều kiện.",
+      hint2: "Kiểm tra chung cạnh và hai cạnh còn lại.",
+      explanation: "Hai góc phải kề nhau và hai cạnh còn lại là hai tia đối nhau.",
+    },
+    {
+      id: "diagnose",
+      instruction: "Bước 2: Nêu vì sao tổng 180° chưa đủ.",
+      acceptedPatterns: ["không kề", "chưa đủ", "tổng 180"],
+      keyIdea: "Tổng 180° chỉ cho biết hai góc bù, chưa cho biết chúng kề nhau.",
+      hint1: "Đề nói hai góc không chung cạnh.",
+      hint2: "Không kề nhau thì không thể gọi là kề bù.",
+      explanation: "Kết luận của bạn sai vì thiếu điều kiện kề nhau.",
+      misconceptionPatterns: [
+        {
+          pattern: "chỉ cần tổng 180",
+          category: "CONCEPT",
+          label: "KE_BU_SUM_ONLY",
+          feedback: "Tổng 180° chỉ cho biết hai góc bù; em còn phải kiểm tra vị trí kề nhau."
+        }
+      ],
+    },
+  ],
+  finalAnswer: "Không thể kết luận kề bù chỉ từ tổng 180°",
+},
+{
   id: "reasoning-l8-bisector",
   lessonId: "lesson-player-08",
   knowledgeNodeId: "lesson-8-goc-dac-biet-tia-phan-giac",
-  title: "Tính góc bằng tia phân giác",
-  prompt: "Góc xOy = 120°, Om là tia phân giác. Tính góc xOm và giải thích.",
-  skillName: "Tia phân giác",
+  title: "Kiểm tra đủ điều kiện tia phân giác",
+  prompt: "Om nằm trong ∠xOy, ∠xOm = ∠mOy và ∠xOy = 120°. Hãy giải thích vì sao Om là phân giác rồi tính ∠xOm.",
+  skillName: "Điều kiện tia phân giác",
   difficulty: 2,
   steps: [
     {
       id: "definition",
-      instruction: "Bước 1: Nêu tính chất của tia phân giác Om.",
-      acceptedPatterns: ["xom=moy", "xOm = mOy", "hai goc bang nhau", "hai góc bằng nhau"],
-      keyIdea: "Tia phân giác tạo hai góc bằng nhau.",
-      hint1: "Om chia góc xOy thành mấy phần?",
-      hint2: "Hai góc xOm và mOy bằng nhau.",
-      explanation: "∠xOm = ∠mOy.",
+      instruction: "Bước 1: Nêu đủ hai điều kiện cho thấy Om là tia phân giác.",
+      acceptedPatterns: ["nằm trong", "xOm = mOy"],
+      requiredPatternGroups: [
+        ["nằm trong", "ở trong"],
+        ["xOm = mOy", "hai góc bằng nhau"]
+      ],
+      keyIdea: "Om nằm trong góc và tạo hai góc bằng nhau.",
+      hint1: "Định nghĩa có một điều kiện vị trí và một điều kiện số đo.",
+      hint2: "Om nằm trong ∠xOy; ∠xOm = ∠mOy.",
+      explanation: "Đủ hai điều kiện nên Om là tia phân giác.",
     },
     {
       id: "calculate",
-      instruction: "Bước 2: Tính số đo một góc nhỏ.",
-      acceptedPatterns: ["120:2=60", "120 / 2 = 60", "60°", "60 do"],
-      keyIdea: "120° : 2 = 60°.",
-      hint1: "Hai phần bằng nhau nên chia tổng cho 2.",
+      instruction: "Bước 2: Tính ∠xOm.",
+      acceptedPatterns: ["60°", "120 : 2", "120/2"],
+      keyIdea: "Tia phân giác chia 120° thành hai góc 60°.",
+      hint1: "Hai phần bằng nhau.",
       hint2: "120 : 2.",
       explanation: "∠xOm = 60°.",
     },
   ],
-  finalAnswer: "∠xOm = 60°",
+  finalAnswer: "Om là tia phân giác và ∠xOm = 60°",
 },
 {
   id: "reasoning-l9-parallel",
   lessonId: "lesson-player-09",
   knowledgeNodeId: "lesson-9-hai-duong-thang-song-song-dau-hieu",
-  title: "Chứng minh hai đường thẳng song song",
-  prompt: "Đường c cắt a và b tạo một cặp góc so le trong cùng bằng 65°. Hãy kết luận a và b.",
-  skillName: "Dấu hiệu hai đường thẳng song song",
+  title: "Dùng đúng dấu hiệu song song",
+  prompt: "Đường c cắt a và b tạo một cặp góc so le trong cùng bằng 65°. Hãy chứng minh a ∥ b.",
+  skillName: "Dấu hiệu so le trong",
   difficulty: 2,
   steps: [
     {
       id: "identify",
-      instruction: "Bước 1: Xác định vị trí và quan hệ của cặp góc.",
-      acceptedPatterns: ["so le trong", "65", "bang nhau", "bằng nhau"],
-      keyIdea: "Đó là một cặp góc so le trong bằng nhau.",
-      hint1: "Cặp góc nằm ở vị trí nào so với đường cắt?",
-      hint2: "Đề đã cho chúng là so le trong.",
-      explanation: "Cặp góc so le trong có cùng số đo 65°.",
+      instruction: "Bước 1: Nêu đủ vị trí và quan hệ của cặp góc.",
+      acceptedPatterns: ["so le trong", "bằng nhau"],
+      requiredPatternGroups: [
+        ["so le trong"],
+        ["bằng nhau", "cùng bằng 65"]
+      ],
+      keyIdea: "Đây là cặp góc so le trong bằng nhau.",
+      hint1: "Nêu loại cặp góc trước.",
+      hint2: "So le trong và cùng bằng 65°.",
+      explanation: "Có một cặp góc so le trong bằng nhau.",
     },
     {
       id: "conclude",
-      instruction: "Bước 2: Dùng dấu hiệu nhận biết để kết luận.",
-      acceptedPatterns: ["a∥b", "a // b", "a song song b"],
-      keyIdea: "Có cặp góc so le trong bằng nhau nên a ∥ b.",
-      hint1: "Nhớ dấu hiệu nhận biết hai đường thẳng song song.",
-      hint2: "So le trong bằng nhau → song song.",
-      explanation: "Kết luận a ∥ b.",
+      instruction: "Bước 2: Gọi đúng dấu hiệu và kết luận.",
+      acceptedPatterns: ["dấu hiệu", "a ∥ b", "a song song b"],
+      requiredPatternGroups: [
+        ["dấu hiệu", "nhận biết"],
+        ["a ∥ b", "a song song b", "a // b"]
+      ],
+      keyIdea: "Theo dấu hiệu nhận biết, a ∥ b.",
+      hint1: "Đây là chiều góc → song song.",
+      hint2: "Nêu tên dấu hiệu rồi kết luận a ∥ b.",
+      explanation: "Theo dấu hiệu nhận biết hai đường thẳng song song, a ∥ b.",
+      misconceptionPatterns: [
+        {
+          pattern: "tính chất hai đường thẳng song song",
+          category: "CONCEPT",
+          label: "DIRECTIONALITY_PROPERTY_FOR_SIGN",
+          feedback: "Ở đây song song chưa được cho; em đang dùng dấu hiệu nhận biết, không phải tính chất."
+        }
+      ],
     },
   ],
-  finalAnswer: "a ∥ b",
+  finalAnswer: "Theo dấu hiệu so le trong bằng nhau, a ∥ b",
+},
+{
+  id: "reasoning-l9-invalid-pair",
+  lessonId: "lesson-player-09",
+  knowledgeNodeId: "lesson-9-hai-duong-thang-song-song-dau-hieu",
+  title: "Hai góc bằng nhau bất kì chưa đủ",
+  prompt: "Đường c cắt a và b. Hai góc bằng nhau nhưng không phải cặp so le trong hay đồng vị tương ứng. Có thể kết luận a ∥ b không? Vì sao?",
+  skillName: "Điều kiện dấu hiệu song song",
+  difficulty: 3,
+  steps: [
+    {
+      id: "check-position",
+      instruction: "Bước 1: Kiểm tra vị trí của cặp góc.",
+      acceptedPatterns: ["không phải", "so le trong", "đồng vị"],
+      requiredPatternGroups: [
+        ["không phải", "không đúng"],
+        ["so le trong", "đồng vị"]
+      ],
+      keyIdea: "Cặp góc không thuộc vị trí được dùng trong dấu hiệu.",
+      hint1: "Không chỉ kiểm tra số đo; hãy kiểm tra loại cặp góc.",
+      hint2: "Đề đã nói chúng không phải cặp thích hợp.",
+      explanation: "Cặp góc không thỏa điều kiện vị trí.",
+    },
+    {
+      id: "conclusion",
+      instruction: "Bước 2: Kết luận mức độ đủ dữ kiện.",
+      acceptedPatterns: ["chưa đủ", "không thể kết luận", "không kết luận"],
+      keyIdea: "Hai góc bằng nhau bất kì không đủ để kết luận song song.",
+      hint1: "Dấu hiệu cần cả vị trí lẫn quan hệ bằng nhau.",
+      hint2: "Thiếu điều kiện vị trí nên chưa đủ.",
+      explanation: "Không thể kết luận a ∥ b chỉ từ dữ kiện này.",
+      misconceptionPatterns: [
+        {
+          pattern: "hai góc bằng nhau nên song song",
+          category: "CONCEPT",
+          label: "ANGLE_PAIR_TYPE_ERROR",
+          feedback: "Hai góc bằng nhau bất kì không đủ; cần đúng cặp so le trong hoặc đồng vị."
+        }
+      ],
+    },
+  ],
+  finalAnswer: "Chưa đủ dữ kiện để kết luận a ∥ b",
 },
 {
   id: "reasoning-l10-euclid",
   lessonId: "lesson-player-10",
   knowledgeNodeId: "lesson-10-tien-de-euclid-tinh-chat-song-song",
-  title: "Tính góc khi hai đường thẳng song song",
-  prompt: "Biết a ∥ b, c cắt a và b. Một góc đồng vị bằng 110°. Tính góc đồng vị tương ứng.",
-  skillName: "Tính chất hai đường thẳng song song",
+  title: "Tính góc từ giả thiết song song",
+  prompt: "Biết a ∥ b, c cắt a và b. Một góc đồng vị bằng 110°. Tính góc đồng vị tương ứng và nêu chiều suy luận.",
+  skillName: "Tính chất góc đồng vị",
   difficulty: 2,
   steps: [
     {
+      id: "given-direction",
+      instruction: "Bước 1: Xác định GIVEN và tên kiến thức cần dùng.",
+      acceptedPatterns: ["a ∥ b", "tính chất"],
+      requiredPatternGroups: [
+        ["a ∥ b", "a song song b"],
+        ["tính chất"]
+      ],
+      keyIdea: "Song song là GIVEN nên dùng tính chất hai đường thẳng song song.",
+      hint1: "Điều nào đã được cho?",
+      hint2: "a ∥ b là giả thiết; đây là chiều song song → góc.",
+      explanation: "Dùng tính chất của hai đường thẳng song song.",
+      misconceptionPatterns: [
+        {
+          pattern: "dấu hiệu nhận biết",
+          category: "CONCEPT",
+          label: "DIRECTIONALITY_SIGN_FOR_PROPERTY",
+          feedback: "Dấu hiệu dùng khi cần suy ra song song. Ở đây a ∥ b đã là giả thiết."
+        }
+      ],
+    },
+    {
       id: "property",
-      instruction: "Bước 1: Nêu tính chất cần dùng.",
-      acceptedPatterns: ["dong vi bang nhau", "đồng vị bằng nhau", "a∥b"],
-      keyIdea: "Khi một đường cắt hai đường song song, các góc đồng vị bằng nhau.",
-      hint1: "Đã biết a ∥ b, vậy đây là dấu hiệu hay tính chất?",
-      hint2: "Dùng tính chất của hai đường thẳng song song.",
-      explanation: "Hai góc đồng vị tương ứng bằng nhau.",
+      instruction: "Bước 2: Nêu quan hệ của hai góc đồng vị.",
+      acceptedPatterns: ["đồng vị bằng nhau", "hai góc bằng nhau"],
+      keyIdea: "Các góc đồng vị tương ứng bằng nhau.",
+      hint1: "Đường c cắt hai đường song song.",
+      hint2: "Góc đồng vị tương ứng bằng nhau.",
+      explanation: "Hai góc đồng vị bằng nhau.",
     },
     {
       id: "answer",
-      instruction: "Bước 2: Kết luận số đo.",
-      acceptedPatterns: ["110°", "110 do", "110"],
-      keyIdea: "Góc tương ứng cũng bằng 110°.",
-      hint1: "Hai góc bằng nhau.",
-      hint2: "Giữ nguyên số đo 110°.",
+      instruction: "Bước 3: Kết luận số đo.",
+      acceptedPatterns: ["110°", "110"],
+      keyIdea: "Góc tương ứng bằng 110°.",
+      hint1: "Hai góc có cùng số đo.",
+      hint2: "Giữ nguyên 110°.",
       explanation: "Góc đồng vị tương ứng bằng 110°.",
     },
   ],
-  finalAnswer: "110°",
+  finalAnswer: "110° theo tính chất hai đường thẳng song song",
+},
+{
+  id: "reasoning-l10-perpendicular",
+  lessonId: "lesson-player-10",
+  knowledgeNodeId: "lesson-10-tien-de-euclid-tinh-chat-song-song",
+  title: "Vuông góc với một trong hai đường song song",
+  prompt: "Biết a ∥ b và c ⟂ a. Hãy giải thích vì sao c ⟂ b.",
+  skillName: "Vuông góc với hai đường song song",
+  difficulty: 2,
+  steps: [
+    {
+      id: "right-angle",
+      instruction: "Bước 1: Từ c ⟂ a, nêu số đo góc c tạo với a.",
+      acceptedPatterns: ["90°", "90"],
+      keyIdea: "c ⟂ a nên góc tạo bởi c và a bằng 90°.",
+      hint1: "Định nghĩa vuông góc.",
+      hint2: "Góc vuông bằng 90°.",
+      explanation: "Góc c với a là 90°.",
+    },
+    {
+      id: "parallel-transfer",
+      instruction: "Bước 2: Dùng a ∥ b để suy ra góc tương ứng c tạo với b.",
+      acceptedPatterns: ["đồng vị", "90°", "bằng nhau"],
+      requiredPatternGroups: [
+        ["đồng vị", "tương ứng"],
+        ["90°", "90", "bằng nhau"]
+      ],
+      keyIdea: "Góc tương ứng bằng 90°.",
+      hint1: "Đường c là đường cắt hai đường song song a,b.",
+      hint2: "Góc đồng vị tương ứng bằng nhau.",
+      explanation: "Góc c tạo với b cũng bằng 90°.",
+    },
+    {
+      id: "conclude",
+      instruction: "Bước 3: Kết luận.",
+      acceptedPatterns: ["c ⟂ b", "c vuông góc b"],
+      keyIdea: "Góc tạo bởi c,b bằng 90° nên c ⟂ b.",
+      hint1: "Quay lại định nghĩa vuông góc.",
+      hint2: "Góc 90° ⇒ vuông góc.",
+      explanation: "c ⟂ b.",
+    },
+  ],
+  finalAnswer: "c ⟂ b",
 },
 {
   id: "reasoning-l11-theorem",
   lessonId: "lesson-player-11",
   knowledgeNodeId: "lesson-11-dinh-li-chung-minh",
-  title: "Tách giả thiết và kết luận",
-  prompt: "Với định lí: 'Nếu một đường thẳng cắt hai đường thẳng song song thì hai góc đồng vị bằng nhau', hãy nêu giả thiết và kết luận.",
+  title: "GIVEN và GOAL của định lí",
+  prompt: "Với định lí 'Nếu một đường thẳng cắt hai đường thẳng song song thì hai góc đồng vị bằng nhau', hãy nêu GIVEN và GOAL.",
   skillName: "Giả thiết và kết luận",
   difficulty: 2,
   steps: [
     {
       id: "hypothesis",
-      instruction: "Bước 1: Nêu giả thiết.",
-      acceptedPatterns: ["hai duong thang song song", "hai đường thẳng song song", "duong cat", "đường cắt"],
-      keyIdea: "Giả thiết: có hai đường thẳng song song và một đường thẳng cắt chúng.",
+      instruction: "Bước 1: Nêu đầy đủ giả thiết.",
+      acceptedPatterns: ["hai đường thẳng song song", "đường cắt"],
+      requiredPatternGroups: [
+        ["hai đường thẳng song song", "a ∥ b"],
+        ["đường cắt", "c cắt"]
+      ],
+      keyIdea: "GIVEN gồm hai đường thẳng song song và một đường cắt.",
       hint1: "Phần từ sau 'Nếu' đến trước 'thì'.",
-      hint2: "Tìm điều đã cho.",
-      explanation: "GT: hai đường thẳng song song, có một đường thẳng cắt cả hai.",
+      hint2: "Có hai dữ kiện: song song và đường cắt.",
+      explanation: "GT: hai đường thẳng song song và có một đường cắt chúng.",
     },
     {
       id: "conclusion",
       instruction: "Bước 2: Nêu kết luận.",
-      acceptedPatterns: ["goc dong vi bang nhau", "góc đồng vị bằng nhau", "dong vi bang nhau"],
-      keyIdea: "Kết luận: hai góc đồng vị tương ứng bằng nhau.",
+      acceptedPatterns: ["góc đồng vị bằng nhau", "đồng vị bằng nhau"],
+      keyIdea: "GOAL là cặp góc đồng vị tương ứng bằng nhau.",
       hint1: "Phần sau từ 'thì'.",
-      hint2: "Đó là điều cần chứng minh.",
+      hint2: "Điều cần suy ra là quan hệ giữa cặp góc.",
       explanation: "KL: cặp góc đồng vị tương ứng bằng nhau.",
     },
   ],
-  finalAnswer: "GT: hai đường thẳng song song có đường cắt; KL: góc đồng vị bằng nhau",
+  finalAnswer: "GIVEN: song song + đường cắt; GOAL: góc đồng vị bằng nhau",
 },
-
+{
+  id: "reasoning-l11-circular",
+  lessonId: "lesson-player-11",
+  knowledgeNodeId: "lesson-11-dinh-li-chung-minh",
+  title: "Phát hiện chứng minh vòng tròn",
+  prompt: "Cần chứng minh a ∥ b. Một lời giải mở đầu: 'Vì a ∥ b nên hai góc so le trong bằng nhau...'. Hãy chẩn đoán lỗi và sửa hướng.",
+  skillName: "Phát hiện lập luận vòng tròn",
+  difficulty: 3,
+  steps: [
+    {
+      id: "diagnose",
+      instruction: "Bước 1: Chỉ ra điều bạn ấy đã dùng sai.",
+      acceptedPatterns: ["dùng kết luận", "giả sử a ∥ b", "vòng tròn"],
+      keyIdea: "Bạn ấy dùng chính a ∥ b, điều cần chứng minh, làm tiền đề.",
+      hint1: "So sánh câu mở đầu với GOAL.",
+      hint2: "GOAL a ∥ b đã bị giả sử là đúng.",
+      explanation: "Đây là lập luận vòng tròn.",
+      misconceptionPatterns: [
+        {
+          pattern: "lời giải đúng",
+          category: "PROCEDURE",
+          label: "CIRCULAR_REASONING",
+          feedback: "Không thể dùng chính kết luận làm giả thiết để chứng minh nó."
+        }
+      ],
+    },
+    {
+      id: "repair",
+      instruction: "Bước 2: Nêu hướng sửa hợp lệ.",
+      acceptedPatterns: ["giả thiết", "góc so le trong", "góc đồng vị", "dấu hiệu"],
+      requiredPatternGroups: [
+        ["giả thiết", "dữ kiện"],
+        ["dấu hiệu", "so le trong", "đồng vị"]
+      ],
+      keyIdea: "Phải xuất phát từ dữ kiện thật, chứng minh một cặp góc thích hợp bằng nhau rồi dùng dấu hiệu.",
+      hint1: "Bắt đầu từ điều đề bài thực sự cho.",
+      hint2: "Nếu chứng minh được cặp so le trong/đồng vị bằng nhau, dùng dấu hiệu song song.",
+      explanation: "Sửa bằng chuỗi GIVEN → quan hệ góc → dấu hiệu → a ∥ b.",
+    },
+  ],
+  finalAnswer: "Không dùng a ∥ b làm tiền đề; phải đi từ giả thiết đến dấu hiệu song song",
+},
 {
   id: "reasoning-l12-angle-sum",
   lessonId: "lesson-player-12",
   knowledgeNodeId: "lesson-12-academic12",
   title: "Tìm góc còn lại của tam giác",
   prompt: "Tam giác ABC có A = 50°, B = 60°. Hãy trình bày từng bước để tính C.",
-  skillName: "Tính góc còn lại của tam giác.",
+  skillName: "Tính góc còn lại của tam giác",
   difficulty: 2,
   steps: [
-    { id:"sum", instruction:"Bước 1: Nêu định lí cần dùng.", acceptedPatterns:["180", "tong ba goc", "tổng ba góc"], keyIdea:"Tổng ba góc trong tam giác bằng 180°.", hint1:"Nhớ tổng ba góc của tam giác.", hint2:"A + B + C = 180°.", explanation:"A + B + C = 180°." },
-    { id:"calc", instruction:"Bước 2: Tính C.", acceptedPatterns:["70", "180-50-60", "180 - 50 - 60"], keyIdea:"C = 180° - 50° - 60° = 70°.", hint1:"Lấy 180° trừ hai góc đã biết.", hint2:"180 - 110 = 70.", explanation:"C = 70°." },
+    {
+      id: "sum",
+      instruction: "Bước 1: Nêu định lí cần dùng.",
+      acceptedPatterns: ["tổng ba góc", "180"],
+      requiredPatternGroups: [
+        ["tổng ba góc"],
+        ["180"]
+      ],
+      keyIdea: "Tổng ba góc trong tam giác bằng 180°.",
+      hint1: "Nêu tên quan hệ trước khi tính.",
+      hint2: "A + B + C = 180°.",
+      explanation: "A + B + C = 180°.",
+    },
+    {
+      id: "calc",
+      instruction: "Bước 2: Tính C.",
+      acceptedPatterns: ["70", "180 - 50 - 60"],
+      keyIdea: "C = 70°.",
+      hint1: "Lấy 180° trừ hai góc đã biết.",
+      hint2: "180 - 50 - 60.",
+      explanation: "C = 70°.",
+    },
   ],
   finalAnswer: "C = 70°",
+},
+{
+  id: "reasoning-l12-exterior",
+  lessonId: "lesson-player-12",
+  knowledgeNodeId: "lesson-12-academic12",
+  title: "Góc ngoài của tam giác",
+  prompt: "Góc ngoài tại C của tam giác ABC là 120°, góc A = 50°. Hãy tính góc B và nêu tính chất dùng.",
+  skillName: "Góc ngoài của tam giác",
+  difficulty: 2,
+  steps: [
+    {
+      id: "property",
+      instruction: "Bước 1: Nêu tính chất góc ngoài.",
+      acceptedPatterns: ["góc ngoài", "hai góc trong không kề", "A + B"],
+      requiredPatternGroups: [
+        ["góc ngoài"],
+        ["hai góc trong không kề", "A + B"]
+      ],
+      keyIdea: "Góc ngoài bằng tổng hai góc trong không kề.",
+      hint1: "Không cần tìm góc C trước.",
+      hint2: "120° = A + B.",
+      explanation: "120° = 50° + B.",
+    },
+    {
+      id: "calc",
+      instruction: "Bước 2: Tính B.",
+      acceptedPatterns: ["70°", "70", "120 - 50"],
+      keyIdea: "B = 70°.",
+      hint1: "Lấy góc ngoài trừ góc A.",
+      hint2: "120 - 50.",
+      explanation: "B = 70°.",
+    },
+  ],
+  finalAnswer: "B = 70°",
 },
 {
   id: "reasoning-l13-sss",
   lessonId: "lesson-player-13",
   knowledgeNodeId: "lesson-13-academic13",
-  title: "Lập luận theo c.c.c",
-  prompt: "Biết AB = DE, BC = EF, AC = DF. Hãy giải thích vì sao ΔABC = ΔDEF.",
-  skillName: "Giải thích hai tam giác bằng nhau theo trường hợp c.c.c.",
+  title: "Lập luận c.c.c với đúng tương ứng",
+  prompt: "Biết AB = DE, BC = EF, AC = DF. Hãy chứng minh ΔABC = ΔDEF.",
+  skillName: "Trường hợp cạnh-cạnh-cạnh",
   difficulty: 2,
   steps: [
-    { id:"pairs", instruction:"Bước 1: Nêu ba cặp cạnh tương ứng.", acceptedPatterns:["AB = DE", "BC = EF", "AC = DF", "ba cap canh", "ba cặp cạnh"], keyIdea:"Có đủ ba cặp cạnh tương ứng bằng nhau.", hint1:"Liệt kê đúng ba cặp cạnh.", hint2:"AB↔DE, BC↔EF, AC↔DF.", explanation:"Ba cặp cạnh tương ứng bằng nhau." },
-    { id:"conclude", instruction:"Bước 2: Nêu trường hợp bằng nhau và kết luận.", acceptedPatterns:["c.c.c", "ccc", "ΔABC = ΔDEF", "ABC = DEF"], keyIdea:"Suy ra hai tam giác bằng nhau theo c.c.c.", hint1:"Tên trường hợp có ba chữ cạnh.", hint2:"c.c.c.", explanation:"ΔABC = ΔDEF theo c.c.c." },
+    {
+      id: "pairs",
+      instruction: "Bước 1: Viết đủ ba cặp cạnh tương ứng.",
+      acceptedPatterns: ["AB = DE", "BC = EF", "AC = DF"],
+      requiredPatternGroups: [
+        ["AB = DE", "AB=DE"],
+        ["BC = EF", "BC=EF"],
+        ["AC = DF", "AC=DF"]
+      ],
+      keyIdea: "Phải có đủ ba cặp cạnh đúng tương ứng.",
+      hint1: "Không chỉ viết 'ba cặp cạnh bằng nhau'; hãy liệt kê cụ thể.",
+      hint2: "AB↔DE, BC↔EF, AC↔DF.",
+      explanation: "AB = DE, BC = EF, AC = DF.",
+    },
+    {
+      id: "conclude",
+      instruction: "Bước 2: Nêu trường hợp và viết tên tam giác đúng thứ tự.",
+      acceptedPatterns: ["c.c.c", "ΔABC = ΔDEF"],
+      requiredPatternGroups: [
+        ["c.c.c", "ccc", "cạnh-cạnh-cạnh"],
+        ["ΔABC = ΔDEF", "ABC = DEF"]
+      ],
+      keyIdea: "Theo c.c.c, ΔABC = ΔDEF đúng thứ tự A↔D, B↔E, C↔F.",
+      hint1: "Tên tam giác phải theo đúng đỉnh tương ứng.",
+      hint2: "A↔D, B↔E, C↔F.",
+      explanation: "ΔABC = ΔDEF theo c.c.c.",
+      misconceptionPatterns: [
+        {
+          pattern: "ΔABC = ΔDFE",
+          category: "PROCEDURE",
+          label: "TRIANGLE_CORRESPONDENCE_ERROR",
+          feedback: "Thứ tự đỉnh chưa đúng với ba cặp cạnh đã cho."
+        }
+      ],
+    },
   ],
   finalAnswer: "ΔABC = ΔDEF theo c.c.c",
+},
+{
+  id: "reasoning-l13-insufficient",
+  lessonId: "lesson-player-13",
+  knowledgeNodeId: "lesson-13-academic13",
+  title: "Phát hiện dữ kiện chưa đủ cho c.c.c",
+  prompt: "Biết AB = DE và BC = EF nhưng chưa biết AC, DF. Có thể dùng c.c.c để kết luận hai tam giác bằng nhau không?",
+  skillName: "Điều kiện c.c.c",
+  difficulty: 3,
+  steps: [
+    {
+      id: "count",
+      instruction: "Bước 1: Kiểm tra số cặp cạnh đã biết.",
+      acceptedPatterns: ["hai cặp", "2 cặp", "thiếu AC", "thiếu DF"],
+      keyIdea: "Mới có hai cặp cạnh tương ứng bằng nhau.",
+      hint1: "c.c.c cần bao nhiêu cặp cạnh?",
+      hint2: "Đề mới cho AB=DE và BC=EF.",
+      explanation: "Còn thiếu quan hệ AC và DF.",
+    },
+    {
+      id: "conclude",
+      instruction: "Bước 2: Kết luận có dùng được c.c.c không.",
+      acceptedPatterns: ["không", "chưa đủ"],
+      keyIdea: "Chưa đủ dữ kiện cho c.c.c.",
+      hint1: "Hai chữ 'c' chưa thành ba chữ 'c'.",
+      hint2: "Cần thêm cặp cạnh thứ ba.",
+      explanation: "Không thể dùng c.c.c từ hai cặp cạnh.",
+      misconceptionPatterns: [
+        {
+          pattern: "đủ c.c.c",
+          category: "CONCEPT",
+          label: "INSUFFICIENT_CONGRUENCE_CONDITION",
+          feedback: "c.c.c cần đủ ba cặp cạnh tương ứng bằng nhau."
+        }
+      ],
+    },
+  ],
+  finalAnswer: "Chưa đủ dữ kiện cho c.c.c",
 },
 {
   id: "reasoning-l14-sas",
   lessonId: "lesson-player-14",
   knowledgeNodeId: "lesson-14-academic14",
-  title: "Nhận dạng c.g.c",
-  prompt: "Biết AB = DE, AC = DF và ∠A = ∠D. Hãy giải thích vì sao đây là trường hợp c.g.c.",
-  skillName: "Chứng minh hai tam giác bằng nhau theo c.g.c.",
+  title: "Kiểm tra điều kiện c.g.c",
+  prompt: "Biết AB = DE, AC = DF và ∠A = ∠D. Hãy giải thích vì sao có thể dùng c.g.c.",
+  skillName: "Trường hợp cạnh-góc-cạnh",
   difficulty: 2,
   steps: [
-    { id:"included-angle", instruction:"Bước 1: Kiểm tra góc A và D có phải góc xen giữa.", acceptedPatterns:["goc xen giua", "góc xen giữa", "AB AC", "DE DF"], keyIdea:"A nằm giữa AB, AC; D nằm giữa DE, DF.", hint1:"Xét hai cạnh tạo nên góc A.", hint2:"AB và AC tạo ∠A.", explanation:"∠A và ∠D là góc xen giữa." },
-    { id:"conclude", instruction:"Bước 2: Gọi tên trường hợp.", acceptedPatterns:["c.g.c", "cgc", "canh goc canh", "cạnh góc cạnh"], keyIdea:"Hai cạnh và góc xen giữa tương ứng bằng nhau.", hint1:"Đúng cấu trúc cạnh-góc-cạnh.", hint2:"c.g.c.", explanation:"Hai tam giác bằng nhau theo c.g.c nếu các yếu tố thuộc hai tam giác tương ứng." },
+    {
+      id: "pairs",
+      instruction: "Bước 1: Nêu hai cặp cạnh tương ứng.",
+      acceptedPatterns: ["AB = DE", "AC = DF"],
+      requiredPatternGroups: [
+        ["AB = DE", "AB=DE"],
+        ["AC = DF", "AC=DF"]
+      ],
+      keyIdea: "Có hai cặp cạnh tương ứng bằng nhau.",
+      hint1: "Liệt kê cụ thể hai cặp cạnh.",
+      hint2: "AB↔DE và AC↔DF.",
+      explanation: "AB = DE và AC = DF.",
+    },
+    {
+      id: "included-angle",
+      instruction: "Bước 2: Giải thích vì sao ∠A, ∠D là góc xen giữa.",
+      acceptedPatterns: ["AB và AC", "DE và DF", "góc xen giữa"],
+      requiredPatternGroups: [
+        ["AB và AC", "AB, AC"],
+        ["DE và DF", "DE, DF"],
+        ["góc xen giữa"]
+      ],
+      keyIdea: "∠A do AB,AC tạo; ∠D do DE,DF tạo nên chúng là các góc xen giữa.",
+      hint1: "Tên hai cạnh tạo nên ∠A và ∠D.",
+      hint2: "AB,AC tạo ∠A; DE,DF tạo ∠D.",
+      explanation: "Hai góc đã cho là góc xen giữa hai cặp cạnh.",
+      misconceptionPatterns: [
+        {
+          pattern: "mọi góc bằng nhau đều dùng c.g.c",
+          category: "CONCEPT",
+          label: "NON_INCLUDED_ANGLE_ERROR",
+          feedback: "c.g.c yêu cầu góc bằng nhau phải là góc xen giữa hai cạnh đã biết."
+        }
+      ],
+    },
+    {
+      id: "conclude",
+      instruction: "Bước 3: Kết luận.",
+      acceptedPatterns: ["c.g.c", "ΔABC = ΔDEF"],
+      requiredPatternGroups: [
+        ["c.g.c", "cgc", "cạnh-góc-cạnh"],
+        ["ΔABC = ΔDEF", "ABC = DEF"]
+      ],
+      keyIdea: "Đủ c.g.c nên ΔABC = ΔDEF.",
+      hint1: "Gọi tên trường hợp rồi viết kết luận.",
+      hint2: "c.g.c → ΔABC = ΔDEF.",
+      explanation: "ΔABC = ΔDEF theo c.g.c.",
+    },
   ],
-  finalAnswer: "c.g.c",
+  finalAnswer: "ΔABC = ΔDEF theo c.g.c",
+},
+{
+  id: "reasoning-l14-asa",
+  lessonId: "lesson-player-14",
+  knowledgeNodeId: "lesson-14-academic14",
+  title: "Kiểm tra điều kiện g.c.g",
+  prompt: "Biết ∠A = ∠D, AB = DE và ∠B = ∠E. Hãy giải thích vì sao có thể dùng g.c.g.",
+  skillName: "Trường hợp góc-cạnh-góc",
+  difficulty: 2,
+  steps: [
+    {
+      id: "angles",
+      instruction: "Bước 1: Nêu hai cặp góc tương ứng.",
+      acceptedPatterns: ["A = D", "B = E"],
+      requiredPatternGroups: [
+        ["∠A = ∠D", "A = D"],
+        ["∠B = ∠E", "B = E"]
+      ],
+      keyIdea: "Có hai cặp góc tương ứng bằng nhau.",
+      hint1: "Liệt kê cụ thể hai cặp góc.",
+      hint2: "A↔D và B↔E.",
+      explanation: "∠A=∠D và ∠B=∠E.",
+    },
+    {
+      id: "included-side",
+      instruction: "Bước 2: Kiểm tra cạnh AB, DE có phải cạnh xen giữa.",
+      acceptedPatterns: ["AB", "DE", "cạnh xen giữa"],
+      requiredPatternGroups: [
+        ["AB"],
+        ["DE"],
+        ["cạnh xen giữa", "nằm giữa hai góc"]
+      ],
+      keyIdea: "AB nằm giữa ∠A,∠B; DE nằm giữa ∠D,∠E.",
+      hint1: "Cạnh nào nối hai đỉnh của hai góc đã biết?",
+      hint2: "AB và DE là cạnh xen giữa.",
+      explanation: "Đúng điều kiện cạnh xen giữa.",
+      misconceptionPatterns: [
+        {
+          pattern: "cạnh bất kì",
+          category: "CONCEPT",
+          label: "NON_INCLUDED_SIDE_ERROR",
+          feedback: "g.c.g yêu cầu cạnh tương ứng nằm giữa hai góc đã biết."
+        }
+      ],
+    },
+    {
+      id: "conclude",
+      instruction: "Bước 3: Nêu trường hợp và kết luận.",
+      acceptedPatterns: ["g.c.g", "ΔABC = ΔDEF"],
+      requiredPatternGroups: [
+        ["g.c.g", "gcg", "góc-cạnh-góc"],
+        ["ΔABC = ΔDEF", "ABC = DEF"]
+      ],
+      keyIdea: "Đủ g.c.g nên ΔABC = ΔDEF.",
+      hint1: "Gọi tên trường hợp rồi kết luận.",
+      hint2: "g.c.g → ΔABC = ΔDEF.",
+      explanation: "ΔABC = ΔDEF theo g.c.g.",
+    },
+  ],
+  finalAnswer: "ΔABC = ΔDEF theo g.c.g",
 },
 {
   id: "reasoning-l15-right",

@@ -4,6 +4,12 @@ export type ReasoningStepDefinition = {
   id: string;
   instruction: string;
   acceptedPatterns: string[];
+  /**
+   * Optional stricter checker. Every group must have at least one matching phrase.
+   * Use this when a step requires multiple independent facts, e.g. three
+   * corresponding side equalities in c.c.c.
+   */
+  requiredPatternGroups?: string[][];
   keyIdea: string;
   hint1: string;
   hint2: string;

@@ -1,0 +1,54 @@
+AI Math Tutor v2.8.2-beta.2 – WAVE 2
+Reasoning Integrity & Coverage Depth
+
+BASELINE:
+v2.8.2-beta.1 / commit 2914324 đã Production PASS.
+
+CÀI:
+1. Tại C:\AI_Project\ai-math-tutor-7, bảo đảm git status clean.
+2. Giải nén ZIP Wave 2.
+3. Copy đè toàn bộ vào C:\AI_Project\ai-math-tutor-7.
+4. Không xóa .env.local.
+5. Không chạy SQL Supabase.
+6. Chưa Git/Tag/Vercel.
+
+BUILD:
+npm run build
+npm run dev
+
+KNOWLEDGE QA:
+http://localhost:3000/knowledge-qa
+Mục tiêu:
+19 PASS
+0 WARN
+0 FAIL
+100% Coverage
+
+LESSON PLAYER:
+http://localhost:3000/learn/lesson-player-08
+http://localhost:3000/learn/lesson-player-09
+http://localhost:3000/learn/lesson-player-10
+http://localhost:3000/learn/lesson-player-11
+
+REASONING LAB:
+http://localhost:3000/reasoning-lab/lesson-player-08
+http://localhost:3000/reasoning-lab/lesson-player-09
+http://localhost:3000/reasoning-lab/lesson-player-10
+http://localhost:3000/reasoning-lab/lesson-player-11
+http://localhost:3000/reasoning-lab/lesson-player-12
+http://localhost:3000/reasoning-lab/lesson-player-13
+http://localhost:3000/reasoning-lab/lesson-player-14
+
+KIỂM TRA ĐẶC BIỆT:
+- B8: tổng 180° nhưng không kề nhau => KHÔNG phải kề bù.
+- B9: hai góc bằng nhau bất kì => CHƯA đủ kết luận song song.
+- B10: a∥b là GIVEN => dùng TÍNH CHẤT, không gọi là dấu hiệu.
+- B11: dùng chính kết luận làm tiền đề => circular reasoning.
+- B13: bước c.c.c phải nêu đủ AB=DE, BC=EF, AC=DF.
+- B14: c.g.c kiểm góc xen giữa; g.c.g kiểm cạnh xen giữa.
+
+CLOUD:
+http://localhost:3000/cloud-activation
+Phải vẫn 3 READY.
+
+CHỈ SAU KHI TẤT CẢ PASS mới Git/Vercel.

@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v2.8.2-beta.2 – Wave 2: Reasoning Integrity & Coverage Depth
+- Bài 8: kiểm tra cấu trúc kề bù, đối đỉnh và đủ điều kiện tia phân giác.
+- Bài 9: khóa chiều suy luận dấu hiệu góc → song song; chặn hai góc bằng nhau bất kì.
+- Bài 10: tách rõ tính chất song song → góc khỏi dấu hiệu của Bài 9.
+- Bài 11: thêm GIVEN → GOAL → JUSTIFICATION → CONCLUSION; phát hiện circular reasoning và lỗi đảo mệnh đề.
+- Bài 12–14: tăng Reasoning coverage, góc ngoài, correspondence c.c.c, điều kiện c.g.c và g.c.g.
+- Reasoning Engine hỗ trợ requiredPatternGroups để một bước chỉ PASS khi đủ nhiều ý bắt buộc.
+- Knowledge QA yêu cầu tối thiểu 2 Reasoning problems cho Bài 8–14.
+- Không thay đổi Supabase schema, Cloud Pilot hoặc Student Identity.
+
 ## v2.8.2-beta.1 – Wave 1: Correctness & False Mastery
 - Thay generic mastery checkpoint Bài 12–19 bằng checkpoint Toán theo từng bài.
 - Sửa lỗi kiến thức P0 Bài 16: định lí đảo tam giác cân.

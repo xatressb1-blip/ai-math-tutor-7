@@ -1,0 +1,18 @@
+AI Math Tutor v2.8.2-beta.2 – Wave 2
+Reasoning Integrity & Coverage Depth
+
+STATIC QA: PASS
+- Bài 8–14: mỗi bài có ít nhất 2 Reasoning problems.
+- Reasoning Engine có requiredPatternGroups.
+- Runtime test: 1/3 cặp cạnh c.c.c => FAIL; đủ 3/3 => PASS.
+- Bài 8: kề bù kiểm tra cả vị trí và tổng.
+- Bài 9: hai góc bằng nhau bất kì không đủ kết luận song song.
+- Bài 10: khóa chiều song song → góc.
+- Bài 11: phát hiện circular reasoning.
+- Bài 13: correspondence + đủ 3 cặp cạnh.
+- Bài 14: included angle / included side.
+- TypeScript parser scan: 168 file TS/TSX, 0 parse errors.
+- Scope diff không có Cloud/Supabase schema change.
+
+FULL BUILD:
+Chưa chạy trong gói đóng; bắt buộc chạy `npm run build` trên máy local trước Git/Vercel.

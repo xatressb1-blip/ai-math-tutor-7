@@ -64,9 +64,13 @@ export function evaluateReasoningStep({
     };
   }
 
-  const correct = step.acceptedPatterns.some((pattern) =>
-    includesPattern(trimmed, pattern),
-  );
+  const correct = step.requiredPatternGroups?.length
+    ? step.requiredPatternGroups.every((group) =>
+        group.some((pattern) => includesPattern(trimmed, pattern)),
+      )
+    : step.acceptedPatterns.some((pattern) =>
+        includesPattern(trimmed, pattern),
+      );
 
   if (correct) {
     return {

@@ -43,7 +43,7 @@ export function KnowledgeEngineDashboard() {
                 ← Học Toán 7
               </Link>
               <Link href="/pilot-ops" className="rounded-2xl border border-white/15 px-5 py-3 text-sm font-black text-white">
-                Pilot Control
+                Điều hành thử nghiệm
               </Link>
             </div>
           </div>

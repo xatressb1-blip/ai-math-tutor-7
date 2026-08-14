@@ -141,13 +141,13 @@ export function DiagnosticEntryTest() {
             />
             <Feature
               icon="🧠"
-              title="Đọc cả Confidence"
+              title="Xem cả mức tự tin"
               text="Tốc độ phản hồi và độ ổn định được dùng cùng với đúng/sai."
             />
             <Feature
               icon="🗺️"
               title="Tạo lộ trình riêng"
-              text="Kết quả được đồng bộ vào Student Brain và Learning Path."
+              text="Kết quả được cập nhật vào hồ sơ học tập AI và lộ trình học."
             />
           </section>
         </div>
@@ -255,7 +255,7 @@ function DiagnosticResultView({
 
           <div className="mt-7 grid gap-3 sm:grid-cols-4">
             <Info value={`${result.score}%`} label="Điểm tổng" />
-            <Info value={`${result.confidence}`} label="Confidence" />
+            <Info value={`${result.confidence}`} label="Mức tự tin" />
             <Info
               value={`${result.correctAnswers}/${result.totalQuestions}`}
               label="Câu đúng"
@@ -296,7 +296,7 @@ function DiagnosticResultView({
               </p>
               <p className="mt-2 text-3xl font-black">{row.score}</p>
               <p className="mt-1 text-xs text-slate-500">
-                Confidence {row.confidence}
+                Mức tự tin {row.confidence}
               </p>
             </article>
           ))}

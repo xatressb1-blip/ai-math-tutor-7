@@ -15,7 +15,7 @@ export function MasteryIntegrityDashboard() {
           </p>
           <div className="mt-3 flex flex-wrap items-end justify-between gap-5">
             <div>
-              <h1 className="text-4xl font-black">Mastery Integrity QA</h1>
+              <h1 className="text-4xl font-black">Kiểm tra độ tin cậy của mức thành thạo</h1>
               <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-300">
                 Kiểm tra false mastery: Diagnostic, MCQ, Adaptive và Reasoning phải tạo đủ bằng chứng trước khi Student Brain ghi MASTERED.
               </p>

@@ -21,7 +21,7 @@ export function PilotOperationsCenter() {
   const [teacherKey, setTeacherKey] = useState("");
   const [cloud, setCloud] = useState<CloudPilotStudent[]>([]);
   const [checklist, setChecklist] = useState<PilotChecklistItem[]>([]);
-  const [message, setMessage] = useState("Chưa tải dữ liệu Pilot.");
+  const [message, setMessage] = useState("Chưa tải dữ liệu vận hành.");
   const [busy, setBusy] = useState(false);
 
   useEffect(() => setChecklist(loadPilotChecklist()), []);
@@ -42,7 +42,7 @@ export function PilotOperationsCenter() {
       setMessage(`✓ Đã tải ${rows.length} học sinh từ Cloud.`);
     } catch (error) {
       setMessage(
-        error instanceof Error ? error.message : "Không thể tải Pilot.",
+        error instanceof Error ? error.message : "Không thể tải dữ liệu vận hành.",
       );
     } finally {
       setBusy(false);
@@ -62,11 +62,11 @@ export function PilotOperationsCenter() {
       <div className="mx-auto max-w-7xl">
         <header className="rounded-[2rem] bg-slate-950 p-6 text-white shadow-xl sm:p-8">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-200">
-            Beta 2.7 · Real 10-Student Pilot Operations
+            AI Math Tutor 7 · Trung tâm vận hành
           </p>
           <div className="mt-3 flex flex-wrap items-end justify-between gap-5">
             <div>
-              <h1 className="text-4xl font-black">Teacher Pilot Control Center</h1>
+              <h1 className="text-4xl font-black">Trung tâm điều hành dành cho giáo viên</h1>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
                 Một màn hình để theo dõi 10 học sinh, kiểm tra tín hiệu cần chú ý,
                 xuất backup và vận hành buổi Pilot.
@@ -92,7 +92,7 @@ export function PilotOperationsCenter() {
             type="password"
             value={teacherKey}
             onChange={(e) => setTeacherKey(e.target.value)}
-            placeholder="Teacher Key"
+            placeholder="Khóa truy cập giáo viên"
             className="rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500"
           />
           <button
@@ -100,7 +100,7 @@ export function PilotOperationsCenter() {
             disabled={busy || !teacherKey || !classCode}
             className="rounded-2xl bg-indigo-600 px-5 py-3 text-sm font-black text-white disabled:opacity-40"
           >
-            ↻ Tải Pilot
+            ↻ Tải dữ liệu
           </button>
           <div className="rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-700 sm:col-span-3">
             {message}
@@ -112,17 +112,17 @@ export function PilotOperationsCenter() {
           <Metric label="Có sync hôm nay" value={snapshot.activeToday} />
           <Metric label="Quá 24h" value={snapshot.staleStudents} />
           <Metric label="Cần chú ý" value={snapshot.attentionStudents} />
-          <Metric label="Mastery TB" value={`${snapshot.averageMastery}/100`} />
-          <Metric label="Accuracy TB" value={`${snapshot.averageAccuracy}%`} />
+          <Metric label="Thành thạo TB" value={`${snapshot.averageMastery}/100`} />
+          <Metric label="Độ chính xác TB" value={`${snapshot.averageAccuracy}%`} />
         </section>
 
         <div className="mt-5 grid gap-5 xl:grid-cols-[1fr_0.56fr]">
           <section className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm">
             <div className="flex flex-wrap items-center justify-between gap-3 p-5">
               <div>
-                <h2 className="text-2xl font-black">Cloud Student Monitor</h2>
+                <h2 className="text-2xl font-black">Theo dõi học sinh trực tuyến</h2>
                 <p className="mt-1 text-sm text-slate-500">
-                  Tín hiệu được tính từ Student Brain và thời điểm sync.
+                  Tín hiệu được tính từ hồ sơ học tập AI và thời điểm đồng bộ.
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -148,10 +148,10 @@ export function PilotOperationsCenter() {
                 <thead className="bg-slate-50 text-xs uppercase text-slate-500">
                   <tr>
                     <th className="p-4">Học sinh</th>
-                    <th>Sessions</th>
-                    <th>Mastery</th>
-                    <th>Accuracy</th>
-                    <th>Mistakes</th>
+                    <th>Phiên học</th>
+                    <th>Thành thạo</th>
+                    <th>Chính xác</th>
+                    <th>Lỗi chưa xử lý</th>
                     <th>Sync</th>
                     <th>Tín hiệu</th>
                   </tr>
@@ -190,7 +190,7 @@ export function PilotOperationsCenter() {
             <div className="flex items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.1em] text-amber-600">
-                  Pilot Checklist
+                  Danh sách kiểm tra vận hành
                 </p>
                 <h2 className="mt-2 text-2xl font-black">Trước · Trong · Sau</h2>
               </div>

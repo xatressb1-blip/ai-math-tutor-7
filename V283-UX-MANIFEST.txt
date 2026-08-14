@@ -1,0 +1,24 @@
+AI Math Tutor v2.8.3-beta.1 – Vietnamese UX & Guided Workflow
+
+BASELINE
+v2.8.2 / d0e1ad8
+
+MỤC TIÊU
+- Học sinh biết bắt đầu từ đâu.
+- Giáo viên biết 4 công việc chính cần làm.
+- Tách rõ khu vực học sinh / giáo viên / quản trị.
+- Việt hóa các thuật ngữ người dùng quan trọng.
+- Sửa thông tin thư viện thành đủ 19 bài / 5 chương.
+- Giữ nguyên thuật toán học tập và Supabase schema.
+
+STATIC VALIDATION
+PASS - TypeScript syntax validation: tsc --noEmit --noCheck
+PASS - Không thay Supabase schema.
+PASS - Không thay canonical skill/mastery/reasoning/diagnostic algorithms.
+
+LOCAL GATE
+npm run build
+npm run dev
+Sau đó làm toàn bộ checklist trong V283-UX-TEST.txt.
+
+CHƯA GIT / TAG / VERCEL trước Local PASS.

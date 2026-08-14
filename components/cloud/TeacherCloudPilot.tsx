@@ -38,7 +38,7 @@ export function TeacherCloudPilot() {
   const [teacherKey, setTeacherKey] = useState("");
   const [codes, setCodes] = useState<Record<string, string>>({});
   const [cloud, setCloud] = useState<CloudPilotStudent[]>([]);
-  const [message, setMessage] = useState("Chưa đồng bộ Cloud.");
+  const [message, setMessage] = useState("Chưa đồng bộ dữ liệu trực tuyến.");
   const [busy, setBusy] = useState(false);
   const [uploadingAll, setUploadingAll] = useState(false);
 
@@ -59,7 +59,7 @@ export function TeacherCloudPilot() {
       setMessage(`✓ Đã tải ${rows.length} hồ sơ từ Cloud.`);
     } catch (error) {
       setMessage(
-        error instanceof Error ? error.message : "Không thể đọc Cloud.",
+        error instanceof Error ? error.message : "Không thể đọc dữ liệu trực tuyến.",
       );
     } finally {
       setBusy(false);
@@ -92,7 +92,7 @@ export function TeacherCloudPilot() {
       setMessage(
         error instanceof Error
           ? error.message
-          : "Không thể cập nhật Cloud.",
+          : "Không thể cập nhật dữ liệu trực tuyến.",
       );
     } finally {
       setBusy(false);
@@ -102,7 +102,7 @@ export function TeacherCloudPilot() {
   async function uploadAll() {
     if (!workspace) return;
     if (workspace.students.length > 10) {
-      setMessage("Pilot Production hiện giới hạn tối đa 10 học sinh.");
+      setMessage("Phiên bản hiện tại giới hạn tối đa 10 học sinh.");
       return;
     }
 
@@ -125,7 +125,7 @@ export function TeacherCloudPilot() {
         }));
       }
       setMessage(
-        `✓ Đã kích hoạt ${workspace.students.length} hồ sơ Pilot. Hãy lưu các mã mới đang hiển thị.`,
+        `✓ Đã kích hoạt ${workspace.students.length} hồ sơ học sinh. Hãy lưu các mã mới đang hiển thị.`,
       );
       await refreshCloud();
     } catch (error) {
@@ -224,17 +224,17 @@ export function TeacherCloudPilot() {
             Beta 2.7.0 · Production Hardening
           </p>
           <h1 className="mt-3 text-4xl font-black">
-            10-Student Cloud Pilot
+            Quản lý dữ liệu trực tuyến
           </h1>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
             Kích hoạt, cấp lại mã, theo dõi lần đồng bộ và thu hồi quyền Cloud
-            cho tối đa 10 học sinh Pilot.
+            cho tối đa 10 học sinh.
           </p>
         </header>
 
         <section className="mt-5 grid gap-3 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-2">
           <div>
-            <label className="text-sm font-black">Mã lớp Pilot</label>
+            <label className="text-sm font-black">Mã lớp</label>
             <input
               value={classCode}
               onChange={(e) =>
@@ -244,7 +244,7 @@ export function TeacherCloudPilot() {
             />
           </div>
           <div>
-            <label className="text-sm font-black">Teacher Key</label>
+            <label className="text-sm font-black">Khóa truy cập giáo viên</label>
             <input
               type="password"
               value={teacherKey}
@@ -260,7 +260,7 @@ export function TeacherCloudPilot() {
               onClick={refreshCloud}
               className="rounded-2xl bg-indigo-600 px-5 py-3 text-sm font-black text-white disabled:opacity-40"
             >
-              ↻ Tải danh sách Cloud
+              ↻ Tải danh sách trực tuyến
             </button>
             <button
               disabled={
@@ -289,7 +289,7 @@ export function TeacherCloudPilot() {
         </section>
 
         <section className="mt-5 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="text-2xl font-black">Hồ sơ local → Cloud</h2>
+          <h2 className="text-2xl font-black">Hồ sơ trên thiết bị → Dữ liệu trực tuyến</h2>
           <p className="mt-2 text-sm text-slate-500">
             Mã đầy đủ chỉ tồn tại trong phiên trình duyệt hiện tại. Sau refresh,
             hệ thống chỉ còn 4 ký tự cuối trên Cloud.
@@ -327,7 +327,7 @@ export function TeacherCloudPilot() {
                       onClick={() => uploadStudent(student.profile.id)}
                       className="rounded-xl bg-emerald-600 px-4 py-2 text-xs font-black text-white disabled:opacity-40"
                     >
-                      Đưa lên Cloud
+                      Đưa lên dữ liệu trực tuyến
                     </button>
                   </div>
                 </div>
@@ -339,7 +339,7 @@ export function TeacherCloudPilot() {
         <section className="mt-5 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 className="text-2xl font-black">Cloud Roster</h2>
+              <h2 className="text-2xl font-black">Danh sách học sinh trực tuyến</h2>
               <p className="mt-1 text-sm text-slate-500">
                 {cloud.length}/10 học sinh đang kích hoạt.
               </p>
@@ -352,8 +352,8 @@ export function TeacherCloudPilot() {
                 <tr>
                   <th className="p-3">Học sinh</th>
                   <th>Mã HS</th>
-                  <th>Sessions</th>
-                  <th>Skills</th>
+                  <th>Phiên học</th>
+                  <th>Kỹ năng</th>
                   <th>Trạng thái</th>
                   <th>Cập nhật</th>
                   <th>Quản lý</th>

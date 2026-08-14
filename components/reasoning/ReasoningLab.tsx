@@ -342,7 +342,7 @@ export function ReasoningLab({
                 <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-7 text-slate-600">
                   Đáp án cuối: <strong>{problem.finalAnswer}</strong>. AI đã ghi
                   cả độ chính xác lần đầu, mức phụ thuộc gợi ý và khả năng tự sửa
-                  lỗi vào Student Brain.
+                  lỗi vào hồ sơ học tập AI.
                 </p>
 
                 <div className="mx-auto mt-7 grid max-w-3xl gap-3 sm:grid-cols-4">

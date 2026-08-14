@@ -1,0 +1,48 @@
+AI Math Tutor v2.8.3-beta.1 – VIETNAMESE UX LOCAL TEST
+
+BASELINE
+v2.8.2 / d0e1ad8
+
+CÀI ĐẶT
+1. Copy đè toàn bộ ZIP vào C:\AI_Project\ai-math-tutor-7
+2. Giữ nguyên .env.local
+3. Không chạy SQL Supabase
+4. Chưa Git/Tag/Vercel
+
+BUILD
+npm run build
+npm run dev
+
+TEST HỌC SINH
+- / : thấy rõ “Dành cho học sinh” và “Dành cho giáo viên”
+- /student : có “BẮT ĐẦU TỪ ĐÂY” với 4 bước
+- Tên hồ sơ học sinh đang dùng hiển thị rõ
+- /diagnostic hoạt động
+- Mở một /learn/[lessonId] hoạt động
+- Luyện tập thích ứng hoạt động
+- Reasoning Lab/Luyện suy luận hoạt động
+- /mastery hoạt động
+- /progress hoạt động
+
+TEST GIÁO VIÊN
+- /teacher : có “GIÁO VIÊN BẮT ĐẦU TỪ ĐÂY” với 4 công việc
+- /pilot-roster : “Danh sách học sinh”, hồ sơ active có nhãn “ĐANG HỌC”
+- Chuyển A/B Student vẫn độc lập
+- /teacher-multi hiển thị các cột tiếng Việt
+- /teacher-cloud hoạt động
+- /pilot-ops hoạt động
+
+REGRESSION
+- /knowledge-qa => 19 PASS / 0 WARN / 0 FAIL / 100%
+- /mastery-integrity => 5/5 PASS
+- /pilot-readiness => ALL PASS / 0 FAIL
+- /cloud-activation => 3 READY
+- Reasoning-only không hoàn thành Lesson Core
+- Reasoning-only không tăng curriculum coverage
+
+MỤC TIÊU UX
+- Không còn thông tin cũ “11 bài” hoặc “Chương I–III” ở trang chính
+- Các thuật ngữ chính dành cho học sinh/giáo viên đã được Việt hóa
+- Công cụ quản trị không lẫn với luồng học sinh chính
+
+Chỉ Git/Vercel sau khi toàn bộ Local PASS.

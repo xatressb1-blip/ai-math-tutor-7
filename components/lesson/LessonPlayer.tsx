@@ -350,7 +350,7 @@ export function LessonPlayer({
                   Luyện tập thích ứng · Bài {lesson.lessonNumber}
                 </h1>
                 <p className="mt-1 text-sm text-slate-500">
-                  Câu hỏi được chọn theo Student Brain và kết quả em vừa học.
+                  Câu hỏi được chọn theo hồ sơ học tập AI và kết quả em vừa học.
                 </p>
               </div>
               <div className="rounded-2xl bg-slate-950 px-4 py-3 text-white">
@@ -392,13 +392,13 @@ export function LessonPlayer({
               ✓
             </div>
             <p className="mt-6 text-sm font-black uppercase tracking-[0.18em] text-emerald-600">
-              Student Brain Sync hoàn thành
+              Đã cập nhật hồ sơ học tập AI
             </p>
             <h1 className="mt-3 text-4xl font-black tracking-tight">
               Em đã hoàn thành bài học!
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
-              Kết quả buổi học đã được cập nhật vào Student Brain và lưu trên
+              Kết quả buổi học đã được cập nhật vào hồ sơ học tập AI và lưu trên
               trình duyệt. Khi tải lại trang, Math Mentor AI vẫn nhớ tiến độ này.
             </p>
 
@@ -406,7 +406,7 @@ export function LessonPlayer({
               <ResultStat value={`${summary.score}/100`} label="Điểm hoàn thành" />
               <ResultStat
                 value={`${summary.confidenceScore}/100`}
-                label="Confidence"
+                label="Mức tự tin"
               />
               <ResultStat
                 value={`${summary.firstTryCorrect}/${summary.totalQuestions}`}
@@ -422,7 +422,7 @@ export function LessonPlayer({
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <p className="text-sm font-black text-indigo-950">
-                    🧠 Student Brain đã đồng bộ
+                    🧠 Hồ sơ học tập AI đã cập nhật
                   </p>
                   <p className="mt-1 text-sm leading-6 text-indigo-800">
                     {brainSynced
@@ -461,7 +461,7 @@ export function LessonPlayer({
                       />
                     </div>
                     <p className="mt-2 text-xs font-semibold text-slate-500">
-                      Mastery {skill.masteryScore}/100 · {skill.status}
+                      Thành thạo {skill.masteryScore}/100 · {skill.status}
                     </p>
                   </div>
                 ))}

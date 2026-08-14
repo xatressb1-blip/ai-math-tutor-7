@@ -44,11 +44,11 @@ export function buildDailyMission(brain: StudentBrainSnapshot): DailyMission {
       href: `/learn/${focusLesson.id}`,
       kind: "LEARN" as const,
       estimatedMinutes: 12,
-      reason: `Student Brain đang ưu tiên kỹ năng “${focusSkill}”.`,
+      reason: `Hồ sơ học tập AI đang ưu tiên kỹ năng “${focusSkill}”.`,
     },
     {
       id: "mission-reasoning",
-      title: "Giải thích bằng Reasoning Lab",
+      title: "Luyện suy luận từng bước",
       description: "Trình bày từng bước để AI kiểm tra cách suy luận.",
       href: `/reasoning-lab/${focusLesson.id}`,
       kind: "REASONING" as const,
@@ -74,7 +74,7 @@ export function buildDailyMission(brain: StudentBrainSnapshot): DailyMission {
         ? "Hôm nay nên ưu tiên củng cố nền tảng."
         : mastery < 75
           ? "Hôm nay nên luyện thêm để tăng độ chắc chắn."
-          : "Em đã khá vững; hãy tập trung vào Reasoning và vận dụng.",
+          : "Em đã khá vững; hãy tập trung vào suy luận và vận dụng.",
     totalMinutes: items.reduce((sum, item) => sum + item.estimatedMinutes, 0),
     items,
   };

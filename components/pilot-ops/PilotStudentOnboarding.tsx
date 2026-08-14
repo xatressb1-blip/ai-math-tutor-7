@@ -64,7 +64,7 @@ export function PilotStudentOnboarding() {
     } catch (error) {
       setStudentName("");
       setMessage(
-        error instanceof Error ? error.message : "Không thể mở hồ sơ Pilot.",
+        error instanceof Error ? error.message : "Không thể mở hồ sơ học sinh.",
       );
     } finally {
       setBusy(false);
@@ -76,11 +76,11 @@ export function PilotStudentOnboarding() {
       <div className="mx-auto max-w-2xl">
         <header className="rounded-[2rem] bg-slate-950 p-6 text-white sm:p-8">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">
-            AI Math Tutor · Student Pilot
+            AI Math Tutor 7 · Bắt đầu học
           </p>
           <h1 className="mt-3 text-4xl font-black">Bắt đầu trong 1 phút</h1>
           <p className="mt-3 text-sm leading-7 text-slate-300">
-            Em chỉ cần Mã lớp và Mã HS. Hệ thống sẽ tải đúng Student Brain trước
+            Em chỉ cần mã lớp và mã học sinh. Hệ thống sẽ tải đúng hồ sơ học tập AI trước
             khi em học.
           </p>
         </header>

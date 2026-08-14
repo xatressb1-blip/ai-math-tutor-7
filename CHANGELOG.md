@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v2.8.3-beta.1 – Vietnamese UX & Guided Workflow
+- Tách rõ điểm bắt đầu dành cho học sinh và giáo viên ngay tại trang chính.
+- Trang học sinh có khu vực “Bắt đầu từ đây” theo 4 bước: hồ sơ → đánh giá đầu vào → học/luyện → xem tiến độ.
+- Bảng điều khiển giáo viên có quy trình 4 công việc: chọn học sinh → ưu tiên hỗ trợ → giao hoạt động → kiểm tra tiến bộ.
+- Nâng cấp danh sách học sinh: nhấn mạnh hồ sơ đang học và cảnh báo chọn đúng học sinh trước mỗi phiên.
+- Việt hóa các thuật ngữ người dùng: Student Brain, Mastery, Confidence, Accuracy, Reasoning, Pilot, Cloud và nhiều nhãn kỹ thuật.
+- Sửa trang thư viện từ thông tin cũ 11 bài/3 chương thành 19 bài/5 chương học kỳ I.
+- Tách công cụ học sinh với khu vực giáo viên/quản trị để giảm nhầm thao tác.
+- Không thay đổi thuật toán mastery, canonical skill, Student Brain evidence hoặc Supabase schema.
+
+
 ## v2.8.2-beta.5 – Semester Canonical Coverage & RC Gate
 - Hoàn thiện Canonical Skill Registry cho đủ Bài 1–19.
 - Map toàn bộ skill hiện có trong Lesson/Adaptive/Reasoning/Diagnostic sang canonical identity có chủ đích.

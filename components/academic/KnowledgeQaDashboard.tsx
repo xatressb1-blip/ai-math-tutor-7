@@ -9,7 +9,7 @@ export function KnowledgeQaDashboard() {
       <div className="mx-auto max-w-7xl">
         <header className="rounded-[2rem] bg-slate-950 p-6 text-white sm:p-8">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">
-            v2.8.2-beta.3 · Knowledge QA + Mastery Integrity
+            Kiểm định kiến thức · Độ tin cậy thành thạo
           </p>
           <div className="mt-3 flex flex-wrap items-end justify-between gap-5">
             <div>
@@ -18,8 +18,8 @@ export function KnowledgeQaDashboard() {
               </h1>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
                 Kiểm tra mỗi bài từ Academic Knowledge Base đã thực sự đi vào
-                Lesson Player, Adaptive Practice, AI Tutor, Reasoning Lab và
-                Student Brain hay chưa.
+                Bài học, luyện tập thích ứng, gia sư AI, luyện suy luận và
+                hồ sơ học tập AI hay chưa.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -27,7 +27,7 @@ export function KnowledgeQaDashboard() {
                 href="/mastery-integrity"
                 className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-black text-slate-950"
               >
-                Mastery Integrity →
+                Kiểm tra độ tin cậy thành thạo →
               </Link>
               <Link
                 href="/knowledge-engine"
@@ -56,11 +56,11 @@ export function KnowledgeQaDashboard() {
                   <th>Lesson Player</th>
                   <th>Adaptive</th>
                   <th>AI Tutor</th>
-                  <th>Reasoning</th>
-                  <th>Student Brain</th>
+                  <th>Suy luận</th>
+                  <th>Hồ sơ học tập AI</th>
                   <th>Core Q</th>
                   <th>Adaptive Q</th>
-                  <th>Reasoning Q</th>
+                  <th>Câu suy luận</th>
                   <th>QA</th>
                 </tr>
               </thead>
@@ -115,7 +115,7 @@ export function KnowledgeQaDashboard() {
           <p className="mt-2 text-sm leading-6 text-emerald-900">
             Một bài chỉ PASS khi có đủ Lesson Player, Adaptive Exercise Bank,
             AI Tutor context, ít nhất một Reasoning Problem và checkpoint để
-            Teaching Session ghi skill/mistake/session vào Student Brain.
+            Phiên học ghi kỹ năng, lỗi và lịch sử học vào hồ sơ học tập AI.
           </p>
         </section>
       </div>

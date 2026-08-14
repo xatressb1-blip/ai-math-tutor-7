@@ -24,12 +24,12 @@ export function SessionReflectionPanel() {
     <main className="min-h-screen bg-[#f5f7fb] px-4 py-6 text-slate-950 sm:px-8">
       <div className="mx-auto max-w-3xl">
         <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-lg sm:p-8">
-          <p className="text-xs font-black uppercase tracking-[0.12em] text-emerald-600">End-of-session Reflection</p>
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-emerald-600">Phản hồi cuối phiên học</p>
           <h1 className="mt-3 text-3xl font-black">Em tự đánh giá mức hiểu của mình</h1>
           {done ? (
             <div className="mt-6 rounded-2xl bg-emerald-50 p-6">
               <h2 className="text-xl font-black text-emerald-950">Đã ghi nhận ✓</h2>
-              <p className="mt-2 text-sm text-emerald-900">Phản hồi giúp Pilot so sánh cảm nhận của em với kết quả học thực tế.</p>
+              <p className="mt-2 text-sm text-emerald-900">Phản hồi giúp hệ thống so sánh cảm nhận của em với kết quả học thực tế.</p>
               <Link href="/student" className="mt-5 inline-flex rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-black text-white">Về Student Home</Link>
             </div>
           ) : (

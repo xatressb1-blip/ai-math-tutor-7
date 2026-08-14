@@ -74,21 +74,20 @@ export function TeacherDashboard() {
             <div>
               <div className="flex flex-wrap gap-2">
                 <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-indigo-200">
-                  Beta 2.2
+                  AI Math Tutor 7
                 </span>
                 <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-emerald-200">
-                  Teacher Dashboard
+                  Bảng điều khiển giáo viên
                 </span>
               </div>
               <p className="mt-5 text-xs font-black uppercase tracking-[0.14em] text-slate-400">
                 Lớp {analytics.className}
               </p>
               <h1 className="mt-2 text-4xl font-black tracking-[-0.04em] sm:text-5xl">
-                Class Analytics
+                Tổng quan lớp học
               </h1>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
-                Theo dõi Mastery, Confidence, Reasoning, Mistake Memory và mức
-                độ cần hỗ trợ của từng học sinh trên cùng một màn hình.
+                Theo dõi mức độ thành thạo, độ tự tin, khả năng suy luận, lỗi cần khắc phục và mức độ cần hỗ trợ của từng học sinh trên cùng một màn hình.
               </p>
             </div>
 
@@ -117,21 +116,44 @@ export function TeacherDashboard() {
           </div>
         </header>
 
+        <section className="mt-5 rounded-[2rem] border border-indigo-100 bg-white p-5 shadow-sm sm:p-6">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-indigo-600">
+                GIÁO VIÊN BẮT ĐẦU TỪ ĐÂY
+              </p>
+              <h2 className="mt-2 text-2xl font-black">4 công việc chính của giáo viên</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Quản lý đúng học sinh, xem em nào cần hỗ trợ, giao hoạt động phù hợp và kiểm tra lại tiến bộ.
+              </p>
+            </div>
+            <Link href="/pilot-roster" className="rounded-2xl bg-indigo-600 px-4 py-2.5 text-sm font-black text-white">
+              Quản lý học sinh →
+            </Link>
+          </div>
+          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            <TeacherStep number="1" title="Chọn đúng học sinh" text="Kiểm tra hồ sơ đang hoạt động trước khi giao máy hoặc đồng bộ dữ liệu." href="/pilot-roster" />
+            <TeacherStep number="2" title="Xem học sinh cần hỗ trợ" text="Ưu tiên các em có mức thành thạo thấp, lỗi lặp lại hoặc tiến độ chưa đủ." href="/teacher-multi" />
+            <TeacherStep number="3" title="Giao hoạt động phù hợp" text="Cho học sinh học bài chính, luyện tập thích ứng hoặc luyện suy luận đúng kỹ năng cần củng cố." href="/" />
+            <TeacherStep number="4" title="Kiểm tra lại tiến bộ" text="Xem mức độ thành thạo, độ chính xác, lỗi chưa xử lý và báo cáo sau phiên học." href="/teacher" />
+          </div>
+        </section>
+
         <section className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
           <Metric value={analytics.studentCount} label="Học sinh" />
-          <Metric value={`${analytics.averageMastery}/100`} label="Mastery" />
+          <Metric value={`${analytics.averageMastery}/100`} label="Thành thạo" />
           <Metric
             value={`${analytics.averageConfidence}/100`}
-            label="Confidence"
+            label="Tự tin"
           />
-          <Metric value={`${analytics.averageAccuracy}%`} label="Accuracy" />
+          <Metric value={`${analytics.averageAccuracy}%`} label="Chính xác" />
           <Metric
             value={
               analytics.averageReasoning === null
                 ? "—"
                 : `${analytics.averageReasoning}/100`
             }
-            label="Reasoning"
+            label="Suy luận"
           />
           <Metric
             value={analytics.studentsNeedingSupport}
@@ -170,7 +192,7 @@ export function TeacherDashboard() {
               <div className="flex flex-wrap items-end justify-between gap-3">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.12em] text-indigo-600">
-                    Priority Students
+                    Học sinh cần ưu tiên
                   </p>
                   <h2 className="mt-2 text-2xl font-black">
                     Ai cần giáo viên chú ý trước?
@@ -196,7 +218,7 @@ export function TeacherDashboard() {
             <div className="space-y-5">
               <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
                 <p className="text-xs font-black uppercase tracking-[0.12em] text-fuchsia-600">
-                  Skill Heatmap
+                  Bản đồ kỹ năng của lớp
                 </p>
                 <h2 className="mt-2 text-2xl font-black">
                   Kỹ năng nào cả lớp đang yếu?
@@ -215,7 +237,7 @@ export function TeacherDashboard() {
 
               <section className="rounded-[2rem] border border-rose-100 bg-rose-50 p-5 shadow-sm sm:p-6">
                 <p className="text-xs font-black uppercase tracking-[0.12em] text-rose-600">
-                  Class Mistake Memory
+                  Bộ nhớ lỗi của lớp
                 </p>
                 <h2 className="mt-2 text-2xl font-black text-rose-950">
                   Lỗi lặp lại của cả lớp
@@ -246,9 +268,7 @@ export function TeacherDashboard() {
           <section className="mt-5 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
             <h2 className="text-2xl font-black">Danh sách học sinh</h2>
             <p className="mt-2 text-sm text-slate-500">
-              Dòng có nhãn LIVE lấy trực tiếp Student Brain trên trình duyệt
-              hiện tại; các dòng còn lại là dữ liệu lớp Demo để kiểm thử giao
-              diện giáo viên trước khi có database nhiều người dùng.
+              Dòng có nhãn DỮ LIỆU THỰC lấy trực tiếp từ hồ sơ học tập AI trên trình duyệt hiện tại; các dòng còn lại là dữ liệu minh họa để kiểm thử giao diện giáo viên.
             </p>
 
             <div className="mt-5 overflow-x-auto">
@@ -256,11 +276,11 @@ export function TeacherDashboard() {
                 <thead>
                   <tr className="border-b border-slate-200 text-xs uppercase tracking-[0.08em] text-slate-500">
                     <th className="px-3 py-3">Học sinh</th>
-                    <th className="px-3 py-3">Mastery</th>
-                    <th className="px-3 py-3">Confidence</th>
-                    <th className="px-3 py-3">Accuracy</th>
-                    <th className="px-3 py-3">Reasoning</th>
-                    <th className="px-3 py-3">Hint dep.</th>
+                    <th className="px-3 py-3">Thành thạo</th>
+                    <th className="px-3 py-3">Tự tin</th>
+                    <th className="px-3 py-3">Chính xác</th>
+                    <th className="px-3 py-3">Suy luận</th>
+                    <th className="px-3 py-3">Phụ thuộc gợi ý</th>
                     <th className="px-3 py-3">Phút học</th>
                     <th className="px-3 py-3">Lỗi</th>
                     <th className="px-3 py-3">Trạng thái</th>
@@ -277,7 +297,7 @@ export function TeacherDashboard() {
                         {student.displayName}
                         {student.source === "LIVE" && (
                           <span className="ml-2 rounded-full bg-indigo-50 px-2 py-1 text-[10px] font-black text-indigo-700">
-                            LIVE
+                            DỮ LIỆU THỰC
                           </span>
                         )}
                       </td>
@@ -309,7 +329,7 @@ export function TeacherDashboard() {
 
         {tab === "SKILLS" && (
           <section className="mt-5 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-            <h2 className="text-2xl font-black">Class Skill Analytics</h2>
+            <h2 className="text-2xl font-black">Phân tích kỹ năng của lớp</h2>
             <div className="mt-6 grid gap-4 lg:grid-cols-2">
               {analytics.skills.map((skill) => (
                 <article
@@ -335,7 +355,7 @@ export function TeacherDashboard() {
                     />
                   </div>
                   <div className="mt-3 text-xs font-bold text-slate-500">
-                    Confidence trung bình: {skill.confidenceAverage}/100
+                    Mức tự tin trung bình: {skill.confidenceAverage}/100
                   </div>
                 </article>
               ))}
@@ -345,7 +365,7 @@ export function TeacherDashboard() {
 
         {tab === "MISTAKES" && (
           <section className="mt-5 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-            <h2 className="text-2xl font-black">Class Mistake Memory</h2>
+            <h2 className="text-2xl font-black">Bộ nhớ lỗi của lớp</h2>
             <p className="mt-2 text-sm text-slate-500">
               Xếp theo tổng số lần lỗi đang xuất hiện trong lớp.
             </p>
@@ -399,7 +419,7 @@ function StudentRow({
           <p className="font-black">{student.displayName}</p>
           {student.source === "LIVE" && (
             <span className="rounded-full bg-indigo-50 px-2 py-1 text-[10px] font-black text-indigo-700">
-              LIVE
+              DỮ LIỆU THỰC
             </span>
           )}
         </div>
@@ -407,10 +427,10 @@ function StudentRow({
           Yếu nhất: {student.weakestSkill ?? "—"}
         </p>
       </div>
-      <MiniValue label="Mastery" value={student.masteryAverage} />
-      <MiniValue label="Accuracy" value={student.accuracyAverage} suffix="%" />
+      <MiniValue label="Thành thạo" value={student.masteryAverage} />
+      <MiniValue label="Chính xác" value={student.accuracyAverage} suffix="%" />
       <MiniValue
-        label="Reasoning"
+        label="Suy luận"
         value={student.reasoningScore}
       />
       <SupportBadge level={student.supportLevel} />
@@ -456,19 +476,19 @@ function StudentDrawer({
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-3">
-          <Metric value={`${student.masteryAverage}/100`} label="Mastery" />
+          <Metric value={`${student.masteryAverage}/100`} label="Thành thạo" />
           <Metric
             value={`${student.confidenceAverage}/100`}
-            label="Confidence"
+            label="Tự tin"
           />
-          <Metric value={`${student.accuracyAverage}%`} label="Accuracy" />
+          <Metric value={`${student.accuracyAverage}%`} label="Chính xác" />
           <Metric
             value={
               student.reasoningScore === null
                 ? "—"
                 : `${student.reasoningScore}/100`
             }
-            label="Reasoning"
+            label="Suy luận"
           />
         </div>
 
@@ -486,7 +506,7 @@ function StudentDrawer({
           <Info label="Tổng phút học" value={student.totalStudyMinutes} />
           <Info label="Lỗi đang mở" value={student.activeMistakes} />
           <Info
-            label="Hint dependency"
+            label="Phụ thuộc gợi ý"
             value={
               student.hintDependency === null
                 ? "—"
@@ -515,6 +535,28 @@ function StudentDrawer({
         </div>
       </aside>
     </div>
+  );
+}
+
+function TeacherStep({
+  number,
+  title,
+  text,
+  href,
+}: {
+  number: string;
+  title: string;
+  text: string;
+  href: string;
+}) {
+  return (
+    <Link href={href} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 hover:bg-white hover:shadow-sm">
+      <span className="grid h-8 w-8 place-items-center rounded-xl bg-slate-950 text-xs font-black text-white">
+        {number}
+      </span>
+      <h3 className="mt-3 font-black">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+    </Link>
   );
 }
 

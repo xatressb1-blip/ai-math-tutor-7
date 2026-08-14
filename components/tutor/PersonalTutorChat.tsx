@@ -225,7 +225,7 @@ export function PersonalTutorChat({ lesson }: { lesson: LessonDefinition }) {
                       <span>{skill.skillName}</span>
                       <span>{skill.masteryScore}/100</span>
                     </div>
-                    <p className="mt-1 text-xs text-slate-500">Confidence {skill.confidence}/100</p>
+                    <p className="mt-1 text-xs text-slate-500">Mức tự tin {skill.confidence}/100</p>
                   </div>
                 ))
               ) : (

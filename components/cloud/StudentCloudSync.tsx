@@ -91,13 +91,13 @@ export function StudentCloudSync() {
       saveLastCloudSync(receipt.serverUpdatedAt);
       setLastSync(receipt.serverUpdatedAt);
       setMessage(
-        `✓ Đã tải Student Brain của ${remote.displayName} từ Cloud. Thiết bị hiện an toàn để Push tiến độ.`,
+        `✓ Đã tải Hồ sơ học tập AI của ${remote.displayName} từ Cloud. Thiết bị hiện an toàn để Push tiến độ.`,
       );
     } catch (error) {
       setMessage(
         error instanceof Error
           ? error.message
-          : "Không thể tải Cloud.",
+          : "Không thể tải dữ liệu trực tuyến.",
       );
     } finally {
       setBusy(false);
@@ -109,11 +109,11 @@ export function StudentCloudSync() {
     try {
       const brain = loadStudentBrainFromStorage();
       if (!brain) {
-        throw new Error("Thiết bị chưa có Student Brain để gửi.");
+        throw new Error("Thiết bị chưa có Hồ sơ học tập AI để gửi.");
       }
       if (!lastSync) {
         throw new Error(
-          "Để tránh ghi đè dữ liệu, hãy Tải hồ sơ từ Cloud trước khi Push lần đầu trên thiết bị này.",
+          "Để tránh ghi đè dữ liệu, hãy tải hồ sơ từ hệ thống trực tuyến trước khi gửi tiến độ lần đầu trên thiết bị này.",
         );
       }
 
@@ -136,20 +136,20 @@ export function StudentCloudSync() {
         error.code === "CLOUD_CONFLICT"
       ) {
         setMessage(
-          "⚠ Cloud có dữ liệu mới hơn thiết bị này. Không ghi đè. Hãy bấm “Tải hồ sơ từ Cloud” trước, rồi tiếp tục học.",
+          "⚠ Dữ liệu trực tuyến mới hơn dữ liệu trên thiết bị. Hãy tải hồ sơ mới nhất trước rồi tiếp tục học.",
         );
       } else if (
         error instanceof CloudRequestError &&
         error.code === "PULL_REQUIRED"
       ) {
         setMessage(
-          "⚠ Server yêu cầu Pull trước. Hãy tải hồ sơ từ Cloud rồi mới gửi tiến độ.",
+          "⚠ Hệ thống yêu cầu tải hồ sơ mới nhất trước khi gửi tiến độ.",
         );
       } else {
         setMessage(
           error instanceof Error
             ? error.message
-            : "Không thể gửi Cloud.",
+            : "Không thể gửi dữ liệu trực tuyến.",
         );
       }
     } finally {
@@ -162,9 +162,9 @@ export function StudentCloudSync() {
       <div className="mx-auto max-w-3xl">
         <header className="rounded-[2rem] bg-slate-950 p-6 text-white sm:p-8">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">
-            Beta 2.7.0 · Safe Cloud Sync
+            Beta 2.7.0 · Safe Đồng bộ dữ liệu
           </p>
-          <h1 className="mt-3 text-4xl font-black">Cloud Student Sync</h1>
+          <h1 className="mt-3 text-4xl font-black">Đồng bộ dữ liệu học sinh</h1>
           <p className="mt-3 text-sm leading-7 text-slate-300">
             Pull trước, học sau, Push cuối phiên. Hệ thống chặn ghi đè nếu Cloud
             đã có dữ liệu mới hơn từ thiết bị khác.
@@ -180,10 +180,10 @@ export function StudentCloudSync() {
             }`}
           >
             {configured === null
-              ? "Đang kiểm tra Cloud…"
+              ? "Đang kiểm tra kết nối…"
               : configured
-                ? "✓ Cloud API + Pilot schema đã sẵn sàng."
-                : "Cloud chưa sẵn sàng. Local mode vẫn hoạt động."}
+                ? "✓ Kết nối và cấu trúc dữ liệu đã sẵn sàng."
+                : "Kết nối trực tuyến chưa sẵn sàng. Chế độ trên thiết bị vẫn hoạt động."}
           </div>
 
           <div className="mt-4 rounded-2xl border border-indigo-100 bg-indigo-50 p-4 text-sm leading-6 text-indigo-950">
@@ -258,7 +258,7 @@ export function StudentCloudSync() {
               setClassCode("");
               setAccessCode("");
               setLastSync(null);
-              setMessage("Đã xóa mã Cloud trên thiết bị.");
+              setMessage("Đã xóa mã đồng bộ trên thiết bị.");
             }}
             className="mt-4 text-xs font-black text-rose-600"
           >

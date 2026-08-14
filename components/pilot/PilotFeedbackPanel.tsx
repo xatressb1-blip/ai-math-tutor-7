@@ -25,12 +25,12 @@ export function PilotFeedbackPanel() {
     <main className="min-h-screen bg-[#f5f7fb] px-4 py-6 text-slate-950 sm:px-8">
       <div className="mx-auto max-w-3xl">
         <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-lg sm:p-8">
-          <p className="text-xs font-black uppercase tracking-[0.12em] text-sky-600">Pilot Feedback</p>
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-sky-600">Góp ý trải nghiệm</p>
           <h1 className="mt-3 text-3xl font-black">Trải nghiệm hôm nay thế nào?</h1>
           {saved ? (
             <div className="mt-6 rounded-2xl bg-emerald-50 p-6 text-emerald-950">
               <h2 className="text-xl font-black">Cảm ơn em! ✓</h2>
-              <p className="mt-2 text-sm">Phản hồi đã được lưu trên thiết bị Pilot này.</p>
+              <p className="mt-2 text-sm">Phản hồi đã được lưu trên thiết bị đang sử dụng.</p>
               <Link href="/student" className="mt-5 inline-flex rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-black text-white">Về Student Home</Link>
             </div>
           ) : (

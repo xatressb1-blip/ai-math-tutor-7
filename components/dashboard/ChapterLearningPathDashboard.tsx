@@ -164,7 +164,7 @@ export function ChapterLearningPathDashboard({
           </h2>
           <p className="mt-2 text-sm leading-6 text-indigo-800">
             Quyết định hiện tại là dữ liệu Beta: một bài được coi là hoàn thành
-            khi Accuracy đạt khoảng 70%, Confidence không thấp và Mastery đủ ổn.
+            khi độ chính xác đạt khoảng 70%, mức tự tin không thấp và mức độ thành thạo đủ ổn.
           </p>
         </section>
 
@@ -237,7 +237,7 @@ export function ChapterLearningPathDashboard({
 
                       <div className="mt-4 flex flex-wrap gap-2">
                         <DataPill
-                          label="Accuracy"
+                          label="Độ chính xác"
                           value={
                             lesson.latestAccuracy === null
                               ? "—"
@@ -245,7 +245,7 @@ export function ChapterLearningPathDashboard({
                           }
                         />
                         <DataPill
-                          label="Confidence"
+                          label="Mức tự tin"
                           value={
                             lesson.latestConfidence === null
                               ? "—"
@@ -253,7 +253,7 @@ export function ChapterLearningPathDashboard({
                           }
                         />
                         <DataPill
-                          label="Mastery"
+                          label="Thành thạo"
                           value={
                             lesson.masteryAverage === null
                               ? "—"
@@ -369,7 +369,7 @@ export function ChapterLearningPathDashboard({
 
         {!ready && (
           <p className="mt-6 text-center text-sm text-slate-400">
-            Đang đọc Student Brain…
+            Đang đọc hồ sơ học tập AI…
           </p>
         )}
       </div>

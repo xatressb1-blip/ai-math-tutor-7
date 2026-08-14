@@ -94,7 +94,7 @@ export function SemesterMockTest() {
                 AI Revision Coach
               </Link>
               <Link href="/pilot" className="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-black">
-                Pilot Analytics
+                Phân tích kết quả học tập
               </Link>
               <Link href="/" className="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-black">
                 Thư viện

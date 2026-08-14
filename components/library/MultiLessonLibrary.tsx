@@ -20,6 +20,8 @@ const chapterTitles: Record<number, string> = {
   1: "Số hữu tỉ",
   2: "Số thực",
   3: "Góc và đường thẳng song song",
+  4: "Tam giác bằng nhau",
+  5: "Thu thập và biểu diễn dữ liệu",
 };
 
 const studentTools = [
@@ -27,7 +29,7 @@ const studentTools = [
     href: "/",
     icon: "📚",
     title: "Thư viện bài học",
-    description: "11 bài học từ Chương I đến Chương III",
+    description: "19 bài học Toán 7 học kỳ I theo 5 chương",
   },
   {
     href: "/geometry-lab",
@@ -65,20 +67,20 @@ const teacherTools = [
   {
     href: "/cloud-activation",
     icon: "☁️",
-    title: "Kích hoạt hệ thống",
-    description: "Kiểm tra kết nối Cloud",
+    title: "Kiểm tra kết nối hệ thống",
+    description: "Kiểm tra trạng thái kết nối dữ liệu trực tuyến",
   },
   {
     href: "/teacher-cloud",
     icon: "🔐",
-    title: "Quản lý Cloud",
-    description: "Quản lý mã và dữ liệu học sinh",
+    title: "Quản lý dữ liệu trực tuyến",
+    description: "Quản lý mã lớp, mã học sinh và dữ liệu đồng bộ",
   },
   {
     href: "/pilot-ops",
     icon: "🎛️",
-    title: "Điều hành Pilot",
-    description: "Theo dõi buổi thử nghiệm",
+    title: "Trung tâm vận hành thử nghiệm",
+    description: "Theo dõi hoạt động và tình trạng triển khai",
   },
   {
     href: "/pilot-roster",
@@ -102,7 +104,7 @@ const teacherTools = [
     href: "/knowledge-qa",
     icon: "✅",
     title: "Kiểm định kiến thức",
-    description: "Audit ánh xạ 19 bài vào các engine",
+    description: "Kiểm tra 19 bài có đủ học, luyện tập, suy luận và dữ liệu",
   },
 ];
 
@@ -148,34 +150,43 @@ export function MultiLessonLibrary({
             </div>
             <div>
               <h1 className="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">
-                Học Toán 7
+                AI Math Tutor 7
               </h1>
               <p className="mt-1 text-sm font-medium text-slate-500">
-                Học vui – Học hiểu – Học tiến bộ
+                Gia sư AI 1:1 · Học đúng nhu cầu · Theo dõi tiến bộ
               </p>
             </div>
           </div>
 
-          <Link
-            href="/student"
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50"
-          >
-            👤 Trang học của em
-          </Link>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="/student"
+              className="rounded-2xl bg-indigo-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm hover:bg-indigo-700"
+            >
+              👤 Dành cho học sinh
+            </Link>
+            <Link
+              href="/teacher"
+              className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-extrabold text-slate-700 shadow-sm hover:bg-slate-50"
+            >
+              👨‍🏫 Dành cho giáo viên
+            </Link>
+          </div>
         </header>
 
         <section className="mt-5 overflow-hidden rounded-[2rem] border border-indigo-100 bg-gradient-to-br from-white via-indigo-50/40 to-sky-50 p-6 shadow-sm sm:p-8">
-          <p className="text-sm font-semibold text-slate-600">
-            Chào mừng em đến với
+          <p className="text-sm font-semibold text-indigo-700">
+            BẮT ĐẦU ĐÚNG VAI TRÒ
           </p>
           <h2 className="mt-2 text-4xl font-extrabold tracking-tight text-slate-950 sm:text-6xl">
-            Học Toán 7
+            Học sinh học dễ hơn. Giáo viên quản lý rõ hơn.
           </h2>
-          <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
-            Chọn bài học hoặc tiếp tục hành trình học của em.
+          <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">
+            Học sinh nên vào “Trang học của em” để nhận lộ trình cá nhân hóa.
+            Giáo viên vào “Bảng điều khiển giáo viên” để theo dõi lớp, học sinh cần hỗ trợ và dữ liệu học tập.
           </p>
 
-          <div className="mt-6 grid gap-3 lg:grid-cols-3">
+          <div className="mt-6 grid gap-3 lg:grid-cols-4">
             <HeroAction
               href="/student"
               icon="🏠"
@@ -194,8 +205,15 @@ export function MultiLessonLibrary({
               href="/progress"
               icon="🗺️"
               title="Tiến độ học tập"
-              description="Xem tiến độ của em"
+              description="Xem tiến độ và mức độ thành thạo"
               tone="amber"
+            />
+            <HeroAction
+              href="/teacher"
+              icon="👨‍🏫"
+              title="Khu vực giáo viên"
+              description="Quản lý lớp, học sinh và báo cáo"
+              tone="blue"
             />
           </div>
         </section>
@@ -261,14 +279,14 @@ export function MultiLessonLibrary({
                 Thư viện bài học
               </p>
               <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
-                11 bài học Toán 7
+                {lessons.length} bài học Toán 7
               </h2>
               <p className="mt-2 text-sm leading-6 text-slate-500">
-                Nội dung từ Chương I đến Chương III, có luyện tập thích ứng và hỗ trợ AI.
+                Đủ 5 chương học kỳ I, có học bài, luyện tập thích ứng, luyện suy luận và hỗ trợ AI.
               </p>
             </div>
             <span className="rounded-full bg-emerald-50 px-4 py-2 text-xs font-extrabold text-emerald-700">
-              Đã có Chương I–III
+              Đủ Chương I–V
             </span>
           </div>
 
@@ -355,7 +373,7 @@ export function MultiLessonLibrary({
         <footer className="mt-10 border-t border-slate-200 py-6 text-center text-sm font-medium text-slate-500">
           ❤️ Học mỗi ngày – Tiến bộ mỗi ngày!
           <span className="ml-3 text-xs text-slate-400">
-            AI Math Tutor v2.7.1-beta.1
+            AI Math Tutor v2.8.3-beta.1
           </span>
         </footer>
       </div>

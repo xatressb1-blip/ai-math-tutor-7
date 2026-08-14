@@ -30,13 +30,13 @@ export function SemesterMasteryDashboard() {
       <div className="mx-auto max-w-6xl">
         <header className="rounded-[2rem] bg-slate-950 p-6 text-white shadow-xl sm:p-8">
           <p className="text-xs font-black uppercase tracking-[0.14em] text-indigo-200">
-            Beta 2.4 · Semester I Mastery
+            Ôn tập học kỳ I · Cá nhân hóa
           </p>
           <div className="mt-3 flex flex-wrap items-end justify-between gap-5">
             <div>
               <h1 className="text-4xl font-black">Ôn tập học kỳ I cá nhân hóa</h1>
               <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-300">
-                Student Brain tự chọn kỹ năng yếu, đề xuất thứ tự ôn và cho biết
+                Hồ sơ học tập AI xác định kỹ năng cần củng cố, đề xuất thứ tự ôn và cho biết
                 mức sẵn sàng trước khi làm đề mô phỏng.
               </p>
             </div>
@@ -44,7 +44,7 @@ export function SemesterMasteryDashboard() {
               <div className="text-4xl font-black">{plan.readinessScore}</div>
               <div className="mt-3 space-y-1 text-xs text-slate-600">
                 <div>Phủ chương trình: {plan.curriculumCoverage}%</div>
-                <div>Mastery đã xác minh: {plan.verifiedMasteryCoverage}%</div>
+                <div>Thành thạo đã xác minh: {plan.verifiedMasteryCoverage}%</div>
                 {plan.unresolvedMisconceptionPenalty > 0 ? (
                   <div>Khấu trừ misconception: -{plan.unresolvedMisconceptionPenalty}</div>
                 ) : null}
@@ -57,11 +57,11 @@ export function SemesterMasteryDashboard() {
         </header>
 
         <section className="mt-5 grid gap-3 sm:grid-cols-5">
-          <Metric label="Mastery TB" value={`${plan.masteryAverage}/100`} />
-          <Metric label="Confidence TB" value={`${plan.confidenceAverage}/100`} />
-          <Metric label="Accuracy" value={`${plan.accuracyAverage}%`} />
+          <Metric label="Thành thạo TB" value={`${plan.masteryAverage}/100`} />
+          <Metric label="Tự tin TB" value={`${plan.confidenceAverage}/100`} />
+          <Metric label="Độ chính xác" value={`${plan.accuracyAverage}%`} />
           <Metric label="Skill có Evidence" value={`${evidenceTrackedSkills}`} />
-          <Metric label="Mastery đã xác minh" value={`${verifiedMasteredSkills}`} />
+          <Metric label="Thành thạo đã xác minh" value={`${verifiedMasteredSkills}`} />
         </section>
 
         <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_0.72fr]">

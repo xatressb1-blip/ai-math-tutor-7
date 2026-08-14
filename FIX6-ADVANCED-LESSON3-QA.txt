@@ -1,0 +1,59 @@
+AI Math Tutor v2.8.3-beta.3 – FIX6
+Advanced Math Lesson 3 – Lũy thừa với số mũ tự nhiên của một số hữu tỉ
+
+MỤC TIÊU
+- Kế thừa Golden Standard của Bài 1 và Bài 2.
+- Đúng đáp số nhưng thiếu lập luận thì chưa PASS.
+- Phân biệt rõ: nhân cùng cơ số → cộng số mũ; lũy thừa của lũy thừa → nhân số mũ.
+- Học sinh phải biết chọn chiến lược, bắt lỗi và giải bài toán ngược.
+- Các skill nâng cao là ADVANCED_ONLY, không làm tăng CORE Mastery.
+
+NỘI DUNG NÂNG CAO BÀI 3
+
+1. NÂNG CAO 1 – VẬN DỤNG
+A = (3/5)^4 × (3/5)^3 : (3/5)^5
+Yêu cầu:
+- Không khai triển dài.
+- Dùng 4+3-5=2.
+- Kết luận A=(3/5)^2=9/25.
+- Giải thích vì sao rút gọn số mũ trước hiệu quả hơn.
+
+2. NÂNG CAO 2 – SUY LUẬN
+Phân tích lời giải sai:
+((-2/3)^2)^3 = (-2/3)^(2+3)
+Yêu cầu:
+- Chỉ đúng lỗi cộng số mũ.
+- Sửa thành 2×3=6.
+- Kết luận 64/729 và giải thích dấu dương.
+- Phân biệt a^m×a^n với (a^m)^n.
+
+3. THỬ THÁCH – KHÁM PHÁ
+[(2/3)^x × (2/3)^3] : (2/3)^2 = (2/3)^6
+Yêu cầu:
+- Rút gọn vế trái thành (2/3)^(x+1).
+- Lập x+1=6.
+- Suy ra x=5.
+- Giải thích vì sao được so sánh số mũ.
+- Thay lại 5+3-2=6 để kiểm chứng.
+
+LOCAL TEST
+npm run build
+npm run dev
+
+TEST ROUTES
+/learn/lesson-player-03
+/advanced/lesson-player-03
+
+GOLDEN NEGATIVE TESTS
+- Chỉ nhập 9/25 ở bài 1 → chưa PASS nếu thiếu chiến lược/lập luận.
+- Chỉ nhập 64/729 ở bài 2 → chưa PASS nếu thiếu 2×3=6 và dấu.
+- Chỉ nhập x=5 ở bài 3 → chưa PASS nếu chưa lập x+1=6.
+- Gợi ý phải tăng dần, không cho qua chỉ vì có đáp số.
+
+REGRESSION
+/knowledge-qa       → 19 PASS / 0 WARN / 0 FAIL / 100%
+/mastery-integrity  → 5/5 PASS
+/pilot-readiness    → ALL PASS / 0 FAIL
+/cloud-activation   → 3 READY
+
+Chưa Git/Tag/Vercel trước khi Local PASS.

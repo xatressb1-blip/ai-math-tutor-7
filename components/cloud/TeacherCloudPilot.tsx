@@ -9,408 +9,146 @@ import {
   teacherUpsertCloudStudent,
 } from "@/services/cloud/cloud-sync-client";
 import { loadMultiStudentWorkspace } from "@/services/multi-student/multi-student-storage";
+import { loadTeacherClassSettings } from "@/services/teacher/teacher-class-storage";
 import type { CloudPilotStudent } from "@/types/cloud-pilot";
 import type { MultiStudentWorkspace } from "@/types/multi-student";
 
-function makeAccessCode(): string {
-  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  const bytes = new Uint8Array(8);
-  crypto.getRandomValues(bytes);
-  return Array.from(
-    bytes,
-    (value) => alphabet[value % alphabet.length],
-  ).join("");
-}
-
-function freshness(updatedAt: string) {
-  const ageMinutes = (Date.now() - new Date(updatedAt).getTime()) / 60_000;
-  if (ageMinutes <= 30)
-    return { label: "Mới đồng bộ", className: "bg-emerald-50 text-emerald-700" };
-  if (ageMinutes <= 24 * 60)
-    return { label: "Trong hôm nay", className: "bg-sky-50 text-sky-700" };
-  return { label: "Cần kiểm tra", className: "bg-amber-50 text-amber-700" };
+function nextLocalAccessCode(existing: string[]): string | null {
+  const used = new Set(existing);
+  for (let index = 0; index <= 9; index += 1) {
+    const code = `HS${index}`;
+    if (!used.has(code)) return code;
+  }
+  return null;
 }
 
 export function TeacherCloudPilot() {
-  const [workspace, setWorkspace] =
-    useState<MultiStudentWorkspace | null>(null);
-  const [classCode, setClassCode] = useState("7A-PILOT");
-  const [teacherKey, setTeacherKey] = useState("");
+  const [workspace, setWorkspace] = useState<MultiStudentWorkspace | null>(null);
+  const [classCode, setClassCode] = useState("");
   const [codes, setCodes] = useState<Record<string, string>>({});
-  const [cloud, setCloud] = useState<CloudPilotStudent[]>([]);
-  const [message, setMessage] = useState("Chưa đồng bộ dữ liệu trực tuyến.");
+  const [remoteStudents, setRemoteStudents] = useState<CloudPilotStudent[]>([]);
+  const [message, setMessage] = useState("Bấm “Tải danh sách” để kiểm tra học sinh đã được cấp mã.");
   const [busy, setBusy] = useState(false);
-  const [uploadingAll, setUploadingAll] = useState(false);
 
-  useEffect(() => setWorkspace(loadMultiStudentWorkspace()), []);
-  const localStudents = useMemo(
-    () => workspace?.students ?? [],
-    [workspace],
-  );
+  useEffect(() => {
+    setWorkspace(loadMultiStudentWorkspace());
+    setClassCode(loadTeacherClassSettings()?.classCode ?? "");
+  }, []);
 
-  async function refreshCloud() {
+  const localStudents = useMemo(() => workspace?.students ?? [], [workspace]);
+
+  async function refresh() {
+    if (!classCode.trim()) return;
     setBusy(true);
     try {
-      const rows = await teacherListCloudStudents(
-        classCode.trim().toUpperCase(),
-        teacherKey,
-      );
-      setCloud(rows);
-      setMessage(`✓ Đã tải ${rows.length} hồ sơ từ Cloud.`);
+      const rows = await teacherListCloudStudents(classCode.trim().toUpperCase());
+      setRemoteStudents(rows);
+      setMessage(`✓ Đã tải ${rows.length} học sinh đã được cấp mã.`);
     } catch (error) {
-      setMessage(
-        error instanceof Error ? error.message : "Không thể đọc dữ liệu trực tuyến.",
-      );
+      setMessage(error instanceof Error ? error.message : "Không thể tải dữ liệu học sinh.");
     } finally {
       setBusy(false);
     }
   }
 
-  async function uploadStudent(studentId: string) {
-    if (!workspace) return;
+  async function provision(studentId: string) {
+    if (!workspace || !classCode.trim()) return;
     const brain = workspace.brains[studentId];
     if (!brain) return;
-
-    const accessCode = codes[studentId] || makeAccessCode();
+    const localCodes = workspace.students.map((item) => item.accessCode).filter((value): value is string => Boolean(value));
+    const accessCode = nextLocalAccessCode(localCodes);
+    if (!accessCode) {
+      setMessage("Đã dùng đủ mã HS0 đến HS9.");
+      return;
+    }
     setBusy(true);
     try {
-      await teacherUpsertCloudStudent({
-        classCode: classCode.trim().toUpperCase(),
-        accessCode,
-        teacherKey,
-        brain,
-      });
-      setCodes((current) => ({
-        ...current,
-        [studentId]: accessCode,
-      }));
-      setMessage(
-        `✓ Đã đưa ${brain.profile.displayName} lên Cloud. Hãy lưu Mã HS ngay: ${accessCode}`,
-      );
-      await refreshCloud();
+      await teacherUpsertCloudStudent({ classCode: classCode.trim().toUpperCase(), accessCode, brain });
+      setCodes((current) => ({ ...current, [studentId]: accessCode }));
+      setMessage(`✓ Mã học sinh của ${brain.profile.displayName}: ${accessCode}`);
+      await refresh();
     } catch (error) {
-      setMessage(
-        error instanceof Error
-          ? error.message
-          : "Không thể cập nhật dữ liệu trực tuyến.",
-      );
+      setMessage(error instanceof Error ? error.message : "Không thể cấp mã học sinh.");
     } finally {
       setBusy(false);
     }
   }
 
-  async function uploadAll() {
-    if (!workspace) return;
-    if (workspace.students.length > 10) {
-      setMessage("Phiên bản hiện tại giới hạn tối đa 10 học sinh.");
-      return;
-    }
-
-    setUploadingAll(true);
-    try {
-      for (const student of workspace.students) {
-        const brain = workspace.brains[student.profile.id];
-        if (!brain) continue;
-        const accessCode =
-          codes[student.profile.id] || makeAccessCode();
-        await teacherUpsertCloudStudent({
-          classCode: classCode.trim().toUpperCase(),
-          accessCode,
-          teacherKey,
-          brain,
-        });
-        setCodes((current) => ({
-          ...current,
-          [student.profile.id]: accessCode,
-        }));
-      }
-      setMessage(
-        `✓ Đã kích hoạt ${workspace.students.length} hồ sơ học sinh. Hãy lưu các mã mới đang hiển thị.`,
-      );
-      await refreshCloud();
-    } catch (error) {
-      setMessage(
-        error instanceof Error
-          ? error.message
-          : "Không thể upload toàn bộ.",
-      );
-    } finally {
-      setUploadingAll(false);
-    }
-  }
-
-  async function rotateAccess(student: CloudPilotStudent) {
-    if (
-      !window.confirm(
-        `Cấp mã mới cho ${student.displayName}? Mã cũ sẽ ngừng hoạt động ngay.`,
-      )
-    ) {
-      return;
-    }
-
+  async function rotate(student: CloudPilotStudent) {
+    if (!window.confirm(`Đặt lại mã của ${student.displayName}? Mã cũ sẽ ngừng hoạt động.`)) return;
     setBusy(true);
     try {
-      const result = await teacherRotateCloudAccess({
-        classCode: classCode.trim().toUpperCase(),
-        studentId: student.studentId,
-        teacherKey,
-      });
-      setCodes((current) => ({
-        ...current,
-        [student.studentId]: result.accessCode,
-      }));
-      setMessage(
-        `✓ Đã cấp mã mới cho ${student.displayName}. Hãy ghi lại ngay: ${result.accessCode}`,
-      );
-      await refreshCloud();
+      const result = await teacherRotateCloudAccess({ classCode: classCode.trim().toUpperCase(), studentId: student.studentId });
+      setCodes((current) => ({ ...current, [student.studentId]: result.accessCode }));
+      setMessage(`✓ Mã mới của ${student.displayName}: ${result.accessCode}`);
+      await refresh();
     } catch (error) {
-      setMessage(
-        error instanceof Error ? error.message : "Không thể cấp mã mới.",
-      );
+      setMessage(error instanceof Error ? error.message : "Không thể đặt lại mã.");
     } finally {
       setBusy(false);
     }
   }
 
-  async function revokeStudent(student: CloudPilotStudent) {
-    if (
-      !window.confirm(
-        `Thu hồi Cloud của ${student.displayName}? Học sinh sẽ không Pull/Push được bằng mã hiện tại.`,
-      )
-    ) {
-      return;
-    }
-
+  async function revoke(student: CloudPilotStudent) {
+    if (!window.confirm(`Thu hồi mã đăng nhập của ${student.displayName}?`)) return;
     setBusy(true);
     try {
-      await teacherDeleteCloudStudent({
-        classCode: classCode.trim().toUpperCase(),
-        studentId: student.studentId,
-        teacherKey,
-      });
-      setCodes((current) => {
-        const next = { ...current };
-        delete next[student.studentId];
-        return next;
-      });
-      setMessage(`✓ Đã thu hồi Cloud của ${student.displayName}.`);
-      await refreshCloud();
+      await teacherDeleteCloudStudent({ classCode: classCode.trim().toUpperCase(), studentId: student.studentId });
+      setMessage(`✓ Đã thu hồi mã của ${student.displayName}.`);
+      await refresh();
     } catch (error) {
-      setMessage(
-        error instanceof Error ? error.message : "Không thể thu hồi.",
-      );
+      setMessage(error instanceof Error ? error.message : "Không thể thu hồi mã.");
     } finally {
       setBusy(false);
     }
   }
 
   async function copyCode(studentId: string) {
-    const value = codes[studentId];
-    if (!value) {
-      setMessage(
-        "Mã đầy đủ không được lưu lại sau refresh. Hãy dùng “Cấp mã mới” nếu cần cấp lại.",
-      );
+    const code = codes[studentId];
+    if (!code) {
+      setMessage("Mã học sinh chỉ gồm HS0–HS9. Nếu cần thay mã, hãy dùng “Đặt lại mã”.");
       return;
     }
-    await navigator.clipboard.writeText(value);
-    setMessage("✓ Đã copy Mã HS vào clipboard.");
+    await navigator.clipboard.writeText(`Mã lớp: ${classCode}\nMã học sinh: ${code}`);
+    setMessage("✓ Đã sao chép thông tin đăng nhập.");
   }
 
   return (
     <main className="min-h-screen bg-[#f5f7fb] px-4 py-6 text-slate-950 sm:px-8">
       <div className="mx-auto max-w-6xl">
         <header className="rounded-[2rem] bg-slate-950 p-6 text-white sm:p-8">
-          <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-200">
-            Beta 2.7.0 · Production Hardening
-          </p>
-          <h1 className="mt-3 text-4xl font-black">
-            Quản lý dữ liệu trực tuyến
-          </h1>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
-            Kích hoạt, cấp lại mã, theo dõi lần đồng bộ và thu hồi quyền Cloud
-            cho tối đa 10 học sinh.
-          </p>
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-cyan-200">KHU VỰC GIÁO VIÊN · QUẢN LÝ MÃ ĐĂNG NHẬP</p>
+          <h1 className="mt-3 text-4xl font-black">Lớp và mã học sinh</h1>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">Dùng trang này khi cần kiểm tra học sinh đã được cấp mã, đặt lại mã hoặc thu hồi quyền đăng nhập.</p>
+          <div className="mt-5 flex gap-2"><Link href="/pilot-roster" className="rounded-2xl bg-white px-4 py-2.5 text-sm font-black text-slate-950">← Quản lý học sinh</Link></div>
         </header>
 
-        <section className="mt-5 grid gap-3 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-2">
-          <div>
-            <label className="text-sm font-black">Mã lớp</label>
-            <input
-              value={classCode}
-              onChange={(e) =>
-                setClassCode(e.target.value.toUpperCase())
-              }
-              className="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3 uppercase outline-none focus:border-indigo-500"
-            />
+        <section className="mt-5 rounded-[2rem] border border-indigo-100 bg-white p-6 shadow-sm">
+          <p className="text-xs font-black uppercase tracking-[0.1em] text-indigo-600">CÁCH DÙNG</p>
+          <p className="mt-2 text-sm leading-6 text-slate-600">① Kiểm tra đúng mã lớp → ② Tải danh sách → ③ Dùng “Đặt lại mã” nếu học sinh quên mã → ④ Dùng “Thu hồi mã” khi học sinh không còn được phép đăng nhập.</p>
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+            <input value={classCode} onChange={(e) => setClassCode(e.target.value.toUpperCase())} placeholder="Mã lớp" className="flex-1 rounded-2xl border border-slate-300 px-4 py-3 uppercase outline-none" />
+            <button type="button" onClick={refresh} disabled={busy || !classCode.trim()} className="rounded-2xl bg-indigo-600 px-5 py-3 text-sm font-black text-white disabled:opacity-40">Tải danh sách</button>
           </div>
-          <div>
-            <label className="text-sm font-black">Khóa truy cập giáo viên</label>
-            <input
-              type="password"
-              value={teacherKey}
-              onChange={(e) => setTeacherKey(e.target.value)}
-              className="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500"
-              placeholder="PILOT_TEACHER_KEY"
-            />
-          </div>
-
-          <div className="flex flex-wrap gap-2 sm:col-span-2">
-            <button
-              disabled={busy || uploadingAll || !teacherKey || !classCode}
-              onClick={refreshCloud}
-              className="rounded-2xl bg-indigo-600 px-5 py-3 text-sm font-black text-white disabled:opacity-40"
-            >
-              ↻ Tải danh sách trực tuyến
-            </button>
-            <button
-              disabled={
-                busy ||
-                uploadingAll ||
-                !teacherKey ||
-                !classCode ||
-                localStudents.length > 10
-              }
-              onClick={uploadAll}
-              className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-black text-white disabled:opacity-40"
-            >
-              ☁ Kích hoạt Pilot ({localStudents.length}/10)
-            </button>
-            <Link
-              href="/pilot-roster"
-              className="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-black"
-            >
-              Pilot Roster local
-            </Link>
-          </div>
-
-          <div className="rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-700 sm:col-span-2">
-            {message}
-          </div>
+          <div className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-700">{message}</div>
         </section>
 
-        <section className="mt-5 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="text-2xl font-black">Hồ sơ trên thiết bị → Dữ liệu trực tuyến</h2>
-          <p className="mt-2 text-sm text-slate-500">
-            Mã đầy đủ chỉ tồn tại trong phiên trình duyệt hiện tại. Sau refresh,
-            hệ thống chỉ còn 4 ký tự cuối trên Cloud.
-          </p>
-
+        <section className="mt-5 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="text-2xl font-black">Học sinh trên thiết bị này</h2>
+          <p className="mt-2 text-sm text-slate-500">Nếu một học sinh chưa có dữ liệu trực tuyến, có thể cấp mã tại đây. Luồng thông thường nên thực hiện ngay ở trang “Quản lý học sinh”.</p>
           <div className="mt-4 space-y-3">
             {localStudents.map((student) => (
-              <article
-                key={student.profile.id}
-                className="rounded-2xl border border-slate-200 p-4"
-              >
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div>
-                    <div className="font-black">
-                      {student.profile.displayName}
-                    </div>
-                    <div className="text-xs text-slate-500">
-                      {student.profile.className || "Chưa xếp lớp"}
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <code className="rounded-xl bg-slate-100 px-3 py-2 text-sm font-black">
-                      {codes[student.profile.id] || "Chưa có mã mới"}
-                    </code>
-                    {codes[student.profile.id] && (
-                      <button
-                        onClick={() => copyCode(student.profile.id)}
-                        className="rounded-xl border border-slate-300 px-3 py-2 text-xs font-black"
-                      >
-                        Copy
-                      </button>
-                    )}
-                    <button
-                      disabled={busy || !teacherKey || !classCode}
-                      onClick={() => uploadStudent(student.profile.id)}
-                      className="rounded-xl bg-emerald-600 px-4 py-2 text-xs font-black text-white disabled:opacity-40"
-                    >
-                      Đưa lên dữ liệu trực tuyến
-                    </button>
-                  </div>
-                </div>
-              </article>
+              <div key={student.profile.id} className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 p-4">
+                <div><b>{student.profile.displayName}</b><div className="text-xs text-slate-500">{student.profile.className}</div></div>
+                <div className="flex gap-2"><button type="button" disabled={busy || !classCode.trim()} onClick={() => provision(student.profile.id)} className="rounded-xl bg-emerald-50 px-3 py-2 text-xs font-black text-emerald-700">Cấp mã</button>{codes[student.profile.id] && <button type="button" onClick={() => copyCode(student.profile.id)} className="rounded-xl bg-slate-100 px-3 py-2 text-xs font-black">Sao chép mã</button>}</div>
+              </div>
             ))}
           </div>
         </section>
 
-        <section className="mt-5 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h2 className="text-2xl font-black">Danh sách học sinh trực tuyến</h2>
-              <p className="mt-1 text-sm text-slate-500">
-                {cloud.length}/10 học sinh đang kích hoạt.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-4 overflow-x-auto">
-            <table className="w-full min-w-[900px] text-left text-sm">
-              <thead className="bg-slate-50 text-xs uppercase text-slate-500">
-                <tr>
-                  <th className="p-3">Học sinh</th>
-                  <th>Mã HS</th>
-                  <th>Phiên học</th>
-                  <th>Kỹ năng</th>
-                  <th>Trạng thái</th>
-                  <th>Cập nhật</th>
-                  <th>Quản lý</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cloud.map((row) => {
-                  const state = freshness(row.updatedAt);
-                  return (
-                    <tr
-                      key={row.studentId}
-                      className="border-t border-slate-100"
-                    >
-                      <td className="p-3 font-black">
-                        {row.displayName}
-                      </td>
-                      <td>
-                        <code className="font-black">
-                          {row.accessCodeMasked || "••••"}
-                        </code>
-                      </td>
-                      <td>{row.brain.sessions.length}</td>
-                      <td>{row.brain.skills.length}</td>
-                      <td>
-                        <span
-                          className={`rounded-full px-3 py-1 text-[10px] font-black ${state.className}`}
-                        >
-                          {state.label}
-                        </span>
-                      </td>
-                      <td>
-                        {new Date(row.updatedAt).toLocaleString("vi-VN")}
-                      </td>
-                      <td>
-                        <div className="flex gap-2">
-                          <button
-                            disabled={busy}
-                            onClick={() => rotateAccess(row)}
-                            className="rounded-xl bg-amber-50 px-3 py-2 text-xs font-black text-amber-700 disabled:opacity-40"
-                          >
-                            Cấp mã mới
-                          </button>
-                          <button
-                            disabled={busy}
-                            onClick={() => revokeStudent(row)}
-                            className="rounded-xl bg-rose-50 px-3 py-2 text-xs font-black text-rose-700 disabled:opacity-40"
-                          >
-                            Thu hồi
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+        <section className="mt-5 overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm">
+          <div className="p-5"><h2 className="text-2xl font-black">Học sinh đã được cấp mã</h2><p className="mt-1 text-sm text-slate-500">{remoteStudents.length} học sinh trong mã lớp hiện tại.</p></div>
+          <div className="overflow-x-auto"><table className="w-full min-w-[760px] text-left text-sm"><thead className="bg-slate-50 text-xs uppercase text-slate-500"><tr><th className="p-3">Học sinh</th><th>Mã hiện có</th><th>Cập nhật gần nhất</th><th>Thao tác</th></tr></thead><tbody>{remoteStudents.map((student) => <tr key={student.studentId} className="border-t border-slate-100"><td className="p-3 font-black">{student.displayName}</td><td>{student.accessCodeMasked || "••••"}</td><td>{new Date(student.updatedAt).toLocaleString("vi-VN")}</td><td><div className="flex gap-2"><button type="button" disabled={busy} onClick={() => rotate(student)} className="rounded-xl bg-amber-50 px-3 py-2 text-xs font-black text-amber-700">Đặt lại mã</button><button type="button" disabled={busy} onClick={() => revoke(student)} className="rounded-xl bg-rose-50 px-3 py-2 text-xs font-black text-rose-700">Thu hồi mã</button></div></td></tr>)}</tbody></table></div>
         </section>
       </div>
     </main>

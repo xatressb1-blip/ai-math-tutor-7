@@ -153,6 +153,7 @@ export function syncReasoningSessionToStudentBrain({
         ),
         questionsAttempted: summary.attempts.length,
         questionsCorrect: summary.attempts.filter((item) => item.isCorrect).length,
+        source: "REASONING",
         note:
           `Step Analyzer · Reasoning ${summary.reasoningScore}/100 · ` +
           `First attempt ${summary.firstAttemptAccuracy}% · ` +

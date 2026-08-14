@@ -46,11 +46,11 @@ export function SemesterMasteryDashboard() {
                 <div>Phủ chương trình: {plan.curriculumCoverage}%</div>
                 <div>Thành thạo đã xác minh: {plan.verifiedMasteryCoverage}%</div>
                 {plan.unresolvedMisconceptionPenalty > 0 ? (
-                  <div>Khấu trừ misconception: -{plan.unresolvedMisconceptionPenalty}</div>
+                  <div>Khấu trừ lỗi chưa khắc phục: -{plan.unresolvedMisconceptionPenalty}</div>
                 ) : null}
               </div>
               <div className="text-xs font-black uppercase tracking-[0.1em] text-slate-300">
-                Readiness
+                Mức sẵn sàng
               </div>
             </div>
           </div>
@@ -60,14 +60,14 @@ export function SemesterMasteryDashboard() {
           <Metric label="Thành thạo TB" value={`${plan.masteryAverage}/100`} />
           <Metric label="Tự tin TB" value={`${plan.confidenceAverage}/100`} />
           <Metric label="Độ chính xác" value={`${plan.accuracyAverage}%`} />
-          <Metric label="Skill có Evidence" value={`${evidenceTrackedSkills}`} />
+          <Metric label="Kỹ năng có minh chứng" value={`${evidenceTrackedSkills}`} />
           <Metric label="Thành thạo đã xác minh" value={`${verifiedMasteredSkills}`} />
         </section>
 
         <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_0.72fr]">
           <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
             <p className="text-xs font-black uppercase tracking-[0.12em] text-indigo-600">
-              AI Revision Coach
+              Trợ lý ôn tập AI
             </p>
             <h2 className="mt-2 text-2xl font-black">Kế hoạch ôn hôm nay</h2>
             <div className="mt-5 space-y-3">
@@ -129,7 +129,7 @@ export function SemesterMasteryDashboard() {
               className="block rounded-[2rem] bg-indigo-600 p-6 text-white shadow-lg"
             >
               <p className="text-xs font-black uppercase tracking-[0.12em] text-indigo-200">
-                Mock Test
+                Bài kiểm tra mô phỏng
               </p>
               <h3 className="mt-2 text-2xl font-black">Làm đề mô phỏng HKI →</h3>
             </Link>

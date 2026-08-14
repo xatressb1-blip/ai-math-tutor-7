@@ -1,0 +1,18 @@
+AI Math Tutor v2.8.3-beta.3 – Teacher Guided Workflow & Vietnamese UX
+
+BASELINE
+v2.8.3-beta.2
+
+PHẠM VI
+- Teacher guided workflow 4 bước.
+- Tạo lớp và sinh mã lớp.
+- Cấp mã học sinh bằng phiên giáo viên.
+- Xóa học sinh có xác nhận.
+- Teacher progress page mới.
+- Roster/multi-student help text và action rõ ràng.
+- Teacher dashboard dùng dữ liệu roster thật.
+- Việt hóa thêm các thuật ngữ vận hành.
+- Không thay Supabase schema.
+
+STATIC VALIDATION
+tsc --noEmit --noCheck => PASS

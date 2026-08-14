@@ -86,7 +86,7 @@ export function buildStudentAnalytics(
 
   const recommendation =
     supportLevel === "NEEDS_SUPPORT"
-      ? `Cần hỗ trợ trực tiếp. Ưu tiên ${weakestSkill ?? "kỹ năng nền tảng"} và giảm phụ thuộc Hint.`
+      ? `Cần hỗ trợ trực tiếp. Ưu tiên ${weakestSkill ?? "kỹ năng nền tảng"} và giảm phụ thuộc gợi ý.`
       : supportLevel === "WATCH"
         ? `Theo dõi thêm. Nên luyện ${weakestSkill ?? "kỹ năng yếu nhất"} trong 10–15 phút.`
         : `Đang tiến triển tốt. Có thể tăng dần độ khó ở ${strongestSkill ?? "kỹ năng mạnh"}.`;

@@ -13,12 +13,12 @@ export function classAnalyticsToCsv(
   const header = [
     "Học sinh",
     "Lớp",
-    "Nguồn",
-    "Mastery",
-    "Confidence",
-    "Accuracy",
-    "Reasoning",
-    "Hint Dependency",
+    "Nguồn dữ liệu",
+    "Thành thạo",
+    "Mức tự tin",
+    "Độ chính xác",
+    "Suy luận",
+    "Phụ thuộc gợi ý",
     "Phút học",
     "Buổi học",
     "Lỗi đang mở",
@@ -59,7 +59,7 @@ export function downloadClassAnalyticsCsv(
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = url;
-  anchor.download = `class-${analytics.className}-analytics.csv`;
+  anchor.download = `lop-${analytics.className}-bao-cao.csv`;
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();

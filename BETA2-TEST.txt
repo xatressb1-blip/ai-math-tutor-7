@@ -1,0 +1,50 @@
+AI Math Tutor v2.8.3-beta.2 – ACCESS & ROLE UX LOCAL TEST
+
+BASELINE
+v2.8.3-beta.1 / fc56387
+
+MỤC TIÊU
+- Trang chủ chỉ còn 2 vai trò: Học sinh và Giáo viên.
+- Học sinh vào bằng Mã lớp + Mã học sinh.
+- Giáo viên bắt buộc đăng nhập trước khi vào khu vực quản lý.
+- Giảm tối đa thông tin gây nhiễu trên trang chủ.
+
+CẤU HÌNH LOCAL
+Giữ nguyên .env.local hiện có. Thêm nếu chưa có:
+TEACHER_USERNAME=giaovien
+TEACHER_PASSWORD=<mật khẩu giáo viên tự đặt>
+
+Nếu không khai báo TEACHER_PASSWORD, hệ thống dùng PILOT_TEACHER_KEY làm mật khẩu để tương thích bản hiện tại.
+
+BUILD
+npm run build
+npm run dev
+
+TEST TRANG CHỦ
+1. / chỉ hiển thị 2 khối lớn: Dành cho học sinh / Dành cho giáo viên.
+2. Không còn thư viện 19 bài, tài khoản học tập, công cụ giáo viên trên Home.
+3. Mỗi vai trò có hướng dẫn 4 bước ngắn gọn.
+
+TEST HỌC SINH
+1. Bấm “Vào học”.
+2. Chuyển đến /pilot-onboarding.
+3. Mã lớp mặc định phải để trống.
+4. Bắt buộc nhập Mã lớp + Mã học sinh.
+5. Mã đúng -> tải đúng hồ sơ -> nút “Vào trang học của ...”.
+6. /student -> Thư viện 19 bài phải đi tới /library, không quay về Home.
+
+TEST GIÁO VIÊN
+1. Bấm “Đăng nhập giáo viên”.
+2. Chuyển đến /teacher-login.
+3. Sai user/pass -> từ chối.
+4. Đúng user/pass -> /teacher.
+5. Mở trực tiếp /teacher hoặc /pilot-roster khi chưa có phiên đăng nhập -> quay về /teacher-login.
+6. Sau đăng nhập, /teacher, /pilot-roster, /teacher-multi hoạt động.
+
+REGRESSION
+- /knowledge-qa => 19 PASS / 0 WARN / 0 FAIL / 100%
+- /mastery-integrity => 5/5 PASS
+- /pilot-readiness => ALL PASS / 0 FAIL
+- /cloud-activation => 3 READY
+
+CHƯA GIT / TAG / VERCEL trước Local PASS.

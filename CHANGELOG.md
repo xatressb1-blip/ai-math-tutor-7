@@ -1,5 +1,79 @@
 # CHANGELOG
 
+## v2.8.3-beta.3 FIX7.1 – Advanced Math Quality Hardening
+- Harden Golden evaluator against fraction substring false positives and keyword stuffing.
+- Require verified transformation chains in selected high-risk steps instead of loose token presence.
+- Add adversarial Advanced Math QA covering contradictory claims, answer-only responses, wrong equalities and substring traps.
+- Add teacher-only `/advanced-quality` dashboard.
+- Add Reasoning Diversity Matrix and three-gate quality rubric: Mathematical Correctness, Reasoning Integrity, Pedagogical Diversity.
+- No new Advanced lesson added; scope is quality hardening only.
+
+
+## v2.8.3-beta.3 FIX7 – Advanced Math Lesson 4
+- Bổ sung Toán nâng cao Bài 4: thứ tự thực hiện phép tính và quy tắc chuyển vế.
+- Nâng cao 1: xử lí biểu thức nhiều tầng ngoặc và đánh giá chiến lược tính.
+- Nâng cao 2: phân tích lỗi chuyển vế không đổi dấu.
+- Thử thách: phối hợp rút gọn số hạng, chuyển vế và kiểm chứng nghiệm.
+- Thêm Golden evaluator riêng cho các bước Bài 4.
+- Thêm 3 canonical skill ADVANCED_ONLY; không ảnh hưởng CORE Mastery.
+
+
+## v2.8.3-beta.3 FIX6 – Advanced Math Lesson 3
+- Bổ sung Toán nâng cao Bài 3: Lũy thừa với số mũ tự nhiên của một số hữu tỉ.
+- Nâng cao 1: chiến lược rút gọn biểu thức lũy thừa thay vì khai triển dài.
+- Nâng cao 2: phân tích lỗi nhầm cộng số mũ với nhân số mũ.
+- Thử thách: bài toán ngược tìm số mũ và bắt buộc kiểm chứng.
+- Thêm Golden evaluator riêng cho các bước Bài 3.
+- Thêm 3 canonical skill ADVANCED_ONLY; không ảnh hưởng CORE Mastery.
+
+
+## v2.8.3-beta.3 FIX5 – Advanced Math Lesson 2
+- Mở Toán nâng cao cho Bài 2: Cộng, trừ, nhân, chia số hữu tỉ.
+- Thêm ba tầng: chiến lược tính hợp lí, phân tích lỗi lời giải, bài toán ngược có kiểm chứng.
+- Thêm Golden reasoning checks: đúng đáp số nhưng thiếu chiến lược/lập luận/kiểm chứng chưa được PASS.
+- Thêm 3 canonical skills L02_ADV_* ở tier ADVANCED_ONLY để bảo vệ CORE Mastery.
+
+
+## v2.8.3-beta.3 FIX3 – Learning Companion & Advanced Math Lesson 1
+- Sửa các nút “Bắt đầu” trong Mastery để mở đúng bài học thay vì quay về Home.
+- Việt hóa thêm trang Mastery và lý do đề xuất ôn tập.
+- Thêm route `/advanced/[lessonId]` và Toán nâng cao cho Bài 1.
+- Bài nâng cao có 3 mức: Vận dụng, Suy luận, Thử thách; bắt buộc học sinh trình bày cách suy nghĩ.
+- Thêm 3 canonical skill `ADVANCED_ONLY` cho Bài 1 để tách nâng cao khỏi CORE mastery.
+- Gắn `source: REASONING` cho phiên suy luận để không làm tăng curriculum coverage.
+- Bổ sung tài liệu chiến lược nguồn cho kho Toán nâng cao lớp 7.
+
+
+## v2.8.3-beta.3 FIX2 – Multi-Class Roster & Simple Student Login
+- Hiển thị toàn bộ lớp đã tạo và cho phép chọn lớp để xem đúng danh sách học sinh.
+- Bấm học sinh để xem hồ sơ chi tiết, kỹ năng yếu, lỗi cần khắc phục và phiên học gần nhất.
+- Thêm xóa lớp có xác nhận; xóa học sinh vẫn giữ xác nhận an toàn.
+- Học sinh chọn lớp từ danh sách và chỉ nhập mã HS0–HS9.
+- Cho phép mã lớp ngắn như 7A, 7B, 7C trong Cloud API.
+- Cấp mã HSx trên thiết bị ngay khi tạo học sinh; trạng thái đồng bộ đăng nhập được hiển thị riêng.
+
+
+## v2.8.3-beta.3 – Teacher Guided Workflow & Vietnamese UX
+- Biến Bảng điều khiển giáo viên thành quy trình 4 bước có liên kết thật: Tạo lớp & học sinh → Theo dõi → Chọn hoạt động → Kiểm tra tiến bộ.
+- Bảng điều khiển giáo viên dùng dữ liệu roster thật thay vì trộn dữ liệu demo.
+- Thêm cấu hình lớp cục bộ và sinh Mã lớp dễ đọc.
+- Khi thêm học sinh, hệ thống có thể cấp Mã học sinh trực tuyến ngay bằng phiên đăng nhập giáo viên; không cần nhập khóa kỹ thuật lần hai.
+- Trang Quản lý học sinh có hướng dẫn thao tác, sao chép mã, xem tiến độ, chọn hoạt động và xóa học sinh có xác nhận.
+- Thêm `/teacher-progress` để xem tiến độ từng học sinh: thành thạo, chính xác, thời gian học, lỗi, kỹ năng yếu và lịch sử phiên học.
+- Trang Theo dõi học sinh có hướng dẫn và nút Xem tiến độ trên từng dòng.
+- Việt hóa thêm báo cáo CSV và khu vực quản lý mã học sinh.
+- Xóa file rác `tatus --short` khỏi gói phát hành.
+- Không thay đổi mastery engine, canonical skill, diagnostic/reasoning logic hoặc Supabase schema.
+
+
+## v2.8.3-beta.2 – Student Access & Role Separation
+- Tối giản Home thành hai vai trò Học sinh / Giáo viên.
+- Học sinh vào bằng Mã lớp + Mã học sinh.
+- Giáo viên đăng nhập bằng tài khoản trước khi vào khu vực quản lý.
+- Tách thư viện bài học sang `/library`.
+- Không thay đổi engine học tập hoặc Supabase schema.
+
+
 ## v2.8.3-beta.1 – Vietnamese UX & Guided Workflow
 - Tách rõ điểm bắt đầu dành cho học sinh và giáo viên ngay tại trang chính.
 - Trang học sinh có khu vực “Bắt đầu từ đây” theo 4 bước: hồ sơ → đánh giá đầu vào → học/luyện → xem tiến độ.

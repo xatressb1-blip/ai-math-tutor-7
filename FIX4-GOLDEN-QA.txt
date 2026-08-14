@@ -1,0 +1,22 @@
+FIX4 – ADVANCED MATH GOLDEN TEMPLATE QA – BÀI 1
+
+Mục tiêu: khóa chuẩn sư phạm trước khi nhân Toán nâng cao sang Bài 2–19.
+
+Các tình huống bắt buộc:
+1. Bài 1/Nâng cao 1/Bước 1: 9/20, 0,45 và phân số tương đương hợp lệ phải PASS.
+2. Một số không nằm giữa 2/5 và 1/2 phải FAIL.
+3. Bước chứng minh trung bình cộng: chỉ viết a<(a+b)/2<b phải FAIL vì thiếu chứng minh.
+4. Có 2a<a+b<2b + chia 2 dương + kết luận phải PASS.
+5. So sánh số âm: chỉ viết thứ tự đúng nhưng không giải thích phải FAIL.
+6. Quy đồng đủ và giải thích theo tử số phải PASS.
+7. Bài q=n/30: nhảy thẳng n=-19 ở bước điều kiện phải FAIL; phải nêu -20<n<-18.
+8. Bước cuối chỉ q=-19/30 phải FAIL; phải chứng minh duy nhất.
+9. Sau lần sai 1: gợi ý mức 1; sai 2: gợi ý mức 2; sai >=3: giải thích ngắn rồi yêu cầu học sinh tự viết lại.
+10. Advanced/Reasoning không được tăng CORE curriculum coverage.
+
+Regression:
+- npm run build
+- /knowledge-qa: 19 PASS / 0 WARN / 0 FAIL / 100%
+- /mastery-integrity: 5/5 PASS
+- /pilot-readiness: ALL PASS / 0 FAIL
+- /cloud-activation: 3 READY

@@ -70,7 +70,7 @@ export function StudentHome() {
               </p>
             </div>
             <Link
-              href="/"
+              href="/library"
               className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-black text-slate-700"
             >
               Xem đủ 19 bài
@@ -160,7 +160,7 @@ export function StudentHome() {
         </section>
 
         <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          <QuickLink href="/" title="Thư viện 19 bài học" text="Chọn bài theo chương và nội dung." />
+          <QuickLink href="/library" title="Thư viện 19 bài học" text="Chọn bài theo chương và nội dung." />
           <QuickLink href="/mastery" title="Ôn tập cá nhân hóa" text="Xem kỹ năng yếu và mức độ sẵn sàng." />
           <QuickLink href="/pilot-feedback" title="Góp ý trải nghiệm" text="Cho biết phần nào dễ hiểu hoặc cần cải thiện." />
           <QuickLink href="/cloud-sync" title="Đồng bộ dữ liệu" text="Tiếp tục học trên thiết bị khác bằng mã học sinh." />

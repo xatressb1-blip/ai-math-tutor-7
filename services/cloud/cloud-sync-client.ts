@@ -78,6 +78,11 @@ export function loadLastCloudSync(): string | null {
   return typeof window === "undefined" ? null : window.localStorage.getItem(LAST_SYNC_KEY);
 }
 
+export async function listAvailableStudentClasses(): Promise<string[]> {
+  const result = await request<{ classes: string[] }>({ action: "studentClassList" });
+  return Array.isArray(result.classes) ? result.classes : [];
+}
+
 export async function pullCloudStudent(
   identity: CloudStudentIdentity,
 ): Promise<CloudSyncReceipt> {
@@ -99,7 +104,7 @@ export async function pushCloudStudent(
 
 export async function teacherListCloudStudents(
   classCode: string,
-  teacherKey: string,
+  teacherKey = "",
 ): Promise<CloudPilotStudent[]> {
   const result = await request<{ students: CloudPilotStudent[] }>({
     action: "teacherList",
@@ -112,7 +117,7 @@ export async function teacherListCloudStudents(
 export async function teacherUpsertCloudStudent(input: {
   classCode: string;
   accessCode: string;
-  teacherKey: string;
+  teacherKey?: string;
   brain: StudentBrainSnapshot;
 }): Promise<CloudPilotStudent> {
   const result = await request<{ student: CloudPilotStudent }>({
@@ -125,7 +130,7 @@ export async function teacherUpsertCloudStudent(input: {
 export async function teacherRotateCloudAccess(input: {
   classCode: string;
   studentId: string;
-  teacherKey: string;
+  teacherKey?: string;
 }): Promise<CloudAccessRotation> {
   return request<CloudAccessRotation>({
     action: "teacherRotateAccess",
@@ -136,7 +141,7 @@ export async function teacherRotateCloudAccess(input: {
 export async function teacherDeleteCloudStudent(input: {
   classCode: string;
   studentId: string;
-  teacherKey: string;
+  teacherKey?: string;
 }): Promise<void> {
   await request<{ ok: true }>({ action: "teacherDelete", ...input });
 }

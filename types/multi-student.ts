@@ -7,6 +7,9 @@ export type PilotStudentRecord = {
   status: PilotStudentStatus;
   joinedAt: string;
   lastActiveAt?: string;
+  classCode?: string;
+  accessCode?: string;
+  cloudEnabled?: boolean;
 };
 
 export type MultiStudentWorkspace = {

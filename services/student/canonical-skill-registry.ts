@@ -24,14 +24,26 @@ const DEFINITIONS: CanonicalSkillDefinition[] = [
   { skillId:"L01_RATIONAL_COMPARISON", displayName:"So sánh số hữu tỉ", lessonNumber:1, tier:"CORE", aliases:["So sánh số hữu tỉ","Số nguyên và dấu"] },
   { skillId:"L01_RATIONAL_OPPOSITE", displayName:"Số đối của số hữu tỉ", lessonNumber:1, tier:"CORE", aliases:["Số đối của số hữu tỉ","Số đối"] },
   { skillId:"L01_NUMBER_LINE", displayName:"Biểu diễn trên trục số", lessonNumber:1, tier:"CORE", aliases:["Biểu diễn trên trục số"] },
+  { skillId:"L01_ADV_DENSE_RATIONALS", displayName:"Tìm số hữu tỉ nằm giữa hai số hữu tỉ", lessonNumber:1, tier:"ADVANCED_ONLY", aliases:["Tìm số hữu tỉ nằm giữa hai số hữu tỉ"] },
+  { skillId:"L01_ADV_RATIONAL_ORDER_ARGUMENT", displayName:"Lập luận thứ tự số hữu tỉ", lessonNumber:1, tier:"ADVANCED_ONLY", aliases:["Lập luận thứ tự số hữu tỉ"] },
+  { skillId:"L01_ADV_RATIONAL_CONSTRUCTION", displayName:"Xây dựng số hữu tỉ theo điều kiện", lessonNumber:1, tier:"ADVANCED_ONLY", aliases:["Xây dựng số hữu tỉ theo điều kiện"] },
 
   { skillId:"L02_RATIONAL_ADD_SUB", displayName:"Cộng trừ số hữu tỉ", lessonNumber:2, tier:"CORE", aliases:["Cộng trừ số hữu tỉ","Phép tính phân số"] },
   { skillId:"L02_RATIONAL_MUL_DIV", displayName:"Nhân chia số hữu tỉ", lessonNumber:2, tier:"CORE", aliases:["Nhân chia số hữu tỉ"] },
+  { skillId:"L02_ADV_STRATEGIC_CALCULATION", displayName:"Lựa chọn chiến lược tính số hữu tỉ", lessonNumber:2, tier:"ADVANCED_ONLY", aliases:["Lựa chọn chiến lược tính số hữu tỉ"] },
+  { skillId:"L02_ADV_ERROR_ANALYSIS", displayName:"Phân tích lỗi phép tính số hữu tỉ", lessonNumber:2, tier:"ADVANCED_ONLY", aliases:["Phân tích lỗi phép tính số hữu tỉ"] },
+  { skillId:"L02_ADV_REVERSE_OPERATION", displayName:"Giải bài toán ngược với số hữu tỉ", lessonNumber:2, tier:"ADVANCED_ONLY", aliases:["Giải bài toán ngược với số hữu tỉ"] },
 
   { skillId:"L03_POWER", displayName:"Tính lũy thừa", lessonNumber:3, tier:"CORE", aliases:["Tính lũy thừa"] },
   { skillId:"L03_POWER_PRODUCT_QUOTIENT", displayName:"Nhân chia lũy thừa cùng cơ số", lessonNumber:3, tier:"CORE", aliases:["Nhân chia lũy thừa cùng cơ số"] },
   { skillId:"L03_POWER_OF_POWER", displayName:"Lũy thừa của lũy thừa", lessonNumber:3, tier:"CORE", aliases:["Lũy thừa của lũy thừa"] },
+  { skillId:"L03_ADV_EXPONENT_STRATEGY", displayName:"Lựa chọn chiến lược biến đổi lũy thừa", lessonNumber:3, tier:"ADVANCED_ONLY", aliases:["Lựa chọn chiến lược biến đổi lũy thừa"] },
+  { skillId:"L03_ADV_POWER_ERROR_ANALYSIS", displayName:"Phân tích lỗi quy tắc lũy thừa", lessonNumber:3, tier:"ADVANCED_ONLY", aliases:["Phân tích lỗi quy tắc lũy thừa"] },
+  { skillId:"L03_ADV_REVERSE_EXPONENT", displayName:"Giải bài toán ngược về số mũ", lessonNumber:3, tier:"ADVANCED_ONLY", aliases:["Giải bài toán ngược về số mũ"] },
 
+  { skillId:"L04_ADV_OPERATION_STRATEGY", displayName:"Lựa chọn chiến lược thực hiện phép tính", lessonNumber:4, tier:"ADVANCED_ONLY", aliases:["Lựa chọn chiến lược thực hiện phép tính"] },
+  { skillId:"L04_ADV_TRANSPOSE_ERROR_ANALYSIS", displayName:"Phân tích lỗi quy tắc chuyển vế", lessonNumber:4, tier:"ADVANCED_ONLY", aliases:["Phân tích lỗi quy tắc chuyển vế"] },
+  { skillId:"L04_ADV_REVERSE_TRANSPOSE", displayName:"Giải bài toán ngược bằng rút gọn và chuyển vế", lessonNumber:4, tier:"ADVANCED_ONLY", aliases:["Giải bài toán ngược bằng rút gọn và chuyển vế"] },
   { skillId:"L04_OPERATION_ORDER", displayName:"Thứ tự phép tính", lessonNumber:4, tier:"CORE", aliases:["Thứ tự phép tính"] },
   { skillId:"L04_TRANSPOSE_RULE", displayName:"Quy tắc chuyển vế", lessonNumber:4, tier:"CORE", aliases:["Quy tắc chuyển vế"] },
 

@@ -1,6 +1,7 @@
 import type { SemesterRevisionPlan } from "@/types/revision";
 import type { StudentBrainSnapshot } from "@/types/student";
-import { getCanonicalSkillDefinitions } from "@/services/student/canonical-skill-registry";
+import { getCanonicalSkillDefinitions, resolveCanonicalSkill } from "@/services/student/canonical-skill-registry";
+import { getAllLessons } from "@/services/lesson/lesson-repository";
 import { hasSufficientMasteryEvidence, normalizeSkillEvidence } from "@/services/student/mastery-integrity-policy";
 
 function average(values: number[]): number {
@@ -35,21 +36,30 @@ export function buildSemesterRevisionPlan(
   const weakestSkills = skills.slice(0, 5).map((item) => item.skillName);
   const strongestSkills = skills.slice(-3).reverse().map((item) => item.skillName);
 
+  const lessons = getAllLessons();
   const tasks = weakestSkills.map((skillName, index) => {
     const skill = skills.find((item) => item.skillName === skillName)!;
+    const canonical = resolveCanonicalSkill(skillName);
+    const lesson = canonical
+      ? lessons.find((item) => item.lessonNumber === canonical.lessonNumber)
+      : lessons.find((item) => item.knowledgeNodeId === skill.knowledgeNodeId);
     return {
       id: `revision-${index + 1}`,
       title: `Củng cố: ${skillName}`,
       description:
-        "Ôn lại kiến thức trọng tâm, làm Adaptive Practice và hoàn thành ít nhất một câu Reasoning.",
-      href: "/",
+        "Ôn lại kiến thức trọng tâm, làm luyện tập thích ứng và hoàn thành ít nhất một câu luyện suy luận.",
+      href: lesson
+        ? canonical?.tier === "ADVANCED_ONLY"
+          ? `/advanced/${lesson.id}`
+          : `/learn/${lesson.id}`
+        : "/library",
       priority:
         skill.masteryScore < 55
           ? ("HIGH" as const)
           : skill.masteryScore < 70
             ? ("MEDIUM" as const)
             : ("LOW" as const),
-      reason: `Mastery ${skill.masteryScore}/100 · Confidence ${skill.confidence}/100.`,
+      reason: `Mức thành thạo ${skill.masteryScore}/100 · Mức tự tin ${skill.confidence}/100.`,
       estimatedMinutes: skill.masteryScore < 55 ? 20 : 12,
     };
   });

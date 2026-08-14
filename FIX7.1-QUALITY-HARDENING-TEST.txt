@@ -1,0 +1,37 @@
+AI Math Tutor v2.8.3-beta.3 – FIX7.1 QUALITY HARDENING
+
+PHẠM VI
+- Không thêm Bài 5.
+- Harden evaluator Bài 1–4.
+- Thêm adversarial QA.
+- Thêm ma trận đa dạng suy luận.
+
+LOCAL
+npm run build
+npm run dev
+
+KIỂM TRA
+1. /advanced-quality
+   → phải PASS toàn bộ adversarial cases.
+2. /advanced/lesson-player-01
+3. /advanced/lesson-player-02
+4. /advanced/lesson-player-03
+5. /advanced/lesson-player-04
+
+NEGATIVE TEST QUAN TRỌNG
+- 9/200 không được nhận như 9/20.
+- “9/20 không nằm giữa...” phải FAIL.
+- Chỉ -7/10 ở phép chia phải FAIL.
+- Chỉ 64/729 ở lũy thừa phải FAIL.
+- Chỉ x=5 phải FAIL.
+- A=13/40 không được nhận như A=3/4.
+- Câu chứa x=-1/6 nhưng đẳng thức trung gian sai phải FAIL.
+- Chỉ x=-1/12 phải FAIL.
+
+REGRESSION
+/knowledge-qa       → 19 PASS / 0 WARN / 0 FAIL / 100%
+/mastery-integrity  → 5/5 PASS
+/pilot-readiness    → ALL PASS / 0 FAIL
+/cloud-activation   → 3 READY
+
+Chưa Git/Tag/Vercel trước Local PASS.

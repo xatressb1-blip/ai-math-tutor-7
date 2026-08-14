@@ -2,12 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { demoClassStudents } from "@/data/teacher/demo-class";
-import { getDemoStudentBrain } from "@/services/student/student-brain-service";
-import { loadStudentBrainFromStorage } from "@/services/student/student-brain-storage";
 import { buildClassAnalytics } from "@/services/teacher/class-analytics-service";
+import { loadMultiStudentWorkspace } from "@/services/multi-student/multi-student-storage";
+import { loadTeacherClassSettings } from "@/services/teacher/teacher-class-storage";
+import type { MultiStudentWorkspace } from "@/types/multi-student";
 import { downloadClassAnalyticsCsv } from "@/services/teacher/teacher-export-service";
-import type { StudentBrainSnapshot } from "@/types/student";
 import type {
   StudentAnalytics,
   TeacherStudentRecord,
@@ -31,31 +30,33 @@ const supportMeta = {
 } as const;
 
 export function TeacherDashboard() {
-  const [liveBrain, setLiveBrain] =
-    useState<StudentBrainSnapshot>(getDemoStudentBrain());
+  const [workspace, setWorkspace] = useState<MultiStudentWorkspace | null>(null);
   const [tab, setTab] = useState<Tab>("OVERVIEW");
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   useEffect(() => {
-    const saved = loadStudentBrainFromStorage();
-    if (saved) setLiveBrain(saved);
+    setWorkspace(loadMultiStudentWorkspace());
   }, []);
 
   const students = useMemo<TeacherStudentRecord[]>(() => {
-    const live: TeacherStudentRecord = {
-      id: liveBrain.profile.id,
-      displayName: liveBrain.profile.displayName,
-      className: liveBrain.profile.className ?? "7A",
-      source: "LIVE",
-      brain: liveBrain,
-    };
+    if (!workspace) return [];
+    return workspace.students.flatMap((item) => {
+      const brain = workspace.brains[item.profile.id];
+      if (!brain) return [];
+      return [{
+        id: item.profile.id,
+        displayName: item.profile.displayName,
+        className: item.profile.className ?? "7A",
+        source: "LIVE" as const,
+        brain,
+      }];
+    });
+  }, [workspace]);
 
-    return [live, ...demoClassStudents];
-  }, [liveBrain]);
-
+  const className = loadTeacherClassSettings()?.className ?? students[0]?.className ?? "7A";
   const analytics = useMemo(
-    () => buildClassAnalytics(students, "7A"),
-    [students],
+    () => buildClassAnalytics(students, className),
+    [students, className],
   );
 
   const selectedStudent =
@@ -93,10 +94,10 @@ export function TeacherDashboard() {
 
             <div className="flex flex-wrap gap-2">
               <Link
-                href="/"
+                href="/pilot-roster"
                 className="rounded-2xl bg-white px-4 py-2.5 text-sm font-black text-slate-950"
               >
-                ← Về thư viện
+                Quản lý học sinh
               </Link>
               <button
                 type="button"
@@ -124,7 +125,7 @@ export function TeacherDashboard() {
               </p>
               <h2 className="mt-2 text-2xl font-black">4 công việc chính của giáo viên</h2>
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                Quản lý đúng học sinh, xem em nào cần hỗ trợ, giao hoạt động phù hợp và kiểm tra lại tiến bộ.
+                Đi theo thứ tự từ trái sang phải. Mỗi bước là một trang làm việc và có hướng dẫn cụ thể.
               </p>
             </div>
             <Link href="/pilot-roster" className="rounded-2xl bg-indigo-600 px-4 py-2.5 text-sm font-black text-white">
@@ -132,10 +133,10 @@ export function TeacherDashboard() {
             </Link>
           </div>
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            <TeacherStep number="1" title="Chọn đúng học sinh" text="Kiểm tra hồ sơ đang hoạt động trước khi giao máy hoặc đồng bộ dữ liệu." href="/pilot-roster" />
-            <TeacherStep number="2" title="Xem học sinh cần hỗ trợ" text="Ưu tiên các em có mức thành thạo thấp, lỗi lặp lại hoặc tiến độ chưa đủ." href="/teacher-multi" />
-            <TeacherStep number="3" title="Giao hoạt động phù hợp" text="Cho học sinh học bài chính, luyện tập thích ứng hoặc luyện suy luận đúng kỹ năng cần củng cố." href="/" />
-            <TeacherStep number="4" title="Kiểm tra lại tiến bộ" text="Xem mức độ thành thạo, độ chính xác, lỗi chưa xử lý và báo cáo sau phiên học." href="/teacher" />
+            <TeacherStep number="1" title="Tạo lớp và học sinh" text="Tạo lớp, thêm học sinh và cấp Mã lớp + Mã học sinh để các em đăng nhập." href="/pilot-roster" />
+            <TeacherStep number="2" title="Theo dõi học sinh" text="Xem em nào chưa học, đang yếu hoặc có lỗi lặp lại để ưu tiên hỗ trợ." href="/teacher-multi" />
+            <TeacherStep number="3" title="Chọn hoạt động phù hợp" text="Mở thư viện 19 bài để chọn nội dung học, luyện tập hoặc luyện suy luận phù hợp." href="/library" />
+            <TeacherStep number="4" title="Kiểm tra tiến bộ" text="Chọn từng học sinh để xem thành thạo, độ chính xác, kỹ năng yếu, lỗi và lịch sử học." href="/teacher-progress" />
           </div>
         </section>
 
@@ -457,7 +458,7 @@ function StudentDrawer({
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.12em] text-indigo-600">
-              Student Profile
+              Hồ sơ học sinh
             </p>
             <h2 className="mt-2 text-3xl font-black">
               {student.displayName}
@@ -494,7 +495,7 @@ function StudentDrawer({
 
         <div className="mt-6 rounded-2xl bg-slate-950 p-5 text-white">
           <p className="text-xs font-black uppercase tracking-[0.1em] text-indigo-200">
-            AI Recommendation
+            Đề xuất hỗ trợ
           </p>
           <p className="mt-2 text-sm font-bold leading-6">
             {student.recommendation}

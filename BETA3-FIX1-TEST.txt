@@ -1,0 +1,24 @@
+AI Math Tutor v2.8.3-beta.3 – FIX 1: Simple Class & Student Codes
+
+MỤC TIÊU
+- Nhập 7A => lớp/mã lớp là 7A, không có hậu tố ngẫu nhiên.
+- Tạo lại 7A => báo lớp đã tồn tại và mở lại lớp 7A.
+- Khu vực tạo lớp + thêm học sinh nằm trong cùng một bảng.
+- Mã học sinh chỉ HS0 đến HS9.
+- Học sinh mở liên kết giáo viên gửi => lớp tự điền; chỉ nhập mã HSx.
+
+LOCAL TEST
+1. npm run build
+2. npm run dev
+3. /pilot-roster
+   - Tạo 7A => mã lớp 7A.
+   - Chọn/tạo lại 7A => báo đã tồn tại.
+   - Thêm học sinh thứ nhất => HS0.
+   - Thêm học sinh thứ hai => HS1.
+   - Sao chép mã/liên kết.
+4. Mở cửa sổ ẩn danh bằng liên kết vừa sao chép:
+   /pilot-onboarding?class=7A
+   - Ô Lớp hiển thị sẵn 7A.
+   - Chỉ nhập HS0/HS1.
+5. Xóa HS0, kiểm tra thu hồi Cloud và danh sách.
+6. Regression QA như Beta.3.

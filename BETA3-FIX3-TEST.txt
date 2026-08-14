@@ -1,0 +1,44 @@
+AI Math Tutor v2.8.3-beta.3 – FIX3
+Learning Companion + Mastery Routing + Advanced Math Lesson 1
+
+CÀI ĐẶT
+- Copy đè toàn bộ ZIP vào C:\AI_Project\ai-math-tutor-7
+- Giữ nguyên .env.local
+- Không chạy SQL Supabase
+- Chưa Git/Tag/Vercel
+
+BUILD
+npm run build
+npm run dev
+
+MASTERy ROUTING
+1. Mở /mastery
+2. Bấm từng nút “Bắt đầu” trong “Kế hoạch ôn hôm nay”.
+3. Mỗi kỹ năng CORE phải đi đúng /learn/<lesson-id>, không quay về Home.
+4. Bài kiểm tra mô phỏng vẫn đi /mock-test.
+5. Kiểm tra các nhãn chính đã Việt hóa: Trợ lý ôn tập AI, Kỹ năng có minh chứng, Mức sẵn sàng...
+
+BÀI 1 → TOÁN NÂNG CAO
+1. Mở /learn/lesson-player-01 và hoàn thành bài.
+2. Sau khi hoàn thành phải thấy khối “Toán nâng cao”.
+3. Bấm “Bắt đầu Toán nâng cao”.
+4. Route phải là /advanced/lesson-player-01.
+5. Có 3 mức:
+   - Nâng cao 1 · Vận dụng
+   - Nâng cao 2 · Suy luận
+   - Thử thách · Khám phá
+6. Mỗi bài bắt học sinh viết cách suy nghĩ; đáp án trống không được chấp nhận.
+7. Sai lần đầu → gợi ý mức 1; tiếp tục sai → gợi ý sâu hơn.
+8. Hoàn thành → ghi nhận suy luận vào hồ sơ học tập AI.
+
+FALSE-MASTERY REGRESSION
+- Advanced/Reasoning session phải có source REASONING.
+- Reasoning/Advanced không được tăng curriculumCoverage.
+- ADVANCED_ONLY skills không được tính vào mẫu số CORE semester mastery.
+
+REGRESSION
+- /knowledge-qa: 19 PASS / 0 WARN / 0 FAIL / 100%
+- /mastery-integrity: 5/5 PASS
+- /pilot-readiness: ALL PASS / 0 FAIL
+- /cloud-activation: 3 READY
+- A/B Student độc lập

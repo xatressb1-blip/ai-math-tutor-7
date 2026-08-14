@@ -6,9 +6,8 @@ export const runtime = "nodejs";
 
 const MAX_BRAIN_BYTES = 750_000;
 const MAX_STUDENTS_PER_CLASS = 10;
-const CODE_RE = /^[A-Z0-9-]{3,32}$/;
-const ACCESS_RE = /^[A-Z0-9]{6,16}$/;
-const ACCESS_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const CODE_RE = /^[A-Z0-9-]{2,32}$/;
+const ACCESS_RE = /^HS[0-9]$/;
 
 type DbRow = {
   student_id: string;
@@ -38,14 +37,39 @@ function hashAccess(classCode: string, accessCode: string) {
     .digest("hex");
 }
 
-function generateAccessCode(length = 8): string {
-  const bytes = randomBytes(length);
-  return Array.from(bytes, (value) => ACCESS_ALPHABET[value % ACCESS_ALPHABET.length]).join("");
+function generateAvailableAccessCode(rows: DbRow[], currentStudentId?: string): string | null {
+  const used = new Set(
+    rows
+      .filter((row) => !currentStudentId || row.student_id !== currentStudentId)
+      .map((row) => row.access_code_last4)
+      .filter(Boolean),
+  );
+  for (let index = 0; index <= 9; index += 1) {
+    const code = `HS${index}`;
+    if (!used.has(code)) return code;
+  }
+  return null;
 }
 
 function secureTeacherKey(value: string): boolean {
   const expected = process.env.PILOT_TEACHER_KEY || "";
   if (!value || !expected) return false;
+  const a = Buffer.from(value);
+  const b = Buffer.from(expected);
+  return a.length === b.length && timingSafeEqual(a, b);
+}
+
+function secureTeacherSession(request: Request): boolean {
+  const username = process.env.TEACHER_USERNAME || "giaovien";
+  const password = process.env.TEACHER_PASSWORD || process.env.PILOT_TEACHER_KEY || "";
+  if (!password) return false;
+  const expected = createHash("sha256")
+    .update(`${username}:${password}:ai-math-tutor-teacher`)
+    .digest("hex");
+  const cookie = request.headers.get("cookie") || "";
+  const match = cookie.match(/(?:^|;\s*)amt_teacher_session=([^;]+)/);
+  const value = match?.[1] || "";
+  if (!value) return false;
   const a = Buffer.from(value);
   const b = Buffer.from(expected);
   return a.length === b.length && timingSafeEqual(a, b);
@@ -132,7 +156,7 @@ export async function GET() {
       databaseReachable: response.status !== 0,
       schemaReady,
       message: schemaReady
-        ? "Cloud đã sẵn sàng."
+        ? "Dữ liệu trực tuyến đã sẵn sàng."
         : `Cloud kết nối được nhưng schema chưa sẵn sàng (${response.status}).`,
       checkedAt,
     });
@@ -167,6 +191,17 @@ export async function POST(request: Request) {
       .trim()
       .toUpperCase();
 
+    if (action === "studentClassList") {
+      const rows = await queryRows(
+        url,
+        secret,
+        "select=class_code&order=class_code.asc",
+      );
+      const classes = [...new Set(rows.map((row) => row.class_code).filter(Boolean))]
+        .sort((a, b) => a.localeCompare(b, "vi"));
+      return NextResponse.json({ classes });
+    }
+
     if (action === "studentPull" || action === "studentPush") {
       if (!CODE_RE.test(classCode) || !ACCESS_RE.test(accessCode)) {
         return errorResponse("Mã lớp hoặc mã học sinh không hợp lệ.", 400);
@@ -181,7 +216,7 @@ export async function POST(request: Request) {
       const row = rows[0];
 
       if (!row) {
-        return errorResponse("Không tìm thấy hồ sơ Cloud phù hợp.", 404);
+        return errorResponse("Không tìm thấy hồ sơ học sinh phù hợp với mã đã nhập.", 404);
       }
 
       if (action === "studentPull") {
@@ -194,7 +229,7 @@ export async function POST(request: Request) {
 
       if (!validBrain(body.brain)) {
         return errorResponse(
-          "Student Brain không hợp lệ hoặc quá lớn.",
+          "Hồ sơ học tập không hợp lệ hoặc quá lớn.",
           400,
         );
       }
@@ -202,7 +237,7 @@ export async function POST(request: Request) {
       const brain = body.brain;
       if (brain.profile.id !== row.student_id) {
         return errorResponse(
-          "Student ID không khớp hồ sơ Cloud.",
+          "Mã định danh học sinh không khớp hồ sơ trực tuyến.",
           409,
         );
       }
@@ -259,8 +294,11 @@ export async function POST(request: Request) {
       });
     }
 
-    if (!secureTeacherKey(String(body.teacherKey || ""))) {
-      return errorResponse("Teacher key không đúng.", 401);
+    if (
+      !secureTeacherSession(request) &&
+      !secureTeacherKey(String(body.teacherKey || ""))
+    ) {
+      return errorResponse("Phiên giáo viên không hợp lệ. Hãy đăng nhập lại.", 401);
     }
 
     if (action === "teacherList") {
@@ -296,6 +334,17 @@ export async function POST(request: Request) {
       const alreadyExists = classRows.some(
         (item) => item.student_id === brain.profile.id,
       );
+      const accessHash = hashAccess(classCode, accessCode);
+      const accessTaken = classRows.some(
+        (item) => item.student_id !== brain.profile.id && item.access_code_hash === accessHash,
+      );
+      if (accessTaken) {
+        return errorResponse(
+          `Mã học sinh ${accessCode} đã được sử dụng trong lớp ${classCode}.`,
+          409,
+          { code: "ACCESS_CODE_TAKEN" },
+        );
+      }
 
       if (!alreadyExists && classRows.length >= MAX_STUDENTS_PER_CLASS) {
         return errorResponse(
@@ -308,7 +357,7 @@ export async function POST(request: Request) {
       const row = {
         student_id: brain.profile.id,
         class_code: classCode,
-        access_code_hash: hashAccess(classCode, accessCode),
+        access_code_hash: accessHash,
         access_code_last4: accessCode.slice(-4),
         display_name: brain.profile.displayName,
         brain,
@@ -350,10 +399,22 @@ export async function POST(request: Request) {
       const row = rows[0];
 
       if (!row) {
-        return errorResponse("Không tìm thấy học sinh trên Cloud.", 404);
+        return errorResponse("Không tìm thấy học sinh trong dữ liệu trực tuyến.", 404);
       }
 
-      const newAccessCode = generateAccessCode();
+      const classRows = await queryRows(
+        url,
+        secret,
+        `class_code=eq.${encodeURIComponent(classCode)}&select=*`,
+      );
+      const newAccessCode = generateAvailableAccessCode(classRows, studentId);
+      if (!newAccessCode) {
+        return errorResponse(
+          "Lớp đã dùng đủ mã HS0 đến HS9; chưa thể đặt lại mã mới.",
+          409,
+          { code: "NO_ACCESS_CODE_AVAILABLE" },
+        );
+      }
       const updatedAt = new Date().toISOString();
       const response = await dbFetch(
         url,
@@ -403,10 +464,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true });
     }
 
-    return errorResponse("Action không hỗ trợ.", 400);
+    return errorResponse("Thao tác không được hỗ trợ.", 400);
   } catch (error) {
     return errorResponse(
-      error instanceof Error ? error.message : "Cloud error",
+      error instanceof Error ? error.message : "Lỗi dữ liệu trực tuyến",
       500,
     );
   }

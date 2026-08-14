@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { AdaptivePractice } from "@/components/exercise/AdaptivePractice";
+import { hasAdvancedProblems } from "@/services/advanced/advanced-repository";
 import { DemoFeedbackCard } from "@/components/demo/DemoFeedbackCard";
 import { LessonProgress } from "@/components/lesson/LessonProgress";
 import { QuestionCard } from "@/components/lesson/QuestionCard";
@@ -275,20 +276,20 @@ export function LessonPlayer({
             <div className="grid gap-8 p-6 sm:p-9 lg:grid-cols-[1.1fr_0.9fr] lg:p-12">
               <section>
                 <div className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-indigo-700">
-                  Beta 1.6 · Chapter Learning Path
+                  Bài học cá nhân hóa
                 </div>
                 <h1 className="mt-5 max-w-2xl text-4xl font-black tracking-[-0.04em] sm:text-5xl">
                   Chào em, {studentBrain.profile.displayName}! 👋
                 </h1>
                 <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-                  Hôm nay Math Mentor AI sẽ học cùng em Bài {lesson.lessonNumber}: <strong>{lesson.title}</strong>.
+                  Hôm nay gia sư AI sẽ học cùng em Bài {lesson.lessonNumber}: <strong>{lesson.title}</strong>.
                   Em không cần làm thật nhanh; điều quan trọng là hiểu và tự làm được.
                 </p>
 
                 <div className="mt-7 grid gap-3 sm:grid-cols-3">
                   <StartMetric value={`~${lesson.estimatedMinutes} phút`} label="Thời lượng" />
                   <StartMetric value={`${lesson.steps.filter((item) => item.question).length} checkpoint`} label="Kiểm tra nhanh" />
-                  <StartMetric value={`${studentBrain.sessions.length} buổi`} label="AI đang nhớ" />
+                  <StartMetric value={`${studentBrain.sessions.length} buổi`} label="Lịch sử học" />
                 </div>
 
                 <button
@@ -344,7 +345,7 @@ export function LessonPlayer({
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.16em] text-fuchsia-600">
-                  Math Mentor AI · Beta 1.6
+                  Gia sư AI
                 </p>
                 <h1 className="mt-2 text-2xl font-black tracking-tight sm:text-3xl">
                   Luyện tập thích ứng · Bài {lesson.lessonNumber}
@@ -355,7 +356,7 @@ export function LessonPlayer({
               </div>
               <div className="rounded-2xl bg-slate-950 px-4 py-3 text-white">
                 <p className="text-xs font-bold uppercase tracking-[0.1em] text-indigo-300">
-                  Student Brain
+                  Hồ sơ học tập AI
                 </p>
                 <p className="mt-1 text-sm font-black">
                   {studentBrain.sessions.length} buổi · {studentBrain.skills.length} kỹ năng
@@ -399,7 +400,7 @@ export function LessonPlayer({
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
               Kết quả buổi học đã được cập nhật vào hồ sơ học tập AI và lưu trên
-              trình duyệt. Khi tải lại trang, Math Mentor AI vẫn nhớ tiến độ này.
+              trình duyệt. Khi tải lại trang, gia sư AI vẫn nhớ tiến độ này.
             </p>
 
             <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -486,7 +487,7 @@ export function LessonPlayer({
 
               <div className="rounded-2xl bg-violet-50 p-5 md:col-span-2">
                 <p className="text-sm font-black text-violet-950">
-                  🧠 Teaching Brain nhìn thấy gì?
+                  🧠 AI nhận thấy điều gì?
                 </p>
                 {summary.diagnosticInsights.length ? (
                   <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -512,7 +513,7 @@ export function LessonPlayer({
             {adaptiveReport && (
               <div className="mt-7 rounded-3xl border border-fuchsia-100 bg-fuchsia-50 p-5">
                 <p className="text-xs font-black uppercase tracking-[0.14em] text-fuchsia-600">
-                  Adaptive Exercise Report
+                  Báo cáo luyện tập thích ứng
                 </p>
                 <div className="mt-3 grid gap-3 sm:grid-cols-3">
                   <ResultStat
@@ -540,7 +541,7 @@ export function LessonPlayer({
             {latestSession && (
               <div className="mt-7 rounded-2xl border border-slate-200 p-5">
                 <p className="text-sm font-black text-slate-900">
-                  Learning History mới nhất
+                  Lịch sử học gần nhất
                 </p>
                 <p className="mt-2 text-sm leading-6 text-slate-600">
                   {latestSession.note}
@@ -550,7 +551,7 @@ export function LessonPlayer({
 
             <div className="mt-7 rounded-3xl bg-slate-950 p-6 text-white">
               <p className="text-xs font-black uppercase tracking-[0.15em] text-indigo-300">
-                Lời nhắn từ Math Mentor AI
+                Lời nhắn từ gia sư AI
               </p>
               <p className="mt-3 text-lg font-black leading-7">
                 {summary.score >= 85
@@ -567,9 +568,29 @@ export function LessonPlayer({
               </div>
             )}
 
+            {hasAdvancedProblems(lesson.id) && (
+              <div className="mt-7 rounded-3xl border border-amber-200 bg-amber-50 p-6">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-amber-700">
+                  🔓 Toán nâng cao
+                </p>
+                <h3 className="mt-2 text-2xl font-black text-amber-950">
+                  Em muốn thử sức với bài cần suy luận nhiều hơn?
+                </h3>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-amber-900">
+                  Phần nâng cao không chỉ hỏi đáp án. Em sẽ phải giải thích vì sao, tự sửa khi lập luận chưa chắc và khái quát từ ví dụ cụ thể.
+                </p>
+                <Link
+                  href={`/advanced/${lesson.id}`}
+                  className="mt-4 inline-flex rounded-2xl bg-amber-950 px-5 py-3 text-sm font-black text-white"
+                >
+                  Bắt đầu Toán nâng cao →
+                </Link>
+              </div>
+            )}
+
             <div className="mt-7 rounded-3xl border border-cyan-100 bg-cyan-50 p-5">
               <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700">
-                Learning Path Engine
+                Gợi ý bước học tiếp theo
               </p>
               <h3 className="mt-2 text-xl font-black text-cyan-950">
                 {learningPath.title}
@@ -600,7 +621,7 @@ export function LessonPlayer({
                 )}
 
                 <Link
-                  href="/"
+                  href="/library"
                   className="rounded-2xl border border-cyan-200 bg-white px-5 py-3 text-sm font-black text-cyan-900"
                 >
                   Về thư viện
@@ -641,7 +662,7 @@ export function LessonPlayer({
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-600">
-                Math Mentor AI · Beta 1.6
+                Gia sư AI
               </p>
               <h1 className="mt-2 text-2xl font-black tracking-tight sm:text-3xl">
                 Bài {lesson.lessonNumber}. {lesson.title}
@@ -731,7 +752,7 @@ export function LessonPlayer({
 
             <div className="rounded-3xl bg-slate-950 p-5 text-white">
               <p className="text-xs font-black uppercase tracking-[0.14em] text-indigo-300">
-                Student Brain
+                Hồ sơ học tập AI
               </p>
               <p className="mt-3 text-sm font-black">
                 {studentBrain.profile.displayName}

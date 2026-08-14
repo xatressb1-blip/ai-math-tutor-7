@@ -1,0 +1,45 @@
+AI Math Tutor v2.8.3-beta.3 – FIX2
+Quản lý nhiều lớp + hồ sơ học sinh + chọn lớp khi đăng nhập
+
+MỤC TIÊU
+1. Lớp 7A, 7B, 7C... được lưu và luôn hiển thị trong danh sách lớp.
+2. Bấm một lớp → thấy đúng danh sách học sinh của lớp đó.
+3. Bấm học sinh → mở đầy đủ thông tin, kỹ năng yếu, lỗi, phiên học và các nút thao tác.
+4. Có nút Xóa lớp và xác nhận trước khi xóa.
+5. Học sinh đăng nhập bằng cách chọn lớp từ danh sách + nhập HS0–HS9.
+6. Sửa lỗi lớp 2 ký tự như 7A/7B/7C không cấp được mã Cloud.
+
+CÀI ĐẶT
+- Copy đè toàn bộ nội dung ZIP vào C:\AI_Project\ai-math-tutor-7
+- Giữ nguyên .env.local
+- Không chạy SQL Supabase
+- Chưa Git/Tag/Vercel
+
+KIỂM TRA
+npm run build
+npm run dev
+
+GIÁO VIÊN
+- /pilot-roster
+- Tạo 7A, 7B, 7C
+- Cả 3 lớp phải cùng xuất hiện ở mục “Các lớp đã tạo”
+- Bấm từng lớp → danh sách học sinh thay đổi đúng lớp
+- Thêm học sinh đầu tiên của 7A → HS0
+- Thêm học sinh đầu tiên của 7B → HS0
+- Thêm học sinh đầu tiên của 7C → HS0
+- Không còn lỗi “Dữ liệu tạo hồ sơ Cloud không hợp lệ” chỉ vì mã lớp là 7A/7B/7C
+- Bấm tên học sinh → xem thông tin chi tiết
+- Thử Xóa học sinh
+- Thử Xóa lớp và xác nhận
+
+HỌC SINH
+- /pilot-onboarding
+- Ô Lớp là danh sách chọn
+- Danh sách phải có các lớp đã sẵn sàng
+- Chọn 7B + nhập HS0 → vào đúng học sinh lớp 7B
+
+REGRESSION
+- /knowledge-qa: 19 PASS / 0 WARN / 0 FAIL / 100%
+- /mastery-integrity: 5/5 PASS
+- /pilot-readiness: ALL PASS / 0 FAIL
+- /cloud-activation: 3 READY

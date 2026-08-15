@@ -1,0 +1,41 @@
+AI Math Tutor v2.8.3-beta.7 – FIX11
+Advanced Math Lesson 8 – Góc ở vị trí đặc biệt. Tia phân giác của một góc
+
+SOURCE ALIGNMENT
+- SGK/canonical Bài 8: góc kề bù, góc đối đỉnh, tia phân giác.
+- Nguyên tắc: không suy ra quan hệ hình học chỉ vì hình trông đúng.
+- Advanced skills đều ADVANCED_ONLY.
+
+NỘI DUNG
+1. Phản biện cấu trúc:
+   Tổng 180° chỉ → hai góc bù.
+   Kề bù còn cần cạnh chung + hai cạnh còn lại là hai tia đối.
+2. Chứng minh tổng quát:
+   ∠xOy=α, ∠yOz=180°-α.
+   Hai phân giác → ∠mOn=α/2+(180°-α)/2=90° → Om⊥On.
+3. Thử thách:
+   Hai góc đối đỉnh bằng nhau; phân giác tương ứng.
+   Bắt buộc chứng minh ∠mOn=180° trước khi kết luận Om, On là hai tia đối.
+
+NEGATIVE TESTS
+- “Tổng 180° nên kề bù” → FAIL.
+- Chỉ “Om⊥On” → FAIL nếu thiếu phép tính 90°.
+- “Nhìn hình thấy Om và On đối nhau” → FAIL.
+- Kết luận hai tia đối nhưng không có chuỗi góc → FAIL.
+
+LOCAL
+npm run build
+npm run dev
+
+TEST ROUTES
+/learn/lesson-player-08
+/advanced/lesson-player-08
+/advanced-quality
+
+REGRESSION
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+Chưa Git/Tag/Vercel trước khi Local PASS.

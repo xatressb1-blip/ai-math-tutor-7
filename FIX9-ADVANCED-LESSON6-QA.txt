@@ -1,0 +1,25 @@
+AI Math Tutor v2.8.3-beta.5 – FIX9
+Advanced Math Lesson 6 – Số vô tỉ. Căn bậc hai số học
+
+LOCAL
+npm run build
+npm run dev
+
+TEST
+/learn/lesson-player-06
+/advanced/lesson-player-06
+/advanced-quality
+
+NEGATIVE TESTS
+- Chỉ “√10≈3,2” → FAIL nếu thiếu mốc 3,15.
+- “√49=±7” → FAIL dù có từ khóa “không âm”.
+- Chỉ “cạnh≈5,5 m” → FAIL nếu thiếu chặn và mốc 5,45.
+- Chỉ “P=22” → FAIL nếu thiếu đơn vị và phân biệt gần đúng/chính xác.
+
+REGRESSION
+/knowledge-qa       → 19 PASS / 0 WARN / 0 FAIL / 100%
+/mastery-integrity  → 5/5 PASS
+/pilot-readiness    → ALL PASS / 0 FAIL
+/cloud-activation   → 3 READY
+
+Chưa Git/Tag/Vercel trước khi Local PASS.

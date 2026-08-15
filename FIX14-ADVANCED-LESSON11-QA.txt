@@ -1,0 +1,21 @@
+AI Math Tutor v2.8.3-beta.10 – FIX14
+Bài 11 – Định lí và chứng minh định lí
+
+P0:
+- GIVEN và GOAL phải tách riêng.
+- Không dùng GOAL làm giả thiết.
+- Không tự ý đảo P⇒Q thành Q⇒P.
+- Đáp án cuối đúng nhưng thiếu chuỗi suy luận chưa phải chứng minh đầy đủ.
+
+TEST:
+/learn/lesson-player-11
+/advanced/lesson-player-11
+/advanced-quality
+
+REGRESSION:
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+Chưa Git/Tag/Vercel trước Local PASS.

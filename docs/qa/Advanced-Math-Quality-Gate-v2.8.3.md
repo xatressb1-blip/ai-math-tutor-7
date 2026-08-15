@@ -34,9 +34,15 @@ Bộ QA phải có các tình huống:
 - Bài 2: chiến lược tính, phản biện lỗi, bài toán ngược, kiểm chứng.
 - Bài 3: quy luật lũy thừa, phân biệt quy tắc, suy luận số mũ.
 - Bài 4: kế hoạch nhiều bước, phân tích lỗi, biến đổi tương đương, kiểm chứng.
+- Bài 5: phân tích cấu trúc chu kì, phản ví dụ, phân loại theo điều kiện, mô hình hóa sai số.
+- Bài 6: ước lượng bằng chặn, phân biệt khái niệm, lập luận theo định nghĩa, mô hình hóa hình học.
+- Bài 7: số đối theo định nghĩa, định vị trên trục số, so sánh bằng bình phương, mô hình hóa khoảng cách.
+- Bài 8: phản biện điều kiện hình học, chứng minh tổng quát bằng tham số, chuỗi suy luận góc và chống suy diễn từ hình vẽ.
+- Bài 9: kiểm tra điều kiện định lí, phân biệt chiều thuận/đảo, chống suy luận quá mức và chứng minh song song nhiều bước.
+- Bài 10: suy luận từ tiên đề, tính duy nhất, chiều song song→góc và chuyển tính vuông góc qua quan hệ góc.
 
 ### Cảnh báo
-Bài 4 bắt đầu gần mô-típ Bài 2. Từ Bài 5 phải ưu tiên các mô-típ khác như:
+Bài 4 bắt đầu gần mô-típ Bài 2. FIX8 đã chủ động đổi mô-típ ở Bài 5 sang phân tích cấu trúc, phản ví dụ và mô hình hóa. Các bài tiếp theo tiếp tục ưu tiên:
 - phản ví dụ;
 - nhiều cách giải;
 - tối ưu hóa;

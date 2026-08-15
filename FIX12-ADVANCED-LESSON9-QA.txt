@@ -1,0 +1,36 @@
+AI Math Tutor v2.8.3-beta.8 – FIX12
+Advanced Math Lesson 9 – Hai đường thẳng song song và dấu hiệu nhận biết
+
+QUALITY PRIORITY
+- Không suy ra song song chỉ vì “hai góc bằng nhau”.
+- Phải kiểm tra đúng loại góc + cùng một đường cắt.
+- Phân biệt:
+  + tính chất: song song → quan hệ góc;
+  + dấu hiệu nhận biết: đúng quan hệ góc → song song.
+
+LOCAL
+npm run build
+npm run dev
+
+TEST ROUTES
+/learn/lesson-player-09
+/advanced/lesson-player-09
+/advanced-quality
+
+NEGATIVE TESTS
+- “Hai góc bằng nhau nên song song” → FAIL.
+- “a//b” không có chuỗi chứng minh → FAIL.
+- Chiều đảo nhưng không nói so le trong/đồng vị và cùng đường cắt → FAIL.
+
+POSITIVE TEST
+- 180°-115°=65°.
+- Hai góc đồng vị trên cùng đường cắt cùng bằng 65°.
+- Theo dấu hiệu nhận biết → a//b.
+
+REGRESSION
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+Chưa Git/Tag/Vercel trước khi Local PASS.

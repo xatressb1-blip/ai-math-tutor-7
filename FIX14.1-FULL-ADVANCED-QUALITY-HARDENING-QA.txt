@@ -1,0 +1,41 @@
+AI Math Tutor v2.8.3-beta.10.1 – FIX14.1
+FULL ADVANCED QUALITY HARDENING – LESSON 1→11
+
+P0 FIX
+- Bài 8 dùng chuỗi đúng:
+  ∠mOy=α/2
+  ∠yOx'=180°-α
+  ∠x'On=α/2
+  => ∠mOn=180°
+  => Om và On là hai tia đối nhau.
+
+P1 HARDENING
+- Unicode normalization: ² -> ^2; ³ -> ^3.
+- Direct adversarial QA coverage: 99/99 reasoning step.
+- Semantic negative test cho scaffold Bài 8 cũ.
+- Semantic negative test cho converse/keyword trap Bài 11.
+
+LOCAL TEST
+npm run build
+npm run dev
+
+PRIMARY
+/advanced-quality
+/advanced/lesson-player-08
+/advanced/lesson-player-11
+
+UNICODE CHECK
+Nhập cách tự nhiên có ² ở các bài liên quan, ví dụ:
+3,1² = 9,61
+5,45² = 29,7025
+1,42² = 2,0164
+
+REGRESSION
+/advanced/lesson-player-01 ... /advanced/lesson-player-11
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+RELEASE RULE
+Chưa Git/Tag/Vercel cho tới khi FIX14.1 Local PASS.

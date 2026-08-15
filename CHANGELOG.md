@@ -1,5 +1,78 @@
 # CHANGELOG
 
+## v2.8.3-beta.10.1 FIX14.1 – Full Advanced Quality Hardening
+- Sửa P0 Bài 8: chuẩn hóa chuỗi góc trong chứng minh hai phân giác của hai góc đối đỉnh.
+- Chuẩn hóa Unicode toán học `² → ^2`, `³ → ^3` trong reasoning evaluator.
+- Tăng direct adversarial coverage lên 99/99 reasoning step; giữ các semantic adversarial test chuyên biệt.
+- Harden evaluator Bài 8 và Bài 11 chống scaffold cũ, converse error và keyword false PASS.
+- Không thay đổi CORE Mastery; skill nâng cao tiếp tục `ADVANCED_ONLY`.
+
+
+## v2.8.3-beta.10 FIX14 – Advanced Math Lesson 11
+- Proof integrity: GIVEN/GOAL, proof map, circular reasoning, converse error.
+- Thêm 3 canonical skill ADVANCED_ONLY, Golden evaluator và adversarial QA.
+
+
+## v2.8.3-beta.9 FIX13 – Advanced Math Lesson 10
+- Bổ sung Toán nâng cao Bài 10: Tiên đề Euclid. Tính chất của hai đường thẳng song song.
+- Nâng cao 1: dùng tính duy nhất trong tiên đề Euclid để chứng minh hai đường qua cùng điểm và cùng song song với đường đã cho phải trùng nhau.
+- Nâng cao 2: khóa chiều suy luận Bài 10 là song song → quan hệ góc; không dùng dấu hiệu nhận biết Bài 9 để chứng minh lại GIVEN.
+- Thử thách: chứng minh một đường vuông góc với một trong hai đường song song thì cũng vuông góc với đường còn lại qua quan hệ góc 90°.
+- Thêm Golden evaluator và adversarial QA riêng cho Bài 10.
+- Thêm 3 canonical skill ADVANCED_ONLY; không làm tăng CORE Mastery.
+- Cập nhật Reasoning Diversity Matrix cho reasoning P0 của Bài 10.
+
+
+## v2.8.3-beta.8 FIX12 – Advanced Math Lesson 9
+- Bổ sung Toán nâng cao Bài 9: Hai đường thẳng song song và dấu hiệu nhận biết.
+- Nâng cao 1: chặn suy luận “hai góc bằng nhau → song song” khi thiếu đúng loại góc và cùng đường cắt.
+- Nâng cao 2: phân biệt tính chất song song với dấu hiệu nhận biết, kiểm soát chiều thuận/đảo.
+- Thử thách: chứng minh song song nhiều bước qua góc kề bù 115° và cặp góc đồng vị 65°.
+- Thêm Golden evaluator và adversarial QA riêng cho Bài 9.
+- Thêm 3 canonical skill ADVANCED_ONLY; không làm tăng CORE Mastery.
+- Cập nhật Reasoning Diversity Matrix cho reasoning song song P0.
+
+
+## v2.8.3-beta.7 FIX11 – Advanced Math Lesson 8
+- Bổ sung Toán nâng cao Bài 8: Góc ở vị trí đặc biệt. Tia phân giác của một góc.
+- Nâng cao 1: phản biện việc suy ra góc kề bù chỉ từ tổng 180°, bắt buộc kiểm tra cấu trúc cạnh.
+- Nâng cao 2: chứng minh tổng quát hai tia phân giác của hai góc kề bù vuông góc.
+- Thử thách: suy luận quan hệ hai tia phân giác của hai góc đối đỉnh, không dựa vào hình vẽ.
+- Thêm Golden evaluator và adversarial QA riêng cho Bài 8.
+- Thêm 3 canonical skill ADVANCED_ONLY; không làm tăng CORE Mastery.
+- Cập nhật Reasoning Diversity Matrix với reasoning hình học và chống visual overclaim.
+
+
+## v2.8.3-beta.6 FIX10 – Advanced Math Lesson 7
+- Bổ sung Toán nâng cao Bài 7: Tập hợp các số thực.
+- Nâng cao 1: suy luận số đối của biểu thức 3-√2 bằng định nghĩa tổng bằng 0.
+- Nâng cao 2: định vị √2 trên trục số và so sánh với 1,42 bằng bình phương, không dùng máy tính căn.
+- Thử thách: mô hình hóa khoảng cách |x-√2|=1, bắt buộc tìm đủ hai vị trí trên trục số.
+- Thêm Golden evaluator và adversarial QA riêng cho Bài 7.
+- Thêm 3 canonical skill ADVANCED_ONLY; không làm tăng CORE Mastery.
+- Cập nhật Advanced Reasoning Diversity Matrix cho Bài 7.
+
+
+## v2.8.3-beta.5 FIX9 – Advanced Math Lesson 6
+- Bổ sung Toán nâng cao Bài 6: Số vô tỉ. Căn bậc hai số học.
+- Nâng cao 1: ước lượng √10 bằng chặn trên/chặn dưới và mốc làm tròn, không dùng máy tính.
+- Nâng cao 2: phân biệt √49=7 với phương trình x²=49 có hai nghiệm ±7.
+- Thử thách: mô hình hóa khu vườn hình vuông diện tích 30 m², ước lượng cạnh và chu vi.
+- Thêm Golden evaluator và adversarial QA riêng cho Bài 6.
+- Cập nhật Reasoning Diversity Matrix với ước lượng, định nghĩa và mô hình hóa hình học.
+- Thêm 3 canonical skill ADVANCED_ONLY; không ảnh hưởng CORE Mastery.
+
+
+## v2.8.3-beta.4 FIX8 – Advanced Math Lesson 5
+- Bổ sung Toán nâng cao Bài 5: Làm quen với số thập phân vô hạn tuần hoàn.
+- Nâng cao 1: phân tích cấu trúc phần không lặp và chu kì; tránh nhận chu kì giả.
+- Nâng cao 2: dùng phản ví dụ để bác bỏ mệnh đề “mọi số thập phân vô hạn đều tuần hoàn”.
+- Thử thách: mô hình hóa làm tròn theo độ chính xác và kiểm chứng bằng sai số tuyệt đối.
+- Thêm Golden evaluator và adversarial QA riêng cho Bài 5.
+- Cập nhật Reasoning Diversity Matrix để Bài 5 không lặp mô-típ Bài 2/Bài 4.
+- Thêm 3 canonical skill ADVANCED_ONLY; không ảnh hưởng CORE Mastery.
+
+
 ## v2.8.3-beta.3 FIX7.1 – Advanced Math Quality Hardening
 - Harden Golden evaluator against fraction substring false positives and keyword stuffing.
 - Require verified transformation chains in selected high-risk steps instead of loose token presence.

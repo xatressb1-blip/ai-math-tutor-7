@@ -1,0 +1,30 @@
+AI Math Tutor v2.8.3-beta.6 – FIX10
+Advanced Math Lesson 7 – Tập hợp các số thực
+
+SOURCE ALIGNMENT
+- SGK/canonical: Bài 7 – Tập hợp các số thực.
+- Trọng tâm được bảo toàn: số đối, trục số thực, so sánh số thực, giá trị tuyệt đối.
+- Nâng cao không thay đổi CORE curriculum; skills mới đều ADVANCED_ONLY.
+
+LOCAL
+npm run build
+npm run dev
+
+TEST ROUTES
+/learn/lesson-player-07
+/advanced/lesson-player-07
+/advanced-quality
+
+NEGATIVE TESTS
+- Chỉ nói “tổng bằng 0” ở bước kiểm chứng số đối → FAIL nếu không viết phép cộng.
+- Chỉ “√2<1,42” → FAIL nếu thiếu 1,42²=2,0164>2.
+- Chỉ tìm x=√2+1 → FAIL vì thiếu nghiệm √2-1.
+- Nêu đúng hai nghiệm nhưng không xét x-√2=±1 → FAIL.
+
+REGRESSION
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+Chưa Git/Tag/Vercel trước khi Local PASS.

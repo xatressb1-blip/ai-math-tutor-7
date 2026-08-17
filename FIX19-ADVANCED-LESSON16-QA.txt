@@ -1,0 +1,34 @@
+AI Math Tutor v2.8.3-beta.15 – FIX19
+Advanced Math Lesson 16 – Tam giác cân. Đường trung trực của đoạn thẳng
+
+SOURCE ALIGNMENT
+- Tam giác cân có hai góc ở đáy bằng nhau.
+- Ngược lại, tam giác có hai góc bằng nhau thì là tam giác cân.
+- Tam giác đều có ba góc 60°; ngược lại ba góc bằng nhau thì tam giác đều.
+- Đường trung trực vuông góc đoạn thẳng tại trung điểm.
+- Điểm trên đường trung trực cách đều hai mút.
+- Đường trung trực là tập hợp tất cả các điểm cách đều hai mút => dùng được chiều đảo.
+
+P0 HARDENING
+- “Hai góc bằng nhau chưa suy được tam giác cân” → FAIL.
+- MA=MB nhưng nói “chưa đủ để M thuộc đường trung trực” → FAIL.
+- Không được xác định đường trung trực chỉ từ hình vẽ.
+- Muốn nói MN là đường trung trực phải nối về đủ định nghĩa: MN⊥AB và đi qua trung điểm AB.
+
+LOCAL
+npm run build
+npm run dev
+
+TEST
+/learn/lesson-player-16
+/advanced/lesson-player-16
+/advanced-quality
+
+REGRESSION
+/advanced/lesson-player-01 ... /advanced/lesson-player-16
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+Chưa Git/Tag/Vercel trước Local PASS.

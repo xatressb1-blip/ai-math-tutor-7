@@ -9,6 +9,12 @@ import { lesson8AdvancedProblems } from "@/data/advanced/lesson-8-advanced";
 import { lesson9AdvancedProblems } from "@/data/advanced/lesson-9-advanced";
 import { lesson10AdvancedProblems } from "@/data/advanced/lesson-10-advanced";
 import { lesson11AdvancedProblems } from "@/data/advanced/lesson-11-advanced";
+import { lesson12AdvancedProblems } from "@/data/advanced/lesson-12-advanced";
+import { lesson13AdvancedProblems } from "@/data/advanced/lesson-13-advanced";
+import { lesson14AdvancedProblems } from "@/data/advanced/lesson-14-advanced";
+import { lesson15AdvancedProblems } from "@/data/advanced/lesson-15-advanced";
+import { lesson16AdvancedProblems } from "@/data/advanced/lesson-16-advanced";
+import { lesson17AdvancedProblems } from "@/data/advanced/lesson-17-advanced";
 import type { AdvancedMathProblem } from "@/types/advanced";
 
 const banks: Record<string, AdvancedMathProblem[]> = {
@@ -23,6 +29,12 @@ const banks: Record<string, AdvancedMathProblem[]> = {
   "lesson-player-09": lesson9AdvancedProblems,
   "lesson-player-10": lesson10AdvancedProblems,
   "lesson-player-11": lesson11AdvancedProblems,
+  "lesson-player-12": lesson12AdvancedProblems,
+  "lesson-player-13": lesson13AdvancedProblems,
+  "lesson-player-14": lesson14AdvancedProblems,
+  "lesson-player-15": lesson15AdvancedProblems,
+  "lesson-player-16": lesson16AdvancedProblems,
+  "lesson-player-17": lesson17AdvancedProblems,
 };
 
 export function getAdvancedProblemsByLessonId(lessonId: string): AdvancedMathProblem[] {

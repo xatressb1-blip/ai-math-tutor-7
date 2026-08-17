@@ -1,5 +1,54 @@
 # CHANGELOG
 
+## v2.8.3-beta.16 FIX20 – Advanced Math Lesson 17
+- Bổ sung Bài 17: Quan hệ giữa góc và cạnh đối diện trong một tam giác.
+- Phủ hai chiều cạnh→góc và góc→cạnh; bắt buộc ánh xạ đúng yếu tố đối diện.
+- Chặn nhầm cạnh kề, suy từ hình vẽ và nối trực tiếp dữ kiện ở hai tam giác khác nhau.
+- Thêm 3 canonical skill ADVANCED_ONLY, Golden evaluator và adversarial QA.
+
+
+## v2.8.3-beta.15 FIX19 – Advanced Math Lesson 16
+- Bổ sung Toán nâng cao Bài 16: Tam giác cân – Đường trung trực của đoạn thẳng.
+- Khóa đúng định lí đảo: hai góc bằng nhau trong tam giác ⇒ hai cạnh đối diện bằng nhau ⇒ tam giác cân.
+- Phủ hai chiều đường trung trực: thuộc đường trung trực ⇒ cách đều; cách đều ⇒ thuộc đường trung trực.
+- Thử thách chứng minh đường trung trực từ hai điểm phân biệt cùng cách đều hai mút.
+- Chặn misconception P0 cũ và kết luận hình học chỉ dựa vào hình vẽ.
+- Thêm 3 canonical skill ADVANCED_ONLY, Golden evaluator và semantic adversarial QA.
+
+
+## v2.8.3-beta.14 FIX18 – Advanced Math Lesson 15
+- Bổ sung Toán nâng cao Bài 15: Các trường hợp bằng nhau của tam giác vuông.
+- Phủ đủ 4 trường hợp theo tài liệu chuẩn, không chỉ cạnh huyền–cạnh góc vuông.
+- Bắt buộc phân loại cạnh huyền/cạnh góc vuông và điều kiện góc nhọn kề.
+- Chặn áp dụng tiêu chuẩn khi chưa biết cả hai tam giác đều vuông.
+- Thêm 3 canonical skill ADVANCED_ONLY, Golden evaluator và semantic adversarial QA.
+
+
+## v2.8.3-beta.13 FIX17 – Advanced Math Lesson 14
+- Bổ sung Toán nâng cao Bài 14: trường hợp bằng nhau thứ hai và thứ ba của tam giác.
+- c.g.c.: bắt buộc nhận diện đúng góc xen giữa hai cạnh tương ứng.
+- g.c.g.: bắt buộc nhận diện đúng cạnh xen giữa hai góc tương ứng.
+- Chặn AAA, góc không xen giữa, sai tương ứng đỉnh và kết luận hệ quả quá sớm.
+- Thêm 3 canonical skill ADVANCED_ONLY, Golden evaluator và semantic adversarial QA.
+
+
+## v2.8.3-beta.12 FIX16 – Advanced Math Lesson 13
+- Bổ sung Toán nâng cao Bài 13: Hai tam giác bằng nhau – trường hợp c.c.c.
+- Khóa đúng tương ứng đỉnh/cạnh trước khi viết kí hiệu hai tam giác bằng nhau.
+- Bắt buộc chuỗi: đủ 3 cặp cạnh → c.c.c. → tam giác bằng nhau → góc tương ứng.
+- Chặn sai thứ tự đỉnh, kết luận góc quá sớm và false proof khi chỉ có 2 cặp cạnh.
+- Thêm 3 canonical skill ADVANCED_ONLY, Golden evaluator và semantic adversarial QA.
+
+
+## v2.8.3-beta.11 FIX15 – Advanced Math Lesson 12
+- Bổ sung Toán nâng cao Bài 12: Tổng các góc trong một tam giác.
+- Nâng cao 1: phản biện cấu hình không thể có hai góc cùng ≥90° bằng định lí tổng ba góc.
+- Nâng cao 2: tự chứng minh định lí góc ngoài từ tổng ba góc và góc kề bù; chặn circular reasoning.
+- Thử thách: giải ràng buộc góc ngoài 120°, A=2B, phân loại tam giác và kiểm chứng kép.
+- Thêm 3 canonical skill ADVANCED_ONLY, Golden evaluator và semantic adversarial QA.
+- Direct reasoning QA coverage tiếp tục bao phủ toàn bộ step sau khi thêm Bài 12.
+
+
 ## v2.8.3-beta.10.1 FIX14.1 – Full Advanced Quality Hardening
 - Sửa P0 Bài 8: chuẩn hóa chuỗi góc trong chứng minh hai phân giác của hai góc đối đỉnh.
 - Chuẩn hóa Unicode toán học `² → ^2`, `³ → ^3` trong reasoning evaluator.

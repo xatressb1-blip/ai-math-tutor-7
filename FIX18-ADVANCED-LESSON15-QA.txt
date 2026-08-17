@@ -1,0 +1,33 @@
+AI Math Tutor v2.8.3-beta.14 – FIX18
+Advanced Math Lesson 15 – Các trường hợp bằng nhau của tam giác vuông
+
+SOURCE ALIGNMENT – đủ 4 trường hợp:
+1. Hai cạnh góc vuông tương ứng bằng nhau.
+2. Một cạnh góc vuông và góc nhọn kề cạnh ấy tương ứng bằng nhau.
+3. Cạnh huyền và một góc nhọn tương ứng bằng nhau.
+4. Trường hợp đặc biệt: cạnh huyền và một cạnh góc vuông tương ứng bằng nhau.
+
+P0 REASONING
+- Phải biết cả hai tam giác đều vuông trước khi dùng các tiêu chuẩn riêng của tam giác vuông.
+- Phải phân loại đúng cạnh huyền/cạnh góc vuông.
+- Trường hợp 2 phải kiểm tra góc nhọn KỀ cạnh góc vuông đã cho.
+- Không suy hệ quả góc/cạnh trước khi chứng minh hai tam giác bằng nhau.
+- Không dùng hình vẽ/độ dài cảm tính để gọi một cạnh là cạnh huyền.
+
+LOCAL
+npm run build
+npm run dev
+
+TEST
+/learn/lesson-player-15
+/advanced/lesson-player-15
+/advanced-quality
+
+REGRESSION
+/advanced/lesson-player-01 ... /advanced/lesson-player-15
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+Chưa Git/Tag/Vercel trước Local PASS.

@@ -1,0 +1,47 @@
+AI Math Tutor v2.8.3-beta.11 – FIX15
+Advanced Math Lesson 12 – Tổng các góc trong một tam giác
+
+SOURCE ALIGNMENT
+- Tổng ba góc trong một tam giác bằng 180°.
+- Tam giác nhọn/tù/vuông; trong tam giác vuông hai góc nhọn phụ nhau.
+- Góc ngoài bằng tổng hai góc trong không kề.
+- Advanced không thay đổi CORE Mastery; 3 skill mới là ADVANCED_ONLY.
+
+NỘI DUNG
+1. Phản chứng cấu hình không thể:
+   A,B≥90° => A+B≥180°.
+   A+B+C=180° => C≤0°, mâu thuẫn góc tam giác dương.
+2. Dẫn xuất định lí góc ngoài:
+   A+B+C=180°.
+   C+∠ACD=180° (kề bù).
+   => ∠ACD=A+B.
+   Không được dùng sẵn định lí góc ngoài.
+3. Ràng buộc và kiểm chứng:
+   Góc ngoài C=120°, A=2B.
+   A+B=120° => B=40°, A=80°, C=60°.
+   Tam giác nhọn.
+   Kiểm chứng kép: 80+40+60=180; 80+40=120.
+
+NEGATIVE TESTS
+- Chỉ A+B≥180° mà không nêu A,B≥90° → FAIL.
+- Dùng “theo định lí góc ngoài” khi đang chứng minh định lí đó → FAIL.
+- Chỉ trả lời A=80°,B=40° → FAIL.
+- Chỉ kiểm chứng tổng ba góc, thiếu kiểm chứng góc ngoài → FAIL.
+
+LOCAL
+npm run build
+npm run dev
+
+TEST ROUTES
+/learn/lesson-player-12
+/advanced/lesson-player-12
+/advanced-quality
+
+REGRESSION
+/advanced/lesson-player-01 ... /advanced/lesson-player-12
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+Chưa Git/Tag/Vercel trước khi Local PASS.

@@ -839,6 +839,385 @@ function goldenCheck(stepId: string, raw: string): Verdict | null {
       return fail("Chỉ dùng chiều đảo khi nó đã được chứng minh hoặc có định lí hợp lệ.");
     }
 
+
+    case "l12a1-step1": {
+      const a = hasAny(s, ["a>=90", "a≥90"]);
+      const b = hasAny(s, ["b>=90", "b≥90"]);
+      const sum = hasAny(s, ["a+b>=180", "a+b≥180"]);
+      if (a && b && sum) return { ok: true };
+      if (sum) return fail("A+B≥180° đúng, nhưng hãy nêu căn cứ A≥90° và B≥90°.", "Thiếu giả sử");
+      return fail("Từ A≥90° và B≥90°, cộng hai bất đẳng thức để được A+B≥180°.");
+    }
+    case "l12a1-step2": {
+      const total = hasAny(s, ["a+b+c=180"]);
+      const cNonPositive = hasAny(s, ["c<=0", "c≤0", "ckhongduong", "ckhôngdương"]);
+      if (total && cNonPositive) return { ok: true };
+      if (cNonPositive) return fail("C≤0° đúng nhưng cần nối với A+B+C=180°.", "Thiếu định lí tổng góc");
+      return fail("Dùng C=180°-(A+B) cùng A+B≥180° để suy ra C≤0°.");
+    }
+    case "l12a1-step3": {
+      const verdict = hasAny(s, ["sai", "khongthe", "khôngthể"]);
+      const contradiction = hasAny(s, ["c<=0", "c≤0", "gocphaiduong", "gócphảidương", "goctrongtamgiacphaiduong"]);
+      if (verdict && contradiction) return { ok: true };
+      if (verdict) return fail("Kết luận đúng nhưng phải chỉ ra mâu thuẫn C≤0° với góc tam giác dương.", "Thiếu mâu thuẫn");
+      return fail("Kết luận nhận định sai và nêu rõ mâu thuẫn.");
+    }
+
+    case "l12a2-step1": {
+      const total = hasAny(s, ["a+b+c=180", "∠a+∠b+∠c=180"]);
+      if (total) return { ok: true };
+      return fail("Viết đúng định lí tổng ba góc: A+B+C=180°.");
+    }
+    case "l12a2-step2": {
+      const supplement = hasAny(s, ["c+∠acd=180", "∠acb+∠acd=180", "acb+acd=180"]);
+      const reason = hasAny(s, ["kebu", "kềbù", "haitiadoi", "haitiađối", "cbvacddoi"]);
+      if (supplement && reason) return { ok: true };
+      if (supplement) return fail("Đẳng thức đúng nhưng cần nêu ∠ACB và ∠ACD kề bù vì CB,CD là hai tia đối.", "Thiếu căn cứ kề bù");
+      return fail("Viết ∠ACB+∠ACD=180° và nêu lý do kề bù.");
+    }
+    case "l12a2-step3": {
+      const conclusion = hasAny(s, ["∠acd=a+b", "acd=a+b", "a+b=acd"]);
+      const derivation = hasAny(s, ["truc", "trừ", "bot", "bớt", "cungbang180", "cùngbằng180"]);
+      const circular = hasAny(s, ["theodinhligocngoai", "theođịnhlígócngoài"]);
+      if (circular) return fail("Không được dùng sẵn định lí góc ngoài khi đang chứng minh chính định lí đó.", "Circular reasoning");
+      if (conclusion && derivation) return { ok: true };
+      if (conclusion) return fail("Kết luận đúng nhưng cần suy ra từ hai tổng cùng bằng 180° rồi bớt C.", "Thiếu chuỗi chứng minh");
+      return fail("So sánh A+B+C=180° với C+ACD=180° rồi bớt C.");
+    }
+
+    case "l12a3-step1": {
+      const exterior = hasAny(s, ["a+b=120"]);
+      const relation = hasAny(s, ["a=2b"]);
+      const solve = hasAny(s, ["3b=120", "b=40", "a=80"]);
+      if (exterior && relation && solve) return { ok: true };
+      if (hasAny(s, ["b=40", "a=80"])) return fail("Kết quả đúng nhưng cần thể hiện A+B=120° và A=2B dẫn tới 3B=120°.", "Thiếu chuỗi giải");
+      return fail("Dùng góc ngoài: A+B=120°, rồi thay A=2B.");
+    }
+    case "l12a3-step2": {
+      const c = hasAny(s, ["c=60"]);
+      const total = hasAny(s, ["180-80-40=60", "80+40+60=180"]);
+      const acute = hasAny(s, ["tamgiacnhon", "tamgiácnhọn"]);
+      if (c && total && acute) return { ok: true };
+      if (c && acute) return fail("Kết luận đúng nhưng cần thể hiện C=180°-80°-40°.", "Thiếu phép tính");
+      return fail("Tìm C bằng tổng ba góc rồi phân loại theo 90°.");
+    }
+    case "l12a3-step3": {
+      const interiorCheck = hasAny(s, ["80+40+60=180"]);
+      const exteriorCheck = hasAny(s, ["80+40=120"]);
+      if (interiorCheck && exteriorCheck) return { ok: true };
+      if (interiorCheck || exteriorCheck) return fail("Cần đủ hai kiểm chứng độc lập: tổng ba góc và góc ngoài.", "Thiếu kiểm chứng kép");
+      return fail("Kiểm tra cả 80+40+60=180 và 80+40=120.");
+    }
+
+
+    case "l13a1-step1": {
+      const map = hasAny(s, ["a↔d","atuongungd","atươngứngd"]);
+      const reason = hasAny(s, ["abvaac","abvàac","devadf","devàdf","dinhchung","đỉnhchung","giao"]);
+      if (map && reason) return { ok:true };
+      if (map) return fail("A↔D đúng nhưng cần nêu căn cứ từ hai cạnh tương ứng cùng đi qua đỉnh.", "Thiếu căn cứ tương ứng");
+      return fail("A là đỉnh chung của AB,AC; D là đỉnh chung của DE,DF nên A↔D.");
+    }
+    case "l13a1-step2": {
+      const b=hasAny(s,["b↔e","btuongunge","btươngứnge"]);
+      const c=hasAny(s,["c↔f","ctuongungf","ctươngứngf"]);
+      const check=hasAny(s,["bc↔ef","bctuongungef","bctươngứngef"]);
+      if(b&&c&&check)return {ok:true};
+      if(b&&c)return fail("B↔E và C↔F đúng; hãy kiểm tra lại bằng cặp BC↔EF.", "Thiếu kiểm tra");
+      return fail("Từ A↔D suy ra B↔E, C↔F và dùng BC↔EF để kiểm tra.");
+    }
+    case "l13a1-step3": {
+      const right=hasAny(s,["δabc=δdef","△abc=△def","abc=def"]);
+      const wrongAccepted=hasAny(s,["δabc=δdfe","△abc=△dfe","abc=dfe"]) && !hasAny(s,["sai","khongdung","khôngđúng"]);
+      const explain=hasAny(s,["saithutu","saithứtự","b↔f","bbi ghepvoif","bbịghépvớif"]);
+      if(wrongAccepted)return fail("ΔABC=ΔDFE ghép sai B với F. Kí hiệu đúng là ΔABC=ΔDEF.", "Sai thứ tự đỉnh");
+      if(right&&explain)return {ok:true};
+      if(right)return fail("Kí hiệu đúng; hãy giải thích vì sao ΔABC=ΔDFE sai thứ tự.", "Thiếu phản biện");
+      return fail("Theo A↔D, B↔E, C↔F phải viết ΔABC=ΔDEF.");
+    }
+
+    case "l13a2-step1": {
+      const e1=hasAny(s,["ab=mn"]), e2=hasAny(s,["bc=np"]), e3=hasAny(s,["ac=mp"]);
+      const map=hasAny(s,["a↔m"])&&hasAny(s,["b↔n"])&&hasAny(s,["c↔p"]);
+      if(e1&&e2&&e3&&map)return {ok:true};
+      if(e1&&e2&&e3)return fail("Đã đủ ba cặp cạnh; hãy xác định thêm A↔M, B↔N, C↔P.", "Thiếu ánh xạ đỉnh");
+      return fail("Phải liệt kê đủ AB=MN, BC=NP, AC=MP và ánh xạ đỉnh.");
+    }
+    case "l13a2-step2": {
+      const tri=hasAny(s,["δabc=δmnp","△abc=△mnp","abc=mnp"]);
+      const ccc=hasAny(s,["c.c.c","ccc"]);
+      const wrong=hasAny(s,["abc=mpn","δabc=δmpn","△abc=△mpn"]);
+      if(wrong)return fail("Thứ tự MPN không khớp B↔N, C↔P.", "Sai thứ tự đỉnh");
+      if(tri&&ccc)return {ok:true};
+      if(tri)return fail("Kết luận đúng nhưng phải nêu trường hợp c.c.c.", "Thiếu trường hợp bằng nhau");
+      return fail("Từ ba cặp cạnh, kết luận ΔABC=ΔMNP theo c.c.c.");
+    }
+    case "l13a2-step3": {
+      const angle=hasAny(s,["∠b=∠n","b=n"]);
+      const reason=hasAny(s,["goctuongung","góctươngứng","haitamgiacbangnhau","haitamgiácbằngnhau","δabc=δmnp","△abc=△mnp"]);
+      if(angle&&reason)return {ok:true};
+      if(angle)return fail("∠B=∠N đúng nhưng cần căn cứ: hai tam giác đã bằng nhau nên góc tương ứng bằng nhau.", "Đáp án không đủ chứng minh");
+      return fail("Sau ΔABC=ΔMNP, dùng góc tương ứng B↔N để suy ra ∠B=∠N.");
+    }
+
+    case "l13a3-step1": {
+      const verdict=hasAny(s,["chuadu","chưađủ","sai"]);
+      const two=hasAny(s,["haicapcanh","haicặpcạnh","moicohaicap","mớicóhaicặp"]);
+      if(verdict&&two)return {ok:true};
+      if(verdict)return fail("Hãy nêu rõ mới có hai cặp cạnh, trong khi c.c.c. cần ba cặp.", "Thiếu lý do");
+      return fail("Kết luận theo c.c.c. là chưa đủ vì mới có hai cặp cạnh bằng nhau.");
+    }
+    case "l13a3-step2": {
+      if(hasAny(s,["bc=ef"]))return {ok:true};
+      return fail("Theo ABC↔DEF, cặp cạnh thứ ba còn thiếu là BC=EF.");
+    }
+    case "l13a3-step3": {
+      const notCongruent=hasAny(s,["chuachungminhhaitamgiacbangnhau","chưachứngminhhaitamgiácbằngnhau","khongdudulieu","khôngđủdữliệu"]);
+      const angles=hasAny(s,["goctuongung","góctươngứng","∠b=∠e","∠c=∠f"]);
+      if(notCongruent&&angles)return {ok:true};
+      if(notCongruent)return fail("Đúng là chưa chứng minh được hai tam giác bằng nhau; hãy nối điều đó với việc chưa được suy ra góc tương ứng.", "Thiếu hệ quả");
+      return fail("Chưa đủ c.c.c. nên chưa có căn cứ suy ra các góc tương ứng bằng nhau.");
+    }
+
+
+    case "l14a1-step1": {
+      const a=hasAny(s,["∠a","goca","góca"]);
+      const d=hasAny(s,["∠d","gocd","gócd"]);
+      const sides=hasAny(s,["abvaac","abvàac"])&&hasAny(s,["devadf","devàdf"]);
+      if(a&&d&&sides)return {ok:true};
+      if(a&&d)return fail("Đúng là ∠A và ∠D; hãy nêu chúng là góc xen giữa AB,AC và DE,DF.", "Thiếu căn cứ xen giữa");
+      return fail("Góc xen giữa AB,AC là ∠A; góc xen giữa DE,DF là ∠D.");
+    }
+    case "l14a1-step2": {
+      const map=hasAny(s,["a↔d"])&&hasAny(s,["b↔e"])&&hasAny(s,["c↔f"]);
+      const tri=hasAny(s,["δabc=δdef","△abc=△def","abc=def"]);
+      const sas=hasAny(s,["c.g.c","cgc"]);
+      if(map&&tri&&sas)return {ok:true};
+      if(tri&&sas)return fail("Kết luận đúng nhưng cần khóa A↔D, B↔E, C↔F.", "Thiếu tương ứng đỉnh");
+      return fail("Từ hai cạnh và góc xen giữa, kết luận ΔABC=ΔDEF theo c.g.c. với đúng ánh xạ đỉnh.");
+    }
+    case "l14a1-step3": {
+      const invalid=hasAny(s,["khongxengiua","khôngxengiữa","∠bkhongxen","∠bkhôngxen"]);
+      const verdict=hasAny(s,["chuadu","chưađủ","khongthe","khôngthể","khongphaic.g.c","khôngphảic.g.c"]);
+      if(invalid&&verdict)return {ok:true};
+      if(verdict)return fail("Hãy chỉ rõ ∠B không phải góc xen giữa AB và AC.", "Thiếu lỗi vị trí");
+      return fail("Hai cạnh + một góc chỉ là c.g.c. khi góc đó xen giữa hai cạnh đã cho.");
+    }
+
+    case "l14a2-step1": {
+      const bc=hasAny(s,["bcnoibvac","bcnốibvàc"]);
+      const ef=hasAny(s,["efnoievaf","efnốievàf"]);
+      const included=hasAny(s,["canhxengiua","cạnhxengiữa"]);
+      if(bc&&ef&&included)return {ok:true};
+      if(included)return fail("Hãy giải thích BC nối B,C và EF nối E,F nên chúng là cạnh xen giữa.", "Thiếu căn cứ vị trí");
+      return fail("Cạnh xen giữa hai góc B,C là BC; giữa E,F là EF.");
+    }
+    case "l14a2-step2": {
+      const map=hasAny(s,["b↔e"])&&hasAny(s,["c↔f"])&&hasAny(s,["a↔d"]);
+      const tri=hasAny(s,["δabc=δdef","△abc=△def","abc=def"]);
+      const asa=hasAny(s,["g.c.g","gcg"]);
+      if(map&&tri&&asa)return {ok:true};
+      if(tri&&asa)return fail("Kết luận đúng nhưng cần nêu B↔E, C↔F, A↔D.", "Thiếu tương ứng đỉnh");
+      return fail("Khóa B↔E, C↔F, A↔D rồi kết luận ΔABC=ΔDEF theo g.c.g.");
+    }
+    case "l14a2-step3": {
+      const side=hasAny(s,["ab=de","ac=df"]);
+      const reason=hasAny(s,["canhtuongung","cạnhtươngứng","haitamgiacbangnhau","haitamgiácbằngnhau"]);
+      if(side&&reason)return {ok:true};
+      if(side)return fail("Cặp cạnh đúng nhưng phải nêu căn cứ từ hai tam giác bằng nhau và cạnh tương ứng.", "Thiếu căn cứ");
+      return fail("Sau ΔABC=ΔDEF, suy ra AB=DE hoặc AC=DF vì là cạnh tương ứng.");
+    }
+
+    case "l14a3-step1": {
+      const verdict=hasAny(s,["khongdu","khôngđủ","aaakhong","aaakhông"]);
+      const reason=hasAny(s,["khackichthuoc","kháckíchthước","cunghinhdang","cùnghìnhdạng","phongto","phóngto"]);
+      if(verdict&&reason)return {ok:true};
+      if(verdict)return fail("AAA không đủ; hãy giải thích ba góc có thể giữ nguyên khi kích thước thay đổi.", "Thiếu phản ví dụ kích thước");
+      return fail("Ba góc tương ứng bằng nhau không phải tiêu chuẩn bằng nhau; AAA không khóa kích thước.");
+    }
+    case "l14a3-step2": {
+      const position=hasAny(s,["gockhongxengiua","góckhôngxengiữa","khongxengiua","khôngxengiữa"]);
+      const verdict=hasAny(s,["khongphaic.g.c","khôngphảic.g.c","chuadu","chưađủ"]);
+      if(position&&verdict)return {ok:true};
+      if(verdict)return fail("Cần nêu lỗi quyết định: góc đã cho không xen giữa hai cạnh.", "Thiếu lỗi vị trí");
+      return fail("c.g.c. yêu cầu góc xen giữa đúng hai cạnh tương ứng.");
+    }
+    case "l14a3-step3": {
+      const asaFix=hasAny(s,["themcanhxengiua","thêmcạnhxengiữa"])&&hasAny(s,["g.c.g","gcg"]);
+      const sasFix=hasAny(s,["doisangocxengiua","đổisangócxengiữa","thaybanggocxengiua","thaybằnggócxengiữa"])&&hasAny(s,["c.g.c","cgc"]);
+      if(asaFix&&sasFix)return {ok:true};
+      if(asaFix||sasFix)return fail("Cần sửa cả hai: AAA + cạnh xen giữa → g.c.g.; hai cạnh + đổi sang góc xen giữa → c.g.c.", "Thiếu một cách sửa");
+      return fail("Hãy đưa từng bộ dữ kiện về đúng cấu trúc g.c.g. và c.g.c.");
+    }
+
+
+    case "l15a1-step1": {
+      const legs=hasAny(s,["haicanhgocvuong","haicạnhgócvuông"]);
+      const names=hasAny(s,["abvaac","abvàac"])&&hasAny(s,["devadf","devàdf"]);
+      if(legs&&names)return {ok:true};
+      if(legs)return fail("Đúng trường hợp; hãy chỉ rõ AB,AC và DE,DF là hai cặp cạnh góc vuông.", "Thiếu phân loại cạnh");
+      return fail("Vì A,D là góc vuông nên AB,AC và DE,DF là hai cạnh góc vuông tương ứng.");
+    }
+    case "l15a1-step2": {
+      const leg=hasAny(s,["motcanhgocvuong","mộtcạnhgócvuông"]);
+      const adjacent=hasAny(s,["gocnhonke","gócnhọnkề","kecanhay","kềcạnhấy"]);
+      const named=hasAny(s,["ab"])&&hasAny(s,["de"])&&hasAny(s,["∠b","gocb","gócb"])&&hasAny(s,["∠e","goce","góce"]);
+      if(leg&&adjacent&&named)return {ok:true};
+      if(leg&&named)return fail("Cần nêu ∠B,∠E là góc nhọn kề cạnh AB,DE.", "Thiếu điều kiện kề");
+      return fail("Đây là trường hợp một cạnh góc vuông và góc nhọn kề cạnh ấy.");
+    }
+    case "l15a1-step3": {
+      const hyp=hasAny(s,["bcvaeflacanhhuyen","bcvàeflàcạnhhuyền","bcvaef","bcvàef"])&&hasAny(s,["canhhuyen","cạnhhuyền"]);
+      const acute=hasAny(s,["gocnhon","gócnhọn"])&&hasAny(s,["∠b","gocb","gócb"])&&hasAny(s,["∠e","goce","góce"]);
+      if(hyp&&acute)return {ok:true};
+      if(hasAny(s,["canhhuyen","cạnhhuyền"])&&acute)return fail("Hãy chỉ rõ BC và EF là cạnh huyền vì đối diện góc vuông.", "Thiếu tên cạnh");
+      return fail("BC,EF là cạnh huyền; cùng ∠B=∠E tạo trường hợp cạnh huyền và một góc nhọn.");
+    }
+
+    case "l15a2-step1": {
+      const hyp=hasAny(s,["bcvaeflacanhhuyen","bcvàeflàcạnhhuyền"]);
+      const leg=hasAny(s,["abvadelacanhgocvuong","abvàdelàcạnhgócvuông"]);
+      if(hyp&&leg)return {ok:true};
+      if(hasAny(s,["bc","ef","canhhuyen","cạnhhuyền"])&&hasAny(s,["ab","de","canhgocvuong","cạnhgócvuông"]))return {ok:true};
+      return fail("Xác định BC,EF là cạnh huyền và AB,DE là cạnh góc vuông.");
+    }
+    case "l15a2-step2": {
+      const map=hasAny(s,["a↔d"])&&hasAny(s,["b↔e"])&&hasAny(s,["c↔f"]);
+      const tri=hasAny(s,["δabc=δdef","△abc=△def","abc=def"]);
+      const criterion=hasAny(s,["canhhuyen","cạnhhuyền"])&&hasAny(s,["canhgocvuong","cạnhgócvuông"]);
+      if(map&&tri&&criterion)return {ok:true};
+      if(tri&&criterion)return fail("Kết luận đúng nhưng cần khóa A↔D, B↔E, C↔F.", "Thiếu tương ứng đỉnh");
+      return fail("Dùng đúng trường hợp cạnh huyền–cạnh góc vuông và viết ΔABC=ΔDEF.");
+    }
+    case "l15a2-step3": {
+      const angle=hasAny(s,["∠c=∠f","c=f"]);
+      const reason=hasAny(s,["goctuongung","góctươngứng","haitamgiacbangnhau","haitamgiácbằngnhau","δabc=δdef","△abc=△def"]);
+      if(angle&&reason)return {ok:true};
+      if(angle)return fail("∠C=∠F đúng nhưng cần căn cứ từ hai tam giác bằng nhau.", "Hệ quả quá sớm");
+      return fail("Sau ΔABC=ΔDEF, suy ra ∠C=∠F vì là góc tương ứng.");
+    }
+
+    case "l15a3-step1": {
+      const verdict=hasAny(s,["chuadu","chưađủ","sai"]);
+      const missing=hasAny(s,["δdefphaivuong","△defphảivuông","∠d=90","cahaitamgiacvuong","cảhaitamgiácvuông"]);
+      if(verdict&&missing)return {ok:true};
+      if(verdict)return fail("Hãy nêu giả thiết còn thiếu: ΔDEF phải vuông, chẳng hạn ∠D=90°.", "Thiếu điều kiện tiên quyết");
+      return fail("Không thể áp dụng trường hợp tam giác vuông khi chưa biết ΔDEF vuông.");
+    }
+    case "l15a3-step2": {
+      const definition=hasAny(s,["canhhuyendoidiengocvuong","cạnhhuyềnđốidiệngócvuông"]);
+      const missing=hasAny(s,["chuacogocvuong","chưacógócvuông","khongthexacdinhcanhhuyen","khôngthểxácđịnhcạnhhuyền"]);
+      if(definition&&missing)return {ok:true};
+      if(missing)return fail("Hãy nêu định nghĩa: cạnh huyền là cạnh đối diện góc vuông.", "Thiếu định nghĩa");
+      return fail("Chưa biết ΔDEF có góc vuông nên chưa thể gọi EF là cạnh huyền.");
+    }
+    case "l15a3-step3": {
+      const addRight=hasAny(s,["∠d=90","defvuongtaid","defvuôngtạid"]);
+      const data=hasAny(s,["bc=ef"])&&hasAny(s,["ab=de"]);
+      const criterion=hasAny(s,["canhhuyen","cạnhhuyền"])&&hasAny(s,["canhgocvuong","cạnhgócvuông"]);
+      const tri=hasAny(s,["δabc=δdef","△abc=△def","abc=def"]);
+      if(addRight&&data&&criterion&&tri)return {ok:true};
+      if(addRight&&tri)return fail("Cần viết đủ BC=EF, AB=DE và tên trường hợp cạnh huyền–cạnh góc vuông.", "Thiếu chuỗi dữ kiện");
+      return fail("Bổ sung ΔDEF vuông tại D rồi mới phân loại cạnh và áp dụng trường hợp đặc biệt.");
+    }
+
+
+    case "l16a1-step1": {
+      const bToAC=hasAny(s,["∠bdoidienac","∠bđốidiệnac","gocbdoidienac","gócbđốidiệnac"]);
+      const cToAB=hasAny(s,["∠cdoidienab","∠cđốidiệnab","goccdoidienab","góc c đối diện ab","góccđốidiệnab"]);
+      if(bToAC&&cToAB)return {ok:true};
+      if(hasAny(s,["ac","ab"])&&!bToAC&&!cToAB)return fail("Hãy ghép rõ từng góc với cạnh đối diện: ∠B↔AC, ∠C↔AB.", "Thiếu ánh xạ góc–cạnh");
+      return fail("Cạnh đối diện ∠B là AC; cạnh đối diện ∠C là AB.");
+    }
+    case "l16a1-step2": {
+      const equality=hasAny(s,["ab=ac","ac=ab"]);
+      const converse=hasAny(s,["dinh li dao","địnhlíđảo","dinhlydao","địnhlýđảo","haigocbangnhau","haigócbằngnhau"]);
+      const wrong=hasAny(s,["chuadu","chưađủ","khongthe suy","khôngthểsuy"]);
+      if(wrong)return fail("Trong một tam giác, hai góc bằng nhau đủ để suy ra hai cạnh đối diện bằng nhau theo định lí đảo của tam giác cân.", "Sai kiến thức");
+      if(equality&&converse)return {ok:true};
+      if(equality)return fail("AB=AC đúng nhưng cần nêu định lí đảo của tam giác cân.", "Thiếu căn cứ");
+      return fail("Từ ∠B=∠C, theo định lí đảo suy ra AC=AB.");
+    }
+    case "l16a1-step3": {
+      const isos=hasAny(s,["cantai a","cântạia","tamgiaccantai a","tamgiáccântạia"]);
+      const equality=hasAny(s,["ab=ac","ac=ab"]);
+      const reject=hasAny(s,["phatbieusai","phátbiểusai","nhandinhsai","nhậnđịnhsai","sai"]);
+      if(isos&&equality&&reject)return {ok:true};
+      if(isos&&equality)return fail("Kết luận tam giác cân đúng; hãy bác bỏ rõ phát biểu ban đầu.", "Thiếu phản biện");
+      return fail("AB=AC nên ΔABC cân tại A; phát biểu ban đầu là sai.");
+    }
+
+    case "l16a2-step1": {
+      const premise=hasAny(s,["mthuocduongtrungtruc","mthuộcđườngtrungtrực"]);
+      const eq=hasAny(s,["ma=mb"]);
+      const property=hasAny(s,["tinhchatduongtrungtruc","tínhchấtđườngtrungtrực","chieuthuan","chiềuthuận"]);
+      if(premise&&eq&&property)return {ok:true};
+      if(eq)return fail("MA=MB đúng nhưng cần nêu giả thiết M thuộc đường trung trực và đây là chiều thuận.", "Thiếu chiều suy luận");
+      return fail("M thuộc đường trung trực AB ⇒ MA=MB.");
+    }
+    case "l16a2-step2": {
+      const eq=hasAny(s,["ma=mb"]);
+      const conclusion=hasAny(s,["mthuocduongtrungtruc","mthuộcđườngtrungtrực"]);
+      const converse=hasAny(s,["tinhchatdao","tínhchấtđảo","chieu dao","chiềuđảo"]);
+      const wrong=hasAny(s,["chuadu","chưađủ","khongtheketluan","khôngthểkếtluận"]);
+      if(wrong)return fail("MA=MB là đủ để suy ra M thuộc đường trung trực của AB theo tính chất đảo.", "Sai chiều đảo");
+      if(eq&&conclusion&&converse)return {ok:true};
+      if(eq&&conclusion)return fail("Kết luận đúng nhưng cần gọi tên chiều đảo/tính chất đảo.", "Thiếu căn cứ");
+      return fail("MA=MB ⇒ M thuộc đường trung trực của AB.");
+    }
+    case "l16a2-step3": {
+      const iff=hasAny(s,["khivachikhi","khivàchỉkhi","⇔"]);
+      const both=hasAny(s,["mthuocduongtrungtruc","mthuộcđườngtrungtrực"])&&hasAny(s,["ma=mb"]);
+      const set=hasAny(s,["taphopcacdiemcachdeu","tậphợpcácđiểmcáchđều","tap hop tat ca cac diem","tậphợptấtcảcácđiểm"]);
+      if(iff&&both)return {ok:true};
+      if(set&&both)return {ok:true};
+      return fail("Tóm tắt: M thuộc đường trung trực của AB ⇔ MA=MB.");
+    }
+
+    case "l16a3-step1": {
+      const m=hasAny(s,["mthuocduongtrungtruc","mthuộcđườngtrungtrực"]);
+      const n=hasAny(s,["nthuocduongtrungtruc","nthuộcđườngtrungtrực"]);
+      const converse=hasAny(s,["tinhchatdao","tínhchấtđảo","ma=mb"])&&hasAny(s,["na=nb"]);
+      if(m&&n&&converse)return {ok:true};
+      if(m&&n)return fail("Vị trí đúng nhưng cần nêu MA=MB, NA=NB và tính chất đảo.", "Thiếu căn cứ");
+      return fail("Từ MA=MB và NA=NB, suy ra M,N cùng thuộc đường trung trực của AB.");
+    }
+    case "l16a3-step2": {
+      const same=hasAny(s,["mntrungvoiduongtrungtruc","mntrùngvớiđườngtrungtrực","mnchinhla duongtrungtruc","mnchínhlàđườngtrungtrực"]);
+      const unique=hasAny(s,["quahaidiemphanbiet","quahaiđiểmphânbiệt","motduongthangduynhat","mộtđườngthẳngduynhất"]);
+      if(same&&unique)return {ok:true};
+      if(same)return fail("Kết luận trùng nhau đúng nhưng cần dùng tính duy nhất của đường thẳng qua hai điểm phân biệt M,N.", "Thiếu tính duy nhất");
+      return fail("Cả MN và đường trung trực đi qua M,N phân biệt, nên chúng trùng nhau.");
+    }
+    case "l16a3-step3": {
+      const perp=hasAny(s,["mn⊥ab","mnvuonggocab","mnvuônggócab"]);
+      const midpoint=hasAny(s,["quatrungdiemab","quatrungđiểmab","diguatrungdiemab","điquatrungđiểmab"]);
+      const definition=hasAny(s,["duongtrungtruc","đườngtrungtrực"]);
+      if(perp&&midpoint&&definition)return {ok:true};
+      if(perp||midpoint)return fail("Cần đủ hai hệ quả của định nghĩa: MN⊥AB và MN đi qua trung điểm AB.", "Thiếu một điều kiện");
+      return fail("Vì MN là đường trung trực của AB nên MN⊥AB và đi qua trung điểm AB.");
+    }
+
+
+    case "l17a1-step1":
+      return hasAny(s,["ab<ac<bc"])&&hasAny(s,["abdoidien∠c","abđốidiện∠c"])&&hasAny(s,["bcdoidien∠a","bcđốidiện∠a"])?{ok:true}:fail("Cần AB<AC<BC và ánh xạ AB↔∠C, AC↔∠B, BC↔∠A.","Thiếu ánh xạ");
+    case "l17a1-step2":
+      return hasAny(s,["∠c<∠b<∠a"])&&hasAny(s,["canhlonhon","cạnhlớnhơn","dinhli","địnhlí","địnhlý"])?{ok:true}:fail("AB<AC<BC ⇒ ∠C<∠B<∠A theo định lí cạnh lớn hơn đối diện góc lớn hơn.");
+    case "l17a1-step3":
+      return hasAny(s,["∠alonnhat","∠alớnnhất"])&&hasAny(s,["∠cnhonhat","∠cnhỏnhất"])&&hasAny(s,["doidien","đốidiện"])?{ok:true}:fail("∠A lớn nhất vì đối diện BC; ∠C nhỏ nhất vì đối diện AB.");
+    case "l17a2-step1":
+      return hasAny(s,["∠b=55"])&&hasAny(s,["∠c<∠b<∠a","45<55<80"])?{ok:true}:fail("∠B=55°, nên ∠C<∠B<∠A.");
+    case "l17a2-step2":
+      return hasAny(s,["ab<ac<bc"])&&hasAny(s,["∠cdoidienab","∠cđốidiệnab"])&&hasAny(s,["∠adoidienbc","∠ađốidiệnbc"])?{ok:true}:fail("Ghép ∠C↔AB, ∠B↔AC, ∠A↔BC rồi suy ra AB<AC<BC.");
+    case "l17a2-step3":
+      return hasAny(s,["sai"])&&hasAny(s,["bcdoidien∠a","bcđốidiện∠a"])&&hasAny(s,["bclonnhat","bclớnnhất"])?{ok:true}:fail("Sai: BC mới đối diện ∠A nên BC lớn nhất.");
+    case "l17a3-step1":
+      return hasAny(s,["∠acb>∠abc"])&&hasAny(s,["abdoidien∠acb","abđốidiện∠acb"])?{ok:true}:fail("Trong ΔABC, AB>AC ⇒ ∠ACB>∠ABC.");
+    case "l17a3-step2":
+      return hasAny(s,["ad>ac"])&&hasAny(s,["addoidien∠acd","adđốidiện∠acd"])?{ok:true}:fail("Trong ΔACD, ∠ACD>∠ADC ⇒ AD>AC.");
+    case "l17a3-step3":
+      if(hasAny(s,["suyra∠acb>∠cad"])&&!hasAny(s,["chuadu","chưađủ"]))return fail("Không được nối trực tiếp hai tam giác khi chưa có cầu nối.","Suy luận vượt dữ kiện");
+      return hasAny(s,["chuadu","chưađủ","khongdudulieu","khôngđủdữliệu"])&&hasAny(s,["can them","cầnthêm","∠abc≥∠cad"])?{ok:true}:fail("Dữ kiện chưa đủ; cần nêu một cầu nối bổ sung, ví dụ ∠ABC≥∠CAD.");
+
     default:
       return null;
   }

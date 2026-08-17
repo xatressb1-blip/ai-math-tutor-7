@@ -1,0 +1,34 @@
+AI Math Tutor v2.8.3-beta.12 – FIX16
+Advanced Math Lesson 13 – Hai tam giác bằng nhau, trường hợp c.c.c.
+
+P0 REASONING
+- Correspondence first: A↔D, B↔E, C↔F.
+- Không được đổi thứ tự đỉnh tùy ý.
+- c.c.c. bắt buộc đủ 3 cặp cạnh tương ứng.
+- Chỉ suy góc tương ứng sau khi đã chứng minh hai tam giác bằng nhau.
+
+NEGATIVE TESTS
+- A↔D nhưng không giải thích từ cạnh tương ứng → FAIL.
+- ΔABC=ΔDFE khi mapping là A↔D,B↔E,C↔F → FAIL.
+- Chỉ có 2 cặp cạnh mà kết luận c.c.c. → FAIL.
+- ΔABC=ΔMPN dù ba cạnh đúng nhưng sai thứ tự → FAIL.
+- Chỉ trả lời ∠B=∠N, thiếu bước c.c.c. → FAIL.
+- Suy góc tương ứng khi chưa đủ dữ kiện → FAIL.
+
+LOCAL
+npm run build
+npm run dev
+
+TEST
+/learn/lesson-player-13
+/advanced/lesson-player-13
+/advanced-quality
+
+REGRESSION
+/advanced/lesson-player-01 ... /advanced/lesson-player-13
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+Chưa Git/Tag/Vercel trước Local PASS.

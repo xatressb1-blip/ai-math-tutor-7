@@ -53,3 +53,13 @@ Bài 4 bắt đầu gần mô-típ Bài 2. FIX8 đã chủ động đổi mô-t�
 
 ## Release gate
 `/advanced-quality` phải PASS toàn bộ adversarial cases trước khi thêm bài nâng cao mới.
+
+- Bài 12: phản chứng cấu hình góc không thể, tự dẫn xuất định lí góc ngoài, ràng buộc đại số và kiểm chứng kép.
+
+- Bài 14: c.g.c./g.c.g. phải đúng vị trí góc/cạnh xen giữa; chặn AAA, góc không xen giữa và hệ quả suy quá sớm.
+
+- Bài 15: phủ đủ bốn trường hợp tam giác vuông; bắt điều kiện cả hai tam giác vuông, đúng loại cạnh và đúng quan hệ góc nhọn kề.
+
+- Bài 16: khóa đúng định lí đảo tam giác cân; đường trung trực phải kiểm tra cả hai chiều; chặn misconception 'hai góc bằng nhau chưa suy được tam giác cân' và kết luận từ hình vẽ.
+
+- Bài 17: đủ hai chiều góc–cạnh đối diện; chặn nhầm cạnh kề, suy từ hình và nối hai tam giác thiếu cầu nối.

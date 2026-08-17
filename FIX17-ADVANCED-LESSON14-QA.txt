@@ -1,0 +1,38 @@
+AI Math Tutor v2.8.3-beta.13 – FIX17
+Advanced Math Lesson 14 – Trường hợp bằng nhau thứ hai và thứ ba của tam giác
+
+SOURCE ALIGNMENT
+- c.g.c.: hai cạnh và góc xen giữa tương ứng bằng nhau.
+- g.c.g.: một cạnh và hai góc kề tương ứng bằng nhau.
+- Quy trình: xét hai tam giác → kiểm tra đúng điều kiện → kết luận bằng nhau → suy yếu tố tương ứng.
+
+P0 REASONING
+- Không chỉ đếm “2 cạnh + 1 góc”; góc phải xen giữa.
+- Không chỉ đếm “2 góc + 1 cạnh”; cạnh phải nằm giữa hai góc theo cấu trúc g.c.g.
+- AAA không phải tiêu chuẩn bằng nhau.
+- Chỉ suy cạnh/góc tương ứng sau khi đã chứng minh hai tam giác bằng nhau.
+
+NEGATIVE TESTS
+- Hai cạnh + góc không xen giữa mà gọi c.g.c. → FAIL.
+- Chỉ nói cạnh xen giữa nhưng không giải thích vị trí → FAIL.
+- AAA ⇒ hai tam giác bằng nhau → FAIL.
+- Hệ quả AB=DE không có căn cứ hai tam giác bằng nhau → FAIL.
+- Chỉ sửa một trong hai false proof ở bài phản biện → FAIL.
+
+LOCAL
+npm run build
+npm run dev
+
+TEST
+/learn/lesson-player-14
+/advanced/lesson-player-14
+/advanced-quality
+
+REGRESSION
+/advanced/lesson-player-01 ... /advanced/lesson-player-14
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+Chưa Git/Tag/Vercel trước Local PASS.

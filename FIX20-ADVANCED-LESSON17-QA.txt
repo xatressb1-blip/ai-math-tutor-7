@@ -1,0 +1,32 @@
+AI Math Tutor v2.8.3-beta.16 – FIX20
+Advanced Math Lesson 17 – Quan hệ giữa góc và cạnh đối diện trong một tam giác
+
+SOURCE ALIGNMENT
+- Cạnh lớn hơn đối diện góc lớn hơn.
+- Góc lớn hơn đối diện cạnh lớn hơn.
+- Tam giác vuông: cạnh huyền lớn nhất; tam giác tù: cạnh đối diện góc tù lớn nhất.
+
+HARDENING
+- Bắt ánh xạ cạnh ↔ góc đối diện.
+- “∠A lớn nhất nên AB lớn nhất” → FAIL.
+- Không suy từ hình vẽ.
+- Không nối trực tiếp hai tam giác khi chưa có cầu nối.
+- Nếu dữ kiện thiếu, phải biết dừng và chỉ ra giả thiết bổ sung.
+
+LOCAL
+npm run build
+npm run dev
+
+TEST
+/learn/lesson-player-17
+/advanced/lesson-player-17
+/advanced-quality
+
+REGRESSION
+/advanced/lesson-player-01 ... /advanced/lesson-player-17
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+Chưa Git/Tag/Vercel trước Local PASS.

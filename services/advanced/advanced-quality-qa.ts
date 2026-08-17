@@ -9,6 +9,12 @@ import { lesson8AdvancedProblems } from "@/data/advanced/lesson-8-advanced";
 import { lesson9AdvancedProblems } from "@/data/advanced/lesson-9-advanced";
 import { lesson10AdvancedProblems } from "@/data/advanced/lesson-10-advanced";
 import { lesson11AdvancedProblems } from "@/data/advanced/lesson-11-advanced";
+import { lesson12AdvancedProblems } from "@/data/advanced/lesson-12-advanced";
+import { lesson13AdvancedProblems } from "@/data/advanced/lesson-13-advanced";
+import { lesson14AdvancedProblems } from "@/data/advanced/lesson-14-advanced";
+import { lesson15AdvancedProblems } from "@/data/advanced/lesson-15-advanced";
+import { lesson16AdvancedProblems } from "@/data/advanced/lesson-16-advanced";
+import { lesson17AdvancedProblems } from "@/data/advanced/lesson-17-advanced";
 import { evaluateAdvancedReasoningStep } from "@/services/advanced/advanced-reasoning-evaluator";
 import type { AdvancedMathProblem } from "@/types/advanced";
 import type { ReasoningStepDefinition } from "@/types/reasoning";
@@ -54,6 +60,12 @@ const problems: AdvancedMathProblem[] = [
   ...lesson9AdvancedProblems,
   ...lesson10AdvancedProblems,
   ...lesson11AdvancedProblems,
+  ...lesson12AdvancedProblems,
+  ...lesson13AdvancedProblems,
+  ...lesson14AdvancedProblems,
+  ...lesson15AdvancedProblems,
+  ...lesson16AdvancedProblems,
+  ...lesson17AdvancedProblems,
 ];
 
 function getStep(stepId: string): ReasoningStepDefinition {
@@ -520,6 +532,106 @@ export const advancedAdversarialQualityCases: AdvancedQualityCase[] = [
   { id:"l8-proof-chain-correct-pass", stepId:"l8a2-step2", expected:"PASS", input:"∠mOy=α/2, ∠yOx'=180°-α, ∠x'On=α/2.", purpose:"Chuỗi góc đúng theo Om→Oy→Ox'→On phải PASS." },
   { id:"l8-proof-chain-old-wrong-fail", stepId:"l8a2-step2", expected:"FAIL", input:"∠mOy=α/2, ∠y'On=α/2, ∠yOy'=180°.", purpose:"Scaffold cũ không nhất quán phải FAIL." },
   { id:"l11-converse-negation-trap", stepId:"l11a3-step3", expected:"FAIL", input:"Không cần chứng minh; có định lí hay không cũng được vì chiều thuận đúng nên dùng chiều đảo.", purpose:"Keyword 'định lí' trong một phát biểu logic sai không được false PASS." },
+
+  { id:"l12-feasibility-sum-only-fail", stepId:"l12a1-step1", expected:"FAIL", input:"A+B≥180°.", purpose:"Kết luận trung gian không có A≥90°,B≥90° phải FAIL." },
+  { id:"l12-feasibility-pass", stepId:"l12a1-step1", expected:"PASS", input:"A≥90° và B≥90° nên A+B≥180°.", purpose:"Chuỗi bất đẳng thức hợp lệ phải PASS." },
+  { id:"l12-feasibility-step2-pass", stepId:"l12a1-step2", expected:"PASS", input:"A+B+C=180° và A+B≥180° nên C≤0°.", purpose:"Mâu thuẫn từ tổng góc phải PASS." },
+  { id:"l12-feasibility-final-pass", stepId:"l12a1-step3", expected:"PASS", input:"Nhận định sai vì C≤0°, trong khi góc trong tam giác phải dương.", purpose:"Kết luận có mâu thuẫn phải PASS." },
+
+  { id:"l12-exterior-proof-step1-pass", stepId:"l12a2-step1", expected:"PASS", input:"A+B+C=180°.", purpose:"Đẳng thức tổng ba góc phải PASS." },
+  { id:"l12-exterior-proof-step2-pass", stepId:"l12a2-step2", expected:"PASS", input:"∠ACB+∠ACD=180° vì hai góc kề bù, CB và CD là hai tia đối.", purpose:"Kề bù có lý do phải PASS." },
+  { id:"l12-exterior-circular-trap", stepId:"l12a2-step3", expected:"FAIL", input:"Theo định lí góc ngoài, ∠ACD=A+B.", purpose:"Dùng chính định lí đang chứng minh phải FAIL." },
+  { id:"l12-exterior-derivation-pass", stepId:"l12a2-step3", expected:"PASS", input:"A+B+C=180° và C+∠ACD=180°, cùng bằng 180° nên bớt C được ∠ACD=A+B.", purpose:"Dẫn xuất độc lập phải PASS." },
+
+  { id:"l12-constraint-answer-only-fail", stepId:"l12a3-step1", expected:"FAIL", input:"A=80°, B=40°.", purpose:"Đáp án đúng nhưng thiếu chuỗi A+B=120°, A=2B phải FAIL." },
+  { id:"l12-constraint-step1-pass", stepId:"l12a3-step1", expected:"PASS", input:"A+B=120°, A=2B nên 3B=120°, B=40°, A=80°.", purpose:"Giải ràng buộc đầy đủ phải PASS." },
+  { id:"l12-constraint-step2-pass", stepId:"l12a3-step2", expected:"PASS", input:"C=180°-80°-40°=60°. Cả ba góc nhỏ hơn 90° nên là tam giác nhọn.", purpose:"Tính và phân loại đúng phải PASS." },
+  { id:"l12-double-check-one-only-fail", stepId:"l12a3-step3", expected:"FAIL", input:"80°+40°+60°=180°.", purpose:"Chỉ một trong hai kiểm chứng phải FAIL." },
+  { id:"l12-double-check-pass", stepId:"l12a3-step3", expected:"PASS", input:"80°+40°+60°=180° và 80°+40°=120°.", purpose:"Kiểm chứng kép phải PASS." },
+
+  { id:"l13-map-answer-only-fail", stepId:"l13a1-step1", expected:"FAIL", input:"A↔D.", purpose:"Ánh xạ đúng nhưng thiếu căn cứ từ cạnh phải FAIL." },
+  { id:"l13-map-reason-pass", stepId:"l13a1-step1", expected:"PASS", input:"A↔D vì A là giao của AB và AC, còn D là giao của DE và DF.", purpose:"Tương ứng đỉnh có căn cứ phải PASS." },
+  { id:"l13-map-check-pass", stepId:"l13a1-step2", expected:"PASS", input:"B↔E, C↔F; kiểm tra lại thấy BC↔EF.", purpose:"Ánh xạ đầy đủ và kiểm tra cặp thứ ba phải PASS." },
+  { id:"l13-wrong-order-trap", stepId:"l13a1-step3", expected:"FAIL", input:"ΔABC=ΔDFE.", purpose:"Sai thứ tự đỉnh phải FAIL." },
+  { id:"l13-right-order-pass", stepId:"l13a1-step3", expected:"PASS", input:"ΔABC=ΔDEF; ΔABC=ΔDFE sai thứ tự vì B sẽ bị ghép với F.", purpose:"Kí hiệu đúng và phản biện thứ tự phải PASS." },
+
+  { id:"l13-ccc-two-sides-fail", stepId:"l13a2-step1", expected:"FAIL", input:"AB=MN, BC=NP; A↔M, B↔N, C↔P.", purpose:"Thiếu cặp cạnh thứ ba phải FAIL." },
+  { id:"l13-ccc-all-sides-pass", stepId:"l13a2-step1", expected:"PASS", input:"AB=MN, BC=NP, AC=MP; A↔M, B↔N, C↔P.", purpose:"Đủ ba cặp cạnh và ánh xạ phải PASS." },
+  { id:"l13-ccc-wrong-order-fail", stepId:"l13a2-step2", expected:"FAIL", input:"ΔABC=ΔMPN theo c.c.c.", purpose:"Đủ chữ c nhưng sai thứ tự đỉnh phải FAIL." },
+  { id:"l13-ccc-congruence-pass", stepId:"l13a2-step2", expected:"PASS", input:"ΔABC=ΔMNP theo c.c.c.", purpose:"Kết luận c.c.c. đúng thứ tự phải PASS." },
+  { id:"l13-angle-answer-only-fail", stepId:"l13a2-step3", expected:"FAIL", input:"∠B=∠N.", purpose:"Đáp án góc đúng nhưng thiếu căn cứ tam giác bằng nhau phải FAIL." },
+  { id:"l13-angle-corresponding-pass", stepId:"l13a2-step3", expected:"PASS", input:"Vì ΔABC=ΔMNP nên các góc tương ứng bằng nhau; B↔N, do đó ∠B=∠N.", purpose:"Chuỗi c.c.c. đến góc tương ứng phải PASS." },
+
+  { id:"l13-insufficient-verdict-pass", stepId:"l13a3-step1", expected:"PASS", input:"Chưa đủ vì mới có hai cặp cạnh bằng nhau, trong khi c.c.c. cần ba cặp.", purpose:"Phát hiện thiếu dữ kiện phải PASS." },
+  { id:"l13-missing-side-pass", stepId:"l13a3-step2", expected:"PASS", input:"Cần thêm BC=EF là cặp cạnh thứ ba.", purpose:"Xác định đúng dữ kiện thiếu phải PASS." },
+  { id:"l13-premature-angle-fail", stepId:"l13a3-step3", expected:"FAIL", input:"∠B=∠E và ∠C=∠F vì là góc tương ứng.", purpose:"Suy góc trước khi chứng minh tam giác bằng nhau phải FAIL." },
+  { id:"l13-premature-angle-explain-pass", stepId:"l13a3-step3", expected:"PASS", input:"Không đủ dữ liệu nên chưa chứng minh hai tam giác bằng nhau; vì vậy chưa được suy ra các góc tương ứng như ∠B=∠E.", purpose:"Chặn premature consequence phải PASS." },
+
+  { id:"l14-sas-angle-only-fail", stepId:"l14a1-step1", expected:"FAIL", input:"Góc xen giữa là ∠A và ∠D.", purpose:"Đúng tên góc nhưng thiếu liên hệ cặp cạnh phải FAIL." },
+  { id:"l14-sas-included-pass", stepId:"l14a1-step1", expected:"PASS", input:"∠A là góc xen giữa AB và AC; ∠D là góc xen giữa DE và DF.", purpose:"Nhận diện góc xen giữa có căn cứ phải PASS." },
+  { id:"l14-sas-chain-pass", stepId:"l14a1-step2", expected:"PASS", input:"A↔D, B↔E, C↔F nên ΔABC=ΔDEF theo c.g.c.", purpose:"c.g.c. đúng ánh xạ phải PASS." },
+  { id:"l14-non-included-angle-trap", stepId:"l14a1-step3", expected:"FAIL", input:"AB=DE, AC=DF, ∠B=∠E nên đủ hai cạnh và một góc, do đó c.g.c.", purpose:"Đếm dữ kiện nhưng góc sai vị trí phải FAIL." },
+  { id:"l14-non-included-reject-pass", stepId:"l14a1-step3", expected:"PASS", input:"Chưa đủ vì ∠B không xen giữa AB và AC, nên không phải c.g.c.", purpose:"Phản biện góc không xen giữa phải PASS." },
+
+  { id:"l14-asa-side-only-fail", stepId:"l14a2-step1", expected:"FAIL", input:"BC và EF là cạnh xen giữa.", purpose:"Thiếu giải thích vị trí phải FAIL." },
+  { id:"l14-asa-included-side-pass", stepId:"l14a2-step1", expected:"PASS", input:"BC nối B và C, EF nối E và F nên chúng là cạnh xen giữa hai góc.", purpose:"Nhận diện cạnh xen giữa phải PASS." },
+  { id:"l14-asa-chain-pass", stepId:"l14a2-step2", expected:"PASS", input:"B↔E, C↔F, A↔D nên ΔABC=ΔDEF theo g.c.g.", purpose:"g.c.g. đúng thứ tự phải PASS." },
+  { id:"l14-corresponding-side-answer-only-fail", stepId:"l14a2-step3", expected:"FAIL", input:"AB=DE.", purpose:"Hệ quả đúng nhưng thiếu căn cứ phải FAIL." },
+  { id:"l14-corresponding-side-pass", stepId:"l14a2-step3", expected:"PASS", input:"Vì hai tam giác bằng nhau nên các cạnh tương ứng bằng nhau, do đó AB=DE.", purpose:"Hệ quả sau chứng minh phải PASS." },
+
+  { id:"l14-aaa-trap", stepId:"l14a3-step1", expected:"FAIL", input:"Ba góc tương ứng bằng nhau nên hai tam giác bằng nhau theo AAA.", purpose:"AAA giả phải FAIL." },
+  { id:"l14-aaa-reject-pass", stepId:"l14a3-step1", expected:"PASS", input:"AAA không đủ vì có thể cùng hình dạng nhưng khác kích thước, chẳng hạn phóng to tam giác.", purpose:"Phản biện AAA phải PASS." },
+  { id:"l14-sas-position-pass", stepId:"l14a3-step2", expected:"PASS", input:"Chưa đủ và không phải c.g.c. vì góc không xen giữa hai cạnh đã cho.", purpose:"Phản biện vị trí c.g.c. phải PASS." },
+  { id:"l14-fix-one-only-fail", stepId:"l14a3-step3", expected:"FAIL", input:"Với AAA, thêm cạnh xen giữa để có g.c.g.", purpose:"Chỉ sửa một lời giải phải FAIL." },
+  { id:"l14-fix-both-pass", stepId:"l14a3-step3", expected:"PASS", input:"Với AAA, thêm cạnh xen giữa để có g.c.g.; với hai cạnh và góc sai vị trí, đổi sang góc xen giữa để có c.g.c.", purpose:"Sửa đúng cả hai tiêu chuẩn phải PASS." },
+
+  { id:"l15-ll-label-only-fail", stepId:"l15a1-step1", expected:"FAIL", input:"Hai cạnh góc vuông.", purpose:"Chỉ tên trường hợp nhưng không phân loại các cạnh cụ thể phải FAIL." },
+  { id:"l15-ll-pass", stepId:"l15a1-step1", expected:"PASS", input:"AB và AC, DE và DF là hai cặp cạnh góc vuông nên dùng trường hợp hai cạnh góc vuông.", purpose:"Nhận diện trường hợp 1 phải PASS." },
+  { id:"l15-leg-angle-missing-adjacent-fail", stepId:"l15a1-step2", expected:"FAIL", input:"AB=DE và ∠B=∠E nên một cạnh góc vuông và một góc nhọn.", purpose:"Thiếu điều kiện góc nhọn kề cạnh ấy phải FAIL." },
+  { id:"l15-leg-angle-pass", stepId:"l15a1-step2", expected:"PASS", input:"AB,DE là một cạnh góc vuông và ∠B,∠E là góc nhọn kề cạnh ấy.", purpose:"Nhận diện trường hợp 2 phải PASS." },
+  { id:"l15-hyp-angle-pass", stepId:"l15a1-step3", expected:"PASS", input:"BC và EF là cạnh huyền, ∠B và ∠E là góc nhọn nên dùng trường hợp cạnh huyền và một góc nhọn.", purpose:"Nhận diện trường hợp 3 phải PASS." },
+
+  { id:"l15-hyp-leg-misclassify-fail", stepId:"l15a2-step1", expected:"FAIL", input:"BC và EF là cạnh góc vuông; AB và DE là cạnh huyền.", purpose:"Đảo loại cạnh phải FAIL." },
+  { id:"l15-hyp-leg-classify-pass", stepId:"l15a2-step1", expected:"PASS", input:"BC và EF là cạnh huyền; AB và DE là cạnh góc vuông.", purpose:"Phân loại đúng trường hợp đặc biệt phải PASS." },
+  { id:"l15-hyp-leg-chain-pass", stepId:"l15a2-step2", expected:"PASS", input:"A↔D, B↔E, C↔F; ΔABC=ΔDEF theo trường hợp cạnh huyền–cạnh góc vuông.", purpose:"Chuỗi đặc biệt đúng phải PASS." },
+  { id:"l15-angle-premature-fail", stepId:"l15a2-step3", expected:"FAIL", input:"∠C=∠F.", purpose:"Chỉ nêu hệ quả không có căn cứ phải FAIL." },
+  { id:"l15-angle-after-congruence-pass", stepId:"l15a2-step3", expected:"PASS", input:"Vì hai tam giác bằng nhau nên góc tương ứng bằng nhau, do đó ∠C=∠F.", purpose:"Hệ quả đúng thứ tự phải PASS." },
+
+  { id:"l15-one-right-only-trap", stepId:"l15a3-step1", expected:"FAIL", input:"ABC vuông tại A nên có thể dùng cạnh huyền–cạnh góc vuông cho ABC và DEF.", purpose:"Chỉ một tam giác vuông không đủ phải FAIL." },
+  { id:"l15-prerequisite-pass", stepId:"l15a3-step1", expected:"PASS", input:"Chưa đủ vì cả hai tam giác phải vuông; cần thêm ΔDEF vuông, chẳng hạn ∠D=90°.", purpose:"Nhận đúng điều kiện tiên quyết phải PASS." },
+  { id:"l15-hypotenuse-by-picture-fail", stepId:"l15a3-step2", expected:"FAIL", input:"Nhìn hình thấy EF dài nhất nên EF là cạnh huyền.", purpose:"Không được xác định cạnh huyền từ hình hoặc độ dài cảm tính." },
+  { id:"l15-hypotenuse-definition-pass", stepId:"l15a3-step2", expected:"PASS", input:"Cạnh huyền là cạnh đối diện góc vuông; chưa có góc vuông của DEF nên không thể xác định EF là cạnh huyền.", purpose:"Dùng đúng định nghĩa phải PASS." },
+  { id:"l15-fixed-proof-pass", stepId:"l15a3-step3", expected:"PASS", input:"Thêm ∠D=90°. Khi đó BC=EF là hai cạnh huyền, AB=DE là hai cạnh góc vuông, nên ΔABC=ΔDEF theo cạnh huyền–cạnh góc vuông.", purpose:"Sửa tối thiểu và chuỗi hoàn chỉnh phải PASS." },
+
+  { id:"l16-opposite-side-answer-only-fail", stepId:"l16a1-step1", expected:"FAIL", input:"AC và AB.", purpose:"Chỉ liệt kê cạnh nhưng không ghép góc–cạnh phải FAIL." },
+  { id:"l16-opposite-side-pass", stepId:"l16a1-step1", expected:"PASS", input:"∠B đối diện AC; ∠C đối diện AB.", purpose:"Ghép đúng góc–cạnh đối diện phải PASS." },
+  { id:"l16-critical-misconception-trap", stepId:"l16a1-step2", expected:"FAIL", input:"Hai góc bằng nhau vẫn chưa đủ để suy ra hai cạnh bằng nhau.", purpose:"Misconception P0 cũ phải FAIL." },
+  { id:"l16-isosceles-converse-pass", stepId:"l16a1-step2", expected:"PASS", input:"Vì hai góc bằng nhau, theo định lí đảo của tam giác cân suy ra AB=AC.", purpose:"Chiều đảo đúng phải PASS." },
+  { id:"l16-isosceles-final-pass", stepId:"l16a1-step3", expected:"PASS", input:"AB=AC nên tam giác ABC cân tại A; phát biểu ban đầu là sai.", purpose:"Kết luận đúng đỉnh cân và phản biện phải PASS." },
+
+  { id:"l16-perp-forward-answer-only-fail", stepId:"l16a2-step1", expected:"FAIL", input:"MA=MB.", purpose:"Chỉ kết luận khoảng cách không nêu premise/chiều thuận phải FAIL." },
+  { id:"l16-perp-forward-pass", stepId:"l16a2-step1", expected:"PASS", input:"M thuộc đường trung trực của AB nên theo tính chất đường trung trực (chiều thuận), MA=MB.", purpose:"Chiều thuận phải PASS." },
+  { id:"l16-perp-converse-misconception-fail", stepId:"l16a2-step2", expected:"FAIL", input:"MA=MB nhưng chưa đủ để kết luận M thuộc đường trung trực.", purpose:"Phủ nhận sai tính chất đảo phải FAIL." },
+  { id:"l16-perp-converse-pass", stepId:"l16a2-step2", expected:"PASS", input:"MA=MB nên theo tính chất đảo, M thuộc đường trung trực của AB.", purpose:"Chiều đảo phải PASS." },
+  { id:"l16-perp-iff-pass", stepId:"l16a2-step3", expected:"PASS", input:"M thuộc đường trung trực của AB khi và chỉ khi MA=MB.", purpose:"Mệnh đề hai chiều phải PASS." },
+
+  { id:"l16-two-points-step1-pass", stepId:"l16a3-step1", expected:"PASS", input:"MA=MB và NA=NB nên theo tính chất đảo, M thuộc đường trung trực và N thuộc đường trung trực của AB.", purpose:"Hai điểm cùng lên đường trung trực phải PASS." },
+  { id:"l16-two-points-visual-trap", stepId:"l16a3-step2", expected:"FAIL", input:"Nhìn hình thấy M,N đối xứng nên MN là đường trung trực.", purpose:"Không được kết luận từ hình vẽ." },
+  { id:"l16-two-points-uniqueness-pass", stepId:"l16a3-step2", expected:"PASS", input:"Qua hai điểm phân biệt M,N chỉ có một đường thẳng duy nhất; đường trung trực cũng đi qua M,N nên MN trùng với đường trung trực.", purpose:"Tính duy nhất đường thẳng phải PASS." },
+  { id:"l16-perp-definition-one-half-fail", stepId:"l16a3-step3", expected:"FAIL", input:"MN⊥AB.", purpose:"Chỉ vuông góc chưa đủ phát biểu đầy đủ đường trung trực." },
+  { id:"l16-perp-definition-pass", stepId:"l16a3-step3", expected:"PASS", input:"MN là đường trung trực nên MN⊥AB và MN đi qua trung điểm AB.", purpose:"Đủ hai ý định nghĩa phải PASS." },
+  { id:"l17-map-fail", stepId:"l17a1-step1", expected:"FAIL", input:"AB<AC<BC.", purpose:"Chỉ thứ tự cạnh không đủ." },
+  { id:"l17-map-pass", stepId:"l17a1-step1", expected:"PASS", input:"AB<AC<BC; AB đối diện ∠C, AC đối diện ∠B, BC đối diện ∠A.", purpose:"Ánh xạ đúng." },
+  { id:"l17-side-angle-pass", stepId:"l17a1-step2", expected:"PASS", input:"Theo định lí cạnh lớn hơn đối diện góc lớn hơn, ∠C<∠B<∠A.", purpose:"Chiều cạnh→góc." },
+  { id:"l17-extreme-pass", stepId:"l17a1-step3", expected:"PASS", input:"∠A lớn nhất vì đối diện BC; ∠C nhỏ nhất vì đối diện AB.", purpose:"Cực trị có căn cứ." },
+  { id:"l17-angle-pass", stepId:"l17a2-step1", expected:"PASS", input:"∠B=55°, nên ∠C<∠B<∠A.", purpose:"Tính góc." },
+  { id:"l17-side-pass", stepId:"l17a2-step2", expected:"PASS", input:"∠C đối diện AB, ∠B đối diện AC, ∠A đối diện BC nên AB<AC<BC.", purpose:"Chiều góc→cạnh." },
+  { id:"l17-adjacent-trap", stepId:"l17a2-step3", expected:"FAIL", input:"∠A lớn nhất nên AB lớn nhất.", purpose:"Nhầm cạnh kề." },
+  { id:"l17-adjacent-fix", stepId:"l17a2-step3", expected:"PASS", input:"Sai. BC đối diện ∠A nên BC lớn nhất.", purpose:"Sửa đúng." },
+  { id:"l17-cross1", stepId:"l17a3-step1", expected:"PASS", input:"AB đối diện ∠ACB nên AB>AC ⇒ ∠ACB>∠ABC.", purpose:"Trong tam giác 1." },
+  { id:"l17-cross2", stepId:"l17a3-step2", expected:"PASS", input:"AD đối diện ∠ACD nên ∠ACD>∠ADC ⇒ AD>AC.", purpose:"Trong tam giác 2." },
+  { id:"l17-cross-trap", stepId:"l17a3-step3", expected:"FAIL", input:"Suy ra ∠ACB>∠CAD.", purpose:"Nối vượt dữ kiện." },
+  { id:"l17-cross-pass", stepId:"l17a3-step3", expected:"PASS", input:"Chưa đủ dữ liệu; cần thêm ∠ABC≥∠CAD.", purpose:"Phát hiện thiếu cầu nối." },
 ];
 
 export const advancedReasoningDiversityMatrix: AdvancedReasoningDiversityItem[] = [
@@ -581,6 +693,41 @@ export const advancedReasoningDiversityMatrix: AdvancedReasoningDiversityItem[] 
     primaryModes: ["Suy luận từ tiên đề", "Tính duy nhất", "Kiểm soát chiều suy luận", "Chuyển tính chất qua quan hệ góc"],
   },
   { lesson:11, lessonTitle:"Định lí và chứng minh định lí", primaryModes:["Tách GIVEN/GOAL","Lập bản đồ chứng minh","Phát hiện circular reasoning","Phản ví dụ và converse error"] },
+
+  {
+    lesson: 12,
+    lessonTitle: "Tổng các góc trong một tam giác",
+    primaryModes: ["Phản chứng cấu hình không thể", "Dẫn xuất định lí", "Chống circular reasoning", "Ràng buộc đại số và kiểm chứng kép"],
+  },
+
+  {
+    lesson: 13,
+    lessonTitle: "Hai tam giác bằng nhau – trường hợp c.c.c.",
+    primaryModes: ["Khóa tương ứng đỉnh", "Chuỗi chứng minh c.c.c.", "Chống sai thứ tự", "Phát hiện thiếu dữ kiện"],
+  },
+
+  {
+    lesson: 14,
+    lessonTitle: "Trường hợp bằng nhau thứ hai và thứ ba của tam giác",
+    primaryModes: ["Khóa góc xen giữa c.g.c.", "Khóa cạnh xen giữa g.c.g.", "Chống AAA", "Chống dữ kiện đúng số lượng nhưng sai vị trí"],
+  },
+
+  {
+    lesson: 15,
+    lessonTitle: "Các trường hợp bằng nhau của tam giác vuông",
+    primaryModes: ["Phân biệt đủ bốn trường hợp", "Phân loại cạnh huyền/cạnh góc vuông", "Kiểm tra điều kiện tiên quyết", "Chống chọn trường hợp theo từ khóa"],
+  },
+
+  {
+    lesson: 16,
+    lessonTitle: "Tam giác cân. Đường trung trực của đoạn thẳng",
+    primaryModes: ["Định lí đảo tam giác cân", "Hai chiều đường trung trực", "Chống misconception P0", "Chứng minh từ hai điểm cách đều"],
+  },
+  {
+    lesson: 17,
+    lessonTitle: "Quan hệ giữa góc và cạnh đối diện trong một tam giác",
+    primaryModes: ["Cạnh→góc", "Góc→cạnh", "Ánh xạ đối diện", "Phát hiện thiếu cầu nối"],
+  },
 ];
 
 export function runAdvancedQualityAudit(): AdvancedQualityReport {

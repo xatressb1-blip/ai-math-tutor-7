@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## v2.8.3-beta.18.1 FIX22.1 – Full Advanced Quality Hardening
+- Sửa P0 curriculum mismatch của Advanced Lesson 17.
+- Thay toàn bộ Advanced Bài 17 hình học bằng nội dung đúng chuẩn: thu thập và phân loại dữ liệu.
+- Bổ sung 3 hướng reasoning: numeric/ordinal/nominal classification; representative sampling; questionnaire bias + overgeneralization.
+- Chặn `LARGE_SAMPLE_ALWAYS_REPRESENTATIVE`, convenience-sample bias, leading questions, code-as-number confusion và suy rộng vượt mẫu.
+- Lưu nội dung geometry cũ vào `docs/content/archive` để tái sử dụng cho module phù hợp, không còn được import runtime.
+- Full structural gate vẫn giữ 19 lesson / 57 problems / 171 steps / 171 Golden / 171 direct QA.
+
+
+## v2.8.3-beta.18 FIX22 – Advanced Math Lesson 19
+- Bổ sung Advanced Math Bài 19: Biểu đồ đoạn thẳng.
+- Đọc điểm/xu hướng, construction nhiều đường có thang đo/chú giải, và misleading graph literacy.
+- Chặn trend overclaim, đọc khoảng cách bằng mắt và phóng đại do trục đứng bị cắt.
+- Thêm 3 skill ADVANCED_ONLY, Golden evaluator và adversarial QA.
+
+
+## v2.8.3-beta.17 FIX21 – Advanced Math Lesson 18
+- Advanced Bài 18: kiểm tổng 100%, bài toán ngược, kiểm chứng kép, điểm phần trăm và quy mô tổng thể.
+- Thêm 3 skill ADVANCED_ONLY, Golden evaluator và adversarial QA.
+
+
 ## v2.8.3-beta.16 FIX20 – Advanced Math Lesson 17
 - Bổ sung Bài 17: Quan hệ giữa góc và cạnh đối diện trong một tam giác.
 - Phủ hai chiều cạnh→góc và góc→cạnh; bắt buộc ánh xạ đúng yếu tố đối diện.

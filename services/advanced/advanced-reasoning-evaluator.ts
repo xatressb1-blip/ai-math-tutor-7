@@ -1198,25 +1198,158 @@ function goldenCheck(stepId: string, raw: string): Verdict | null {
     }
 
 
-    case "l17a1-step1":
-      return hasAny(s,["ab<ac<bc"])&&hasAny(s,["abdoidien∠c","abđốidiện∠c"])&&hasAny(s,["bcdoidien∠a","bcđốidiện∠a"])?{ok:true}:fail("Cần AB<AC<BC và ánh xạ AB↔∠C, AC↔∠B, BC↔∠A.","Thiếu ánh xạ");
-    case "l17a1-step2":
-      return hasAny(s,["∠c<∠b<∠a"])&&hasAny(s,["canhlonhon","cạnhlớnhơn","dinhli","địnhlí","địnhlý"])?{ok:true}:fail("AB<AC<BC ⇒ ∠C<∠B<∠A theo định lí cạnh lớn hơn đối diện góc lớn hơn.");
-    case "l17a1-step3":
-      return hasAny(s,["∠alonnhat","∠alớnnhất"])&&hasAny(s,["∠cnhonhat","∠cnhỏnhất"])&&hasAny(s,["doidien","đốidiện"])?{ok:true}:fail("∠A lớn nhất vì đối diện BC; ∠C nhỏ nhất vì đối diện AB.");
-    case "l17a2-step1":
-      return hasAny(s,["∠b=55"])&&hasAny(s,["∠c<∠b<∠a","45<55<80"])?{ok:true}:fail("∠B=55°, nên ∠C<∠B<∠A.");
-    case "l17a2-step2":
-      return hasAny(s,["ab<ac<bc"])&&hasAny(s,["∠cdoidienab","∠cđốidiệnab"])&&hasAny(s,["∠adoidienbc","∠ađốidiệnbc"])?{ok:true}:fail("Ghép ∠C↔AB, ∠B↔AC, ∠A↔BC rồi suy ra AB<AC<BC.");
-    case "l17a2-step3":
-      return hasAny(s,["sai"])&&hasAny(s,["bcdoidien∠a","bcđốidiện∠a"])&&hasAny(s,["bclonnhat","bclớnnhất"])?{ok:true}:fail("Sai: BC mới đối diện ∠A nên BC lớn nhất.");
-    case "l17a3-step1":
-      return hasAny(s,["∠acb>∠abc"])&&hasAny(s,["abdoidien∠acb","abđốidiện∠acb"])?{ok:true}:fail("Trong ΔABC, AB>AC ⇒ ∠ACB>∠ABC.");
-    case "l17a3-step2":
-      return hasAny(s,["ad>ac"])&&hasAny(s,["addoidien∠acd","adđốidiện∠acd"])?{ok:true}:fail("Trong ΔACD, ∠ACD>∠ADC ⇒ AD>AC.");
-    case "l17a3-step3":
-      if(hasAny(s,["suyra∠acb>∠cad"])&&!hasAny(s,["chuadu","chưađủ"]))return fail("Không được nối trực tiếp hai tam giác khi chưa có cầu nối.","Suy luận vượt dữ kiện");
-      return hasAny(s,["chuadu","chưađủ","khongdudulieu","khôngđủdữliệu"])&&hasAny(s,["can them","cầnthêm","∠abc≥∠cad"])?{ok:true}:fail("Dữ kiện chưa đủ; cần nêu một cầu nối bổ sung, ví dụ ∠ABC≥∠CAD.");
+    case "l17a1-step1": {
+      const numeric=hasAny(s,["dulieuso","dữliệusố","soluong","sốlượng","demduoc","đếmđược"]);
+      const meaning=hasAny(s,["0,1,2","0 1 2","anhchiem","anhchịem","pheptinh","phéptính","sosanh","sosánh"]);
+      if(numeric&&meaning)return {ok:true};
+      if(numeric)return fail("Đúng là dữ liệu số; hãy nêu vì các giá trị biểu thị số lượng/đếm được, không phải mã nhãn.","Thiếu tiêu chí");
+      return fail("Số anh/chị/em là dữ liệu số vì biểu thị số lượng đếm được.");
+    }
+    case "l17a1-step2": {
+      const nonnumeric=hasAny(s,["khonglaso","khônglàsố","dulieukhonglaso","dữliệukhônglàsố"]);
+      const ordinal=hasAny(s,["cothesapthutu","cóthểsắpthứtự","thubac","thứbậc","thutunhien","thứtựtựnhiên"]);
+      if(nonnumeric&&ordinal)return {ok:true};
+      if(ordinal)return fail("Cần nêu đây là dữ liệu không là số nhưng có thứ tự tự nhiên từ mức thấp đến cao.","Thiếu loại dữ liệu");
+      return fail("Mức hài lòng là dữ liệu không là số có thể sắp thứ tự.");
+    }
+    case "l17a1-step3": {
+      const nominal=hasAny(s,["khongthesapthutu","khôngthểsắpthứtự","khongcothutu","khôngcóthứtự","chilanhan","chỉlànhãn"]);
+      const code=hasAny(s,["ma","mã","1,2,3","123"])&&hasAny(s,["khongcoynghiasoluong","khôngcóýnghĩasốlượng","khongbien","khôngbiến"]);
+      if(nominal&&code)return {ok:true};
+      if(nominal)return fail("Phân loại đúng; hãy phản biện mã 1,2,3 chỉ là nhãn, không có ý nghĩa số lượng.","Thiếu phản biện mã số");
+      return fail("Môn yêu thích là dữ liệu không là số không có thứ tự tự nhiên; mã số chỉ là nhãn.");
+    }
+
+    case "l17a2-step1": {
+      const population=hasAny(s,["900hocsinh","900họcsinh","toantruong","toàntrường"]);
+      const sample=hasAny(s,["150"])&&hasAny(s,["caulacbohocthuat","câulạcbộhọcthuật","tunguyen","tựnguyện"]);
+      if(population&&sample)return {ok:true};
+      if(population)return fail("Quần thể đúng; hãy xác định mẫu Cách 1 là 150 học sinh tự nguyện trong CLB Học thuật.","Thiếu mẫu");
+      return fail("Quần thể là 900 học sinh toàn trường; mẫu Cách 1 là 150 học sinh tự nguyện trong CLB Học thuật.");
+    }
+    case "l17a2-step2": {
+      const voluntary=hasAny(s,["tunguyen","tựnguyện","thienlechtunguyen","thiênlệchtựnguyện"]);
+      const club=hasAny(s,["caulacbohocthuat","câulạcbộhọcthuật","chiclb","chỉclb"]);
+      const largeTrap=hasAny(s,["maulonchuachac","mẫulớnchưachắc","150chuachac","150chưachắc","cachchonmau","cáchchọnmẫu"]);
+      if(voluntary&&club&&largeTrap)return {ok:true};
+      if(voluntary&&club)return fail("Đã chỉ ra hai thiên lệch; hãy nêu cỡ mẫu lớn không tự bảo đảm tính đại diện nếu cách chọn bị lệch.","Mẫu lớn ≠ đại diện");
+      if(hasAny(s,["150lan","150lớn","chacchandai dien","chắcchắnđạidiện"]))return fail("Mẫu lớn không chắc đại diện; cách chọn mẫu mới là yếu tố quyết định.","Large sample fallacy");
+      return fail("Cách 1 thiên lệch do tự nguyện và chỉ lấy CLB Học thuật; cỡ 150 không sửa được cơ chế chọn mẫu lệch.");
+    }
+    case "l17a2-step3": {
+      const better=hasAny(s,["daidienhon","đạidiệnhơn"])&&hasAny(s,["ngaunhien","ngẫunhiên"])&&hasAny(s,["moikho i","mỗikhối","cac khoi","cáckhối"]);
+      const scope=hasAny(s,["uocluong","ướclượng"])&&hasAny(s,["toantruong","toàntrường"])&&hasAny(s,["khongkhangdinhtuyetdoi","khôngkhẳngđịnhtuyệtđối","vanlama u","vẫnlàmẫu","khongchacchan","khôngchắcchắn"]);
+      if(better&&scope)return {ok:true};
+      if(better)return fail("Cách 2 đại diện hơn; hãy giới hạn kết luận là ước lượng cho toàn trường, không phải giá trị chắc chắn của mọi học sinh.","Thiếu phạm vi suy rộng");
+      return fail("Cách 2 đại diện hơn vì chọn ngẫu nhiên và phủ các khối; kết quả chỉ dùng để ước lượng cho toàn trường.");
+    }
+
+    case "l17a3-step1": {
+      const convenience=hasAny(s,["mauthuantien","mẫuthuậntiện","thienlech","thiênlệch"]);
+      const excluded=hasAny(s,["chihocsinhmuado","chỉhọcsinhmuađồ","hocsinhkhongmua","họcsinhkhôngmua","khongdaidien","khôngđạidiện"]);
+      if(convenience&&excluded)return {ok:true};
+      if(convenience)return fail("Đúng là mẫu thuận tiện; hãy nêu học sinh không mua/không đến căng tin bị loại khỏi mẫu.","Thiếu cơ chế thiên lệch");
+      return fail("Chỉ hỏi người vừa mua đồ là mẫu thuận tiện, không đại diện hợp lí cho toàn trường.");
+    }
+    case "l17a3-step2": {
+      const leading=hasAny(s,["dandat","dẫndắt","thienlechcauhoi","thiênlệchcâuhỏi"]);
+      const neutral=hasAny(s,["trunglap","trunglập","mucdohailong","mứcđộhàilòng"])&&hasAny(s,["ratkhonghailong","rấtkhônghàilòng","binhthuong","bìnhthường","rathailong","rấthàilòng"]);
+      if(leading&&neutral)return {ok:true};
+      if(leading)return fail("Đã phát hiện câu dẫn dắt; hãy viết lại một câu trung lập về mức độ hài lòng.","Thiếu câu hỏi sửa");
+      return fail("Câu 'ngon và đa dạng hơn hẳn' dẫn dắt; cần câu hỏi trung lập với thang mức độ hài lòng.");
+    }
+    case "l17a3-step3": {
+      const over=hasAny(s,["khongduocsuyrong","khôngđượcsuyrộng","vuotphamvi","vượtphạmvi","82%nguo iduoc hoi","82%ngườiđượchỏi","khongduketluantoantruong","khôngđủkếtluậntoàntrường"]);
+      const fix=hasAny(s,["ngaunhien","ngẫunhiên"])&&hasAny(s,["cac khoi","cáckhối","moikho i","mỗikhối"])&&hasAny(s,["cauhoitrunglap","câuhỏitrunglập"]);
+      if(over&&fix)return {ok:true};
+      if(over)return fail("Đúng là kết luận vượt mẫu; hãy sửa cả cách chọn mẫu và câu hỏi: mẫu ngẫu nhiên/bao phủ các khối + câu trung lập.","Thiếu phương án sửa");
+      return fail("82% của mẫu thiên lệch không thể suy thành 82% toàn trường; cần mẫu đại diện hơn và câu hỏi trung lập.");
+    }
+
+    case "l18a1-step1": return hasAny(s,["85%"])&&hasAny(s,["15%"])?{ok:true}:fail("28%+35%+22%=85%, nên còn 15%.");
+    case "l18a1-step2": return hasAny(s,["100%"])&&hasAny(s,["hople","hợplệ"])?{ok:true}:fail("Cần kiểm tổng 100% rồi mới kết luận hợp lệ.");
+    case "l18a1-step3":
+      if(hasAny(s,["25%"])&&!hasAny(s,["sai","khong","không"])) return fail("Bốn nhóm không có nghĩa mỗi nhóm 25%.","Chia đều không có căn cứ");
+      return hasAny(s,["sai"])&&hasAny(s,["15%"])?{ok:true}:fail("Phải bác bỏ phép chia đều và kết luận 15%.");
+    case "l18a2-step1": return hasAny(s,["n=60"])&&hasAny(s,["0,3n=18","0.3n=18","30%n=18"])?{ok:true}:fail("0,30N=18 nên N=60.");
+    case "l18a2-step2": return hasAny(s,["21"])&&hasAny(s,["12"])&&hasAny(s,["9"])?{ok:true}:fail("Bóng đá 21, Cầu lông 12, Khác 9.");
+    case "l18a2-step3": return hasAny(s,["100%"])&&hasAny(s,["18+21+12+9=60"])?{ok:true}:fail("Cần kiểm cả tổng tỉ lệ 100% và tổng số lượng 60.");
+    case "l18a3-step1":
+      if(hasAny(s,["10%"])&&!hasAny(s,["diemphantram","điểmphầntrăm"])) return fail("Đây là 10 điểm phần trăm, không phải cách nói mơ hồ 10%.","Nhầm đơn vị");
+      return hasAny(s,["10diemphantram","10điểmphầntrăm"])?{ok:true}:fail("30%−20%=10 điểm phần trăm.");
+    case "l18a3-step2": return hasAny(s,["50%","(30-20)/20"])&&hasAny(s,["10diemphantram","10điểmphầntrăm"])?{ok:true}:fail("Mức tăng tương đối là 50%, còn chênh lệch là 10 điểm phần trăm.");
+    case "l18a3-step3": return hasAny(s,["40"])&&hasAny(s,["90"])&&hasAny(s,["50"])&&hasAny(s,["quymo","quymô","khactong","kháctổng"])?{ok:true}:fail("40→90, tăng 50 học sinh; phải xét quy mô.");
+
+    case "l19a1-step1": {
+      const values=hasAll(s,["120","135","150","145","165"]);
+      const changes=hasAny(s,["+15"])&&hasAny(s,["-5"])&&hasAny(s,["+20"]);
+      if(values&&changes)return {ok:true};
+      if(values)return fail("Đã đọc đúng điểm; hãy tính thêm +15,+15,−5,+20.","Thiếu biến động");
+      return fail("Cần đọc đủ 120,135,150,145,165.");
+    }
+    case "l19a1-step2": {
+      const overall=hasAny(s,["tangnhinchung","tăngnhìnchung"]);
+      const dip=hasAny(s,["thang3denthang4","tháng3đếntháng4","150xuong145","150xuống145"]);
+      const rebound=hasAny(s,["tangtro lai","tăngtrởlại","145len165","145lên165"]);
+      if(overall&&dip&&rebound)return {ok:true};
+      if(overall&&dip)return fail("Hãy nêu thêm đoạn tăng trở lại 145→165.","Thiếu đoạn phục hồi");
+      return fail("Xu hướng nhìn chung tăng, có đoạn giảm 150→145 rồi tăng lại.");
+    }
+    case "l19a1-step3": {
+      const reject=hasAny(s,["khongchacchan","khôngchắcchắn","chuadudulieu","chưađủdữliệu","khongthekhangdinh","khôngthểkhẳngđịnh"]);
+      const bound=hasAny(s,["chidenthang5","chỉđếntháng5","thang6chuaco","tháng6chưacó","dudoan","dựđoán"]);
+      if(reject&&bound)return {ok:true};
+      if(hasAny(s,["chacchantang","chắcchắntăng"]))return fail("Không thể khẳng định chắc chắn Tháng 6 từ dữ liệu chỉ đến Tháng 5.","Suy rộng quá dữ liệu");
+      return fail("Phân biệt xu hướng quan sát với dự đoán tương lai.");
+    }
+    case "l19a2-step1": {
+      const axes=hasAny(s,["trucngangtuan","trụcngangtuần"])&&hasAny(s,["trucdungsobai","trụcđứngsốbài"]);
+      const scale=hasAny(s,["0-50","0den50","0đến50"])&&hasAny(s,["buoc5","bước5","buoc10","bước10","moi5","mỗi5","moi10","mỗi10"]);
+      if(axes&&scale)return {ok:true};
+      if(axes)return fail("Trục đúng; cần chọn thang đều, ví dụ 0–50 bước 5 hoặc 10.","Thiếu thang đo");
+      return fail("Trục ngang là tuần, trục đứng số bài; chọn thang đều chứa 20–50.");
+    }
+    case "l19a2-step2": {
+      const a=hasAll(s,["7a","20","30","40","50"]);
+      const b=hasAll(s,["7b","25","35","45"]);
+      const order=hasAny(s,["noitheothututuan","nốitheothứtựtuần","theothututuan","theothứtựtuần"]);
+      const legend=hasAny(s,["chugiai","chúgiải","kihieu","kíhiệu"]);
+      if(a&&b&&order&&legend)return {ok:true};
+      if(a&&b)return fail("Cần nối riêng từng dãy theo thứ tự tuần và có chú giải.","Thiếu cấu trúc vẽ");
+      return fail("Liệt kê đủ hai dãy điểm, nối theo tuần và phân biệt bằng chú giải.");
+    }
+    case "l19a2-step3": {
+      const equal=hasAny(s,["ca4tuan","cả4tuần","bontuan","bốntuần","deu5","đều5"]);
+      if(hasAny(s,["tuan3lonnhat","tuần3lớnnhất","tuan4lonnhat","tuần4lớnnhất"])&&!equal)
+        return fail("Độ lệch cả bốn tuần đều bằng 5; không có tuần duy nhất.","Đọc khoảng cách bằng mắt");
+      if(equal&&hasAny(s,["5"]))return {ok:true};
+      return fail("Tính |20−25|=|30−35|=|40−35|=|50−45|=5.");
+    }
+    case "l19a3-step1": {
+      const abs=hasAny(s,["85-75=10","tang10","tăng10"]);
+      const rel=hasAny(s,["13.3%","13,3%","10/75"]);
+      if(hasAny(s,["gapdoi","gấpđôi"])&&!hasAny(s,["khong","không","sai"]))
+        return fail("85 không gần gấp đôi 75.","Phóng đại mức tăng");
+      if(abs&&rel)return {ok:true};
+      if(abs)return fail("Hãy tính thêm 10/75≈13,3%.","Thiếu mức tăng tương đối");
+      return fail("85−75=10 và 10/75≈13,3%.");
+    }
+    case "l19a3-step2": {
+      const trunc=hasAny(s,["70-90","batdau70","bắtđầu70","khongbatdautu0","khôngbắtđầutừ0","cattruc","cắttrục"]);
+      const effect=hasAny(s,["phongdai","phóngđại","tronglonhon","trônglớnhơn","camgiac","cảmgiác"]);
+      const same=hasAny(s,["cungdulieu","cùngdữliệu","dulieukhongdoi","dữliệukhôngđổi"]);
+      if(trunc&&effect&&same)return {ok:true};
+      if(trunc&&effect)return fail("Hãy nêu dữ liệu không đổi, chỉ cách biểu diễn đổi.","Thiếu đối chiếu dữ liệu");
+      return fail("Trục 70–90 làm cùng chênh lệch 10 trông lớn hơn.");
+    }
+    case "l19a3-step3": {
+      const reject=hasAny(s,["sai","khonggan","khônggần","khonggapdoi","khônggấpđôi"]);
+      const nums=hasAny(s,["tang10","tăng10"])&&hasAny(s,["13.3%","13,3%"]);
+      const scale=hasAny(s,["thangdo","thangđo","70-90","cattruc","cắttrục"]);
+      if(reject&&nums&&scale)return {ok:true};
+      if(reject&&nums)return fail("Hãy thêm cảnh báo về thang 70–90 bị cắt.","Thiếu graph literacy");
+      return fail("Gần gấp đôi là sai; tăng 10≈13,3% và cần lưu ý thang đo.");
+    }
 
     default:
       return null;

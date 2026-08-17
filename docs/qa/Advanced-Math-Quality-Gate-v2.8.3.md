@@ -63,3 +63,13 @@ Bài 4 bắt đầu gần mô-típ Bài 2. FIX8 đã chủ động đổi mô-t�
 - Bài 16: khóa đúng định lí đảo tam giác cân; đường trung trực phải kiểm tra cả hai chiều; chặn misconception 'hai góc bằng nhau chưa suy được tam giác cân' và kết luận từ hình vẽ.
 
 - Bài 17: đủ hai chiều góc–cạnh đối diện; chặn nhầm cạnh kề, suy từ hình và nối hai tam giác thiếu cầu nối.
+
+- Bài 18: kiểm tổng 100%, tỉ lệ↔số lượng, bài toán ngược, điểm phần trăm và quy mô tổng thể.
+
+- Bài 19: đọc điểm/xu hướng; construction có trục-thang đo-chú giải; nhiều đường; chặn trend overclaim và misleading graph do trục đứng bị cắt.
+
+## FIX22.1 – Full Advanced Quality Hardening
+- P0 Lesson 17 curriculum mismatch: FIXED.
+- Advanced Lesson 17 now aligns with `Thu thập và phân loại dữ liệu`.
+- Required L17 gates: numeric/ordinal/nominal distinction; target population vs sample; representativeness; sampling bias; leading-question detection; conclusion-scope control.
+- Old angle-side geometry content archived outside runtime.

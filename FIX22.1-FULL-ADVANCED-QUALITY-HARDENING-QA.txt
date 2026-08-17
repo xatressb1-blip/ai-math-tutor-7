@@ -1,0 +1,53 @@
+AI Math Tutor v2.8.3-beta.18.1 – FIX22.1
+FULL ADVANCED QUALITY HARDENING – LESSON 1→19
+
+P0 FIXED
+Advanced Lesson 17 had been mapped to triangle angle/side geometry while canonical Lesson 17 is Thu thập và phân loại dữ liệu.
+
+NEW ADVANCED LESSON 17
+1. Data type classification
+   - numeric
+   - nonnumeric ordinal
+   - nonnumeric nominal
+   - numeric codes do NOT automatically make a variable quantitative
+2. Representative sample reasoning
+   - population vs sample
+   - voluntary-response bias
+   - subgroup/convenience bias
+   - large sample ≠ automatically representative
+   - conclusion scope = estimate, not certainty
+3. Survey audit
+   - convenience sample
+   - leading question
+   - overgeneralization beyond sampled population
+   - remediation with broader/random sampling + neutral wording
+
+ARCHIVE
+Old valid geometry Advanced Lesson 17 content is preserved under:
+docs/content/archive/lesson-17-angle-side-geometry-FUTURE-MODULE.ts.txt
+It is not imported by runtime.
+
+LOCAL
+npm run build
+npm run dev
+
+PRIMARY TEST
+/learn/lesson-player-17
+/advanced/lesson-player-17
+/advanced-quality
+
+NEGATIVE TESTS
+- “Gán Toán=1, Văn=2 nên môn yêu thích là dữ liệu số” → FAIL
+- “150 người là mẫu lớn nên chắc chắn đại diện” → FAIL
+- “Cách 2 tốt nên kết quả chắc chắn đúng cho từng học sinh” → FAIL
+- Chỉ nói “câu hỏi dẫn dắt” mà không sửa câu hỏi → FAIL
+- “82% mẫu này ⇒ 82% toàn trường” → FAIL
+
+FULL REGRESSION
+/advanced/lesson-player-01 ... /advanced/lesson-player-19
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+Chưa Git/Tag/Vercel trước Local PASS.

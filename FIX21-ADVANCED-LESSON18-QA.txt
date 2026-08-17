@@ -1,0 +1,11 @@
+AI Math Tutor v2.8.3-beta.17 – FIX21
+Advanced Math Lesson 18 – Biểu đồ hình quạt tròn
+- Kiểm tổng 100% và lát thiếu.
+- Bài toán ngược 18 người = 30% => tổng 60.
+- Kiểm chứng kép tỉ lệ + số lượng.
+- 20%→30% = +10 điểm phần trăm nhưng +50% tương đối.
+- Không so số người nếu bỏ qua quy mô.
+LOCAL: npm run build && npm run dev
+TEST: /learn/lesson-player-18 ; /advanced/lesson-player-18 ; /advanced-quality
+REGRESSION: Bài 1→18 + /knowledge-qa /mastery-integrity /pilot-readiness /cloud-activation
+Chưa Git/Tag/Vercel trước Local PASS.

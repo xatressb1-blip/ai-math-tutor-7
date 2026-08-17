@@ -1,0 +1,34 @@
+AI Math Tutor v2.8.3-beta.18 – FIX22
+Advanced Math Lesson 19 – Biểu đồ đoạn thẳng
+
+SOURCE ALIGNMENT
+- Đọc/mô tả dữ liệu; vẽ từ bảng; nhận ra xu hướng.
+- Hiểu trục, điểm dữ liệu, đoạn nối, tiêu đề và thang đo.
+- Có thể so sánh nhiều đường.
+- Cảnh giác biểu đồ gây hiểu nhầm do trục/thang đo.
+
+HARDENING
+- Không bỏ qua đoạn giảm cục bộ.
+- Không khẳng định tương lai ngoài phạm vi dữ liệu.
+- Construction: trục + thang + điểm + nối đúng + chú giải.
+- Không so khoảng cách hai đường chỉ bằng mắt.
+- 75→85 = +10 ≈ +13,3%, không gần gấp đôi.
+- Trục 70–90 có thể phóng đại thị giác.
+
+LOCAL
+npm run build
+npm run dev
+
+TEST
+/learn/lesson-player-19
+/advanced/lesson-player-19
+/advanced-quality
+
+REGRESSION
+/advanced/lesson-player-01 ... /advanced/lesson-player-19
+/knowledge-qa
+/mastery-integrity
+/pilot-readiness
+/cloud-activation
+
+Sau Local PASS: FULL ADVANCED MATH QUALITY AUDIT – LESSON 1→19 trước Git/Tag/Vercel.

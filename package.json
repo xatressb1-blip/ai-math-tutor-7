@@ -1,6 +1,6 @@
 {
   "name": "ai-math-tutor-7",
-  "version": "2.8.3-beta.16",
+  "version": "2.8.3-beta.18.1",
   "private": true,
   "scripts": {
     "dev": "next dev",

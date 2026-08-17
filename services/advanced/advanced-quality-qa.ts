@@ -15,6 +15,8 @@ import { lesson14AdvancedProblems } from "@/data/advanced/lesson-14-advanced";
 import { lesson15AdvancedProblems } from "@/data/advanced/lesson-15-advanced";
 import { lesson16AdvancedProblems } from "@/data/advanced/lesson-16-advanced";
 import { lesson17AdvancedProblems } from "@/data/advanced/lesson-17-advanced";
+import { lesson18AdvancedProblems } from "@/data/advanced/lesson-18-advanced";
+import { lesson19AdvancedProblems } from "@/data/advanced/lesson-19-advanced";
 import { evaluateAdvancedReasoningStep } from "@/services/advanced/advanced-reasoning-evaluator";
 import type { AdvancedMathProblem } from "@/types/advanced";
 import type { ReasoningStepDefinition } from "@/types/reasoning";
@@ -66,6 +68,8 @@ const problems: AdvancedMathProblem[] = [
   ...lesson15AdvancedProblems,
   ...lesson16AdvancedProblems,
   ...lesson17AdvancedProblems,
+  ...lesson18AdvancedProblems,
+  ...lesson19AdvancedProblems,
 ];
 
 function getStep(stepId: string): ReasoningStepDefinition {
@@ -620,18 +624,56 @@ export const advancedAdversarialQualityCases: AdvancedQualityCase[] = [
   { id:"l16-two-points-uniqueness-pass", stepId:"l16a3-step2", expected:"PASS", input:"Qua hai điểm phân biệt M,N chỉ có một đường thẳng duy nhất; đường trung trực cũng đi qua M,N nên MN trùng với đường trung trực.", purpose:"Tính duy nhất đường thẳng phải PASS." },
   { id:"l16-perp-definition-one-half-fail", stepId:"l16a3-step3", expected:"FAIL", input:"MN⊥AB.", purpose:"Chỉ vuông góc chưa đủ phát biểu đầy đủ đường trung trực." },
   { id:"l16-perp-definition-pass", stepId:"l16a3-step3", expected:"PASS", input:"MN là đường trung trực nên MN⊥AB và MN đi qua trung điểm AB.", purpose:"Đủ hai ý định nghĩa phải PASS." },
-  { id:"l17-map-fail", stepId:"l17a1-step1", expected:"FAIL", input:"AB<AC<BC.", purpose:"Chỉ thứ tự cạnh không đủ." },
-  { id:"l17-map-pass", stepId:"l17a1-step1", expected:"PASS", input:"AB<AC<BC; AB đối diện ∠C, AC đối diện ∠B, BC đối diện ∠A.", purpose:"Ánh xạ đúng." },
-  { id:"l17-side-angle-pass", stepId:"l17a1-step2", expected:"PASS", input:"Theo định lí cạnh lớn hơn đối diện góc lớn hơn, ∠C<∠B<∠A.", purpose:"Chiều cạnh→góc." },
-  { id:"l17-extreme-pass", stepId:"l17a1-step3", expected:"PASS", input:"∠A lớn nhất vì đối diện BC; ∠C nhỏ nhất vì đối diện AB.", purpose:"Cực trị có căn cứ." },
-  { id:"l17-angle-pass", stepId:"l17a2-step1", expected:"PASS", input:"∠B=55°, nên ∠C<∠B<∠A.", purpose:"Tính góc." },
-  { id:"l17-side-pass", stepId:"l17a2-step2", expected:"PASS", input:"∠C đối diện AB, ∠B đối diện AC, ∠A đối diện BC nên AB<AC<BC.", purpose:"Chiều góc→cạnh." },
-  { id:"l17-adjacent-trap", stepId:"l17a2-step3", expected:"FAIL", input:"∠A lớn nhất nên AB lớn nhất.", purpose:"Nhầm cạnh kề." },
-  { id:"l17-adjacent-fix", stepId:"l17a2-step3", expected:"PASS", input:"Sai. BC đối diện ∠A nên BC lớn nhất.", purpose:"Sửa đúng." },
-  { id:"l17-cross1", stepId:"l17a3-step1", expected:"PASS", input:"AB đối diện ∠ACB nên AB>AC ⇒ ∠ACB>∠ABC.", purpose:"Trong tam giác 1." },
-  { id:"l17-cross2", stepId:"l17a3-step2", expected:"PASS", input:"AD đối diện ∠ACD nên ∠ACD>∠ADC ⇒ AD>AC.", purpose:"Trong tam giác 2." },
-  { id:"l17-cross-trap", stepId:"l17a3-step3", expected:"FAIL", input:"Suy ra ∠ACB>∠CAD.", purpose:"Nối vượt dữ kiện." },
-  { id:"l17-cross-pass", stepId:"l17a3-step3", expected:"PASS", input:"Chưa đủ dữ liệu; cần thêm ∠ABC≥∠CAD.", purpose:"Phát hiện thiếu cầu nối." },
+  { id:"l17-numeric-label-trap", stepId:"l17a1-step1", expected:"FAIL", input:"Đây là dữ liệu số vì câu trả lời được ghi bằng các số 0,1,2.", purpose:"Không được chỉ dựa vào hình thức ký hiệu." },
+  { id:"l17-numeric-meaning-pass", stepId:"l17a1-step1", expected:"PASS", input:"Đây là dữ liệu số vì số anh chị em là số lượng đếm được; 0,1,2 có ý nghĩa định lượng.", purpose:"Phân loại theo bản chất." },
+  { id:"l17-ordinal-pass", stepId:"l17a1-step2", expected:"PASS", input:"Mức hài lòng là dữ liệu không là số nhưng có thể sắp thứ tự, tức dữ liệu thứ bậc.", purpose:"Nhận dạng ordinal." },
+  { id:"l17-code-becomes-number-trap", stepId:"l17a1-step3", expected:"FAIL", input:"Gán Toán=1, Văn=2, Anh=3 thì môn yêu thích trở thành dữ liệu số.", purpose:"Chặn nhầm mã nhãn thành định lượng." },
+  { id:"l17-nominal-code-pass", stepId:"l17a1-step3", expected:"PASS", input:"Môn yêu thích không thể sắp thứ tự tự nhiên; 1,2,3 chỉ là mã nhãn và không có ý nghĩa số lượng.", purpose:"Nominal + code reasoning." },
+
+  { id:"l17-population-sample-pass", stepId:"l17a2-step1", expected:"PASS", input:"Quần thể là 900 học sinh toàn trường; mẫu Cách 1 là 150 học sinh tự nguyện trong câu lạc bộ Học thuật.", purpose:"Phân biệt population/sample." },
+  { id:"l17-large-sample-trap", stepId:"l17a2-step2", expected:"FAIL", input:"150 học sinh là mẫu lớn nên chắc chắn đại diện cho toàn trường.", purpose:"Chặn LARGE_SAMPLE_ALWAYS_REPRESENTATIVE." },
+  { id:"l17-bias-pass", stepId:"l17a2-step2", expected:"PASS", input:"Có thiên lệch tự nguyện và chỉ lấy câu lạc bộ Học thuật; mẫu lớn chưa chắc đại diện vì cách chọn mẫu bị lệch.", purpose:"Nhận đúng bias mechanism." },
+  { id:"l17-method2-overcertainty-fail", stepId:"l17a2-step3", expected:"FAIL", input:"Cách 2 đại diện hơn vì ngẫu nhiên và có mỗi khối, nên kết quả chắc chắn đúng cho từng học sinh toàn trường.", purpose:"Chặn suy rộng tuyệt đối." },
+  { id:"l17-method2-pass", stepId:"l17a2-step3", expected:"PASS", input:"Cách 2 đại diện hơn vì chọn ngẫu nhiên và có học sinh ở mỗi khối; chỉ nên dùng để ước lượng cho toàn trường, không khẳng định tuyệt đối.", purpose:"Đại diện + scope." },
+
+  { id:"l17-convenience-sample-pass", stepId:"l17a3-step1", expected:"PASS", input:"Đây là mẫu thuận tiện và thiên lệch vì chỉ học sinh mua đồ được hỏi, còn học sinh không mua bị bỏ ra nên không đại diện.", purpose:"Convenience sampling." },
+  { id:"l17-leading-question-only-fail", stepId:"l17a3-step2", expected:"FAIL", input:"Câu hỏi bị dẫn dắt.", purpose:"Phát hiện lỗi nhưng chưa sửa phải FAIL." },
+  { id:"l17-leading-question-pass", stepId:"l17a3-step2", expected:"PASS", input:"Câu hỏi dẫn dắt. Nên hỏi trung lập: Mức độ hài lòng của bạn? Rất không hài lòng / Không hài lòng / Bình thường / Hài lòng / Rất hài lòng.", purpose:"Leading question + neutral rewrite." },
+  { id:"l17-overgeneralization-trap", stepId:"l17a3-step3", expected:"FAIL", input:"82% trả lời Có nên 82% học sinh toàn trường hài lòng.", purpose:"Chặn OVERGENERALIZATION_FROM_SAMPLE." },
+  { id:"l17-overgeneralization-pass", stepId:"l17a3-step3", expected:"PASS", input:"Không được suy rộng 82% của mẫu này cho toàn trường. Cần chọn ngẫu nhiên học sinh ở các khối và dùng câu hỏi trung lập.", purpose:"Scope + remediation." },
+
+  { id:"l18-missing-slice-pass", stepId:"l18a1-step1", expected:"PASS", input:"Tổng đã biết 85%, nên còn 15%.", purpose:"Suy lát thiếu." },
+  { id:"l18-validity-answer-only-fail", stepId:"l18a1-step2", expected:"FAIL", input:"Hợp lệ.", purpose:"Không kết luận nếu chưa kiểm tổng." },
+  { id:"l18-validity-pass", stepId:"l18a1-step2", expected:"PASS", input:"Tổng là 100%, nên hợp lệ.", purpose:"Kiểm tổng." },
+  { id:"l18-equal-groups-trap", stepId:"l18a1-step3", expected:"FAIL", input:"Có bốn nhóm nên còn 25%.", purpose:"Chặn chia đều." },
+  { id:"l18-equal-groups-rebuttal", stepId:"l18a1-step3", expected:"PASS", input:"Sai, phần còn lại là 15%.", purpose:"Phản biện." },
+  { id:"l18-reverse-pass", stepId:"l18a2-step1", expected:"PASS", input:"0,3N=18 nên N=60.", purpose:"Bài toán ngược." },
+  { id:"l18-count-pass", stepId:"l18a2-step2", expected:"PASS", input:"Các nhóm còn lại là 21, 12 và 9.", purpose:"Đổi tỉ lệ sang số lượng." },
+  { id:"l18-double-check-fail", stepId:"l18a2-step3", expected:"FAIL", input:"Tổng là 100%.", purpose:"Thiếu kiểm tổng số lượng." },
+  { id:"l18-double-check-pass", stepId:"l18a2-step3", expected:"PASS", input:"Tổng 100% và 18+21+12+9=60.", purpose:"Kiểm chứng kép." },
+  { id:"l18-pp-trap", stepId:"l18a3-step1", expected:"FAIL", input:"Tăng 10%.", purpose:"Nhầm % và điểm phần trăm." },
+  { id:"l18-pp-pass", stepId:"l18a3-step1", expected:"PASS", input:"Tăng 10 điểm phần trăm.", purpose:"Đúng đơn vị." },
+  { id:"l18-relative-pass", stepId:"l18a3-step2", expected:"PASS", input:"Tăng tương đối 50%, còn chênh lệch là 10 điểm phần trăm.", purpose:"Phân biệt hai đại lượng." },
+  { id:"l18-base-trap", stepId:"l18a3-step3", expected:"FAIL", input:"Tỉ lệ tăng 10 điểm phần trăm nên số người tăng 10.", purpose:"Bỏ qua quy mô." },
+  { id:"l18-base-pass", stepId:"l18a3-step3", expected:"PASS", input:"40 lên 90, tăng 50; phải xét quy mô vì khác tổng.", purpose:"Xét quy mô." },
+
+  { id:"l19-values-only-fail", stepId:"l19a1-step1", expected:"FAIL", input:"120,135,150,145,165.", purpose:"Thiếu biến động." },
+  { id:"l19-values-changes-pass", stepId:"l19a1-step1", expected:"PASS", input:"120,135,150,145,165; thay đổi +15,+15,-5,+20.", purpose:"Đọc và tính thay đổi." },
+  { id:"l19-trend-incomplete-fail", stepId:"l19a1-step2", expected:"FAIL", input:"Tăng nhìn chung; Tháng 3 đến Tháng 4 giảm 150 xuống 145.", purpose:"Thiếu tăng trở lại." },
+  { id:"l19-trend-pass", stepId:"l19a1-step2", expected:"PASS", input:"Tăng nhìn chung; Tháng 3 đến Tháng 4 giảm 150 xuống 145, rồi tăng trở lại 145 lên 165.", purpose:"Xu hướng global/local." },
+  { id:"l19-future-trap", stepId:"l19a1-step3", expected:"FAIL", input:"Tháng 6 chắc chắn tăng.", purpose:"Trend overclaim." },
+  { id:"l19-future-pass", stepId:"l19a1-step3", expected:"PASS", input:"Không chắc chắn vì dữ liệu chỉ đến Tháng 5; Tháng 6 là dự đoán.", purpose:"Giới hạn dữ liệu." },
+  { id:"l19-axis-only-fail", stepId:"l19a2-step1", expected:"FAIL", input:"Trục ngang tuần, trục đứng số bài.", purpose:"Thiếu thang đo." },
+  { id:"l19-axis-scale-pass", stepId:"l19a2-step1", expected:"PASS", input:"Trục ngang tuần, trục đứng số bài; chọn 0 đến 50, bước 10.", purpose:"Trục+scale." },
+  { id:"l19-series-only-fail", stepId:"l19a2-step2", expected:"FAIL", input:"7A:20,30,40,50; 7B:25,35,35,45.", purpose:"Thiếu nối/chú giải." },
+  { id:"l19-series-pass", stepId:"l19a2-step2", expected:"PASS", input:"7A:20,30,40,50; 7B:25,35,35,45; nối theo thứ tự tuần và dùng chú giải.", purpose:"Construction plan." },
+  { id:"l19-gap-visual-fail", stepId:"l19a2-step3", expected:"FAIL", input:"Tuần 3 lớn nhất vì nhìn xa nhất.", purpose:"Không đọc bằng mắt." },
+  { id:"l19-gap-pass", stepId:"l19a2-step3", expected:"PASS", input:"Cả 4 tuần đều chênh 5.", purpose:"Tính chênh lệch." },
+  { id:"l19-double-fail", stepId:"l19a3-step1", expected:"FAIL", input:"75 lên 85 là gần gấp đôi.", purpose:"Phóng đại." },
+  { id:"l19-change-pass", stepId:"l19a3-step1", expected:"PASS", input:"85-75=10; 10/75≈13,3%.", purpose:"Định lượng." },
+  { id:"l19-scale-pass", stepId:"l19a3-step2", expected:"PASS", input:"Cùng dữ liệu nhưng trục B bắt đầu 70, thang 70-90 bị cắt nên làm biến động trông lớn hơn và bị phóng đại.", purpose:"Misleading scale." },
+  { id:"l19-final-numbers-only-fail", stepId:"l19a3-step3", expected:"FAIL", input:"Sai, chỉ tăng 10 hay 13,3%.", purpose:"Thiếu cảnh báo thang." },
+  { id:"l19-final-pass", stepId:"l19a3-step3", expected:"PASS", input:"Sai, không gần gấp đôi; tăng 10, khoảng 13,3%. Thang đo 70-90 bị cắt làm mức tăng trông mạnh hơn.", purpose:"Graph literacy." },
 ];
 
 export const advancedReasoningDiversityMatrix: AdvancedReasoningDiversityItem[] = [
@@ -725,9 +767,11 @@ export const advancedReasoningDiversityMatrix: AdvancedReasoningDiversityItem[] 
   },
   {
     lesson: 17,
-    lessonTitle: "Quan hệ giữa góc và cạnh đối diện trong một tam giác",
-    primaryModes: ["Cạnh→góc", "Góc→cạnh", "Ánh xạ đối diện", "Phát hiện thiếu cầu nối"],
+    lessonTitle: "Thu thập và phân loại dữ liệu",
+    primaryModes: ["Phân loại numeric/ordinal/nominal", "Mẫu đại diện", "Sampling bias", "Câu hỏi dẫn dắt và suy rộng vượt mẫu"],
   },
+  { lesson:18, lessonTitle:"Biểu đồ hình quạt tròn", primaryModes:["Kiểm định tổng 100%","Bài toán ngược","Kiểm chứng kép","Điểm phần trăm vs tăng tương đối"] },
+  { lesson:19, lessonTitle:"Biểu đồ đoạn thẳng", primaryModes:["Đọc điểm và xu hướng","Construction + thang đo","Biểu đồ nhiều đường","Phát hiện biểu đồ gây hiểu nhầm"] },
 ];
 
 export function runAdvancedQualityAudit(): AdvancedQualityReport {
